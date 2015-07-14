@@ -1,7 +1,7 @@
 /**
  * Party.dart
- * Friend computer 2.0
- * copyright 2015 Pioneer Valley Gamer Collective
+ * Friend Computer 2.0
+ * Copyright 2015 Pioneer Valley Gamer Collective
  */
 library Party;
 part 'Organization.dart';
