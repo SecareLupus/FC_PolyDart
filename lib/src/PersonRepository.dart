@@ -5,7 +5,7 @@
  */
 part of Partyrepository.dart;
 /**
- * OrganizationRepository
+ * PersonRepository
  * This class is used to search out Person objects from the database,
  * and return them to the client.
  */
