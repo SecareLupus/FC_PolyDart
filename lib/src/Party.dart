@@ -4,6 +4,7 @@
  * Copyright 2015 Pioneer Valley Gamer Collective
  */
 library Party;
+
 part 'Organization.dart';
 part 'Person.dart';
 /**
@@ -14,81 +15,79 @@ part 'Person.dart';
 class Party {
   int _id;
   int _parentid;
-  
-  Party (){
-    
-  }
-  int getid(){
+
+  Party() {}
+  int getid() {
     return this._id;
   }
-  String getDescription(){
+  String getDescription() {
     //TODO: Implement getDescription in Party
     String people = new String();
     return people;
   }
-  List <Role> getRoles(){
+  List<Role> getRoles() {
     //TODO: Implement getRoles in Party
     List<Role> people = new List<Role>();
     return people;
   }
-  List <Party> getRelationship(){
+  List<Party> getRelationship() {
     //TODO: Implement getRelationship in Party
     List<Party> people = new List<Party>();
     return people;
   }
-  List <String> getRelationshipNotes(){
+  List<String> getRelationshipNotes() {
     //TODO: Implement getRelationshipNotes in Party
     List<String> people = new List<String>();
     return people;
   }
-  void addRelationship(){
+  void addRelationship() {
     //TODO: Implement addRelationship in Party
   }
-  void endRelationship(){
+  void endRelationship() {
     //TODO: Implement endRelationship in Party
   }
-  void addDescription(){
+  void addDescription() {
     //TODO: Implement addDescription in Party
   }
-  void endDescription(){
+  void endDescription() {
     //TODO: Implement endDescription in Party
   }
-  void addRole(){
+  void addRole() {
     //TODO: Implement addRole in Party
   }
-  void endRole(){
+  void endRole() {
     //TODO: Implement endRole in Party
   }
-  List <Shipments> getShipments(){
+  List<Shipments> getShipments() {
     //TODO: Implement getShipments in Party
     List<Shipments> people = new List<Shipments>();
     return people;
   }
-  void addCommunicationMechanism(){
+  void addCommunicationMechanism() {
     //TODO: Implement addCommunicationMechanism in Party
   }
-  List <int> getCommunicationMechanisms(){
+  List<int> getCommunicationMechanisms() {
     //TODO: Implement getCommunicationMechanism in Party
     List<int> people = new List<int>();
     return people;
   }
-  void endCommunicationMechanism(){
+  void endCommunicationMechanism() {
     //TODO: Implement endCommunicationMechanism in Party
   }
-  List <int> getCommunicationEvents(){
+  List<int> getCommunicationEvents() {
     //TODO: Implement getCommunicationEvents in Party
     List<int> people = new List<int>();
     return people;
   }
-  void addEvent(){
+  void addEvent() {
     //TODO: Implement addEvents in Party
   }
-  List <int> getEvents(){
+  List<int> getEvents() {
     //TODO: Implement getEvents in Party
     List<int> people = new List<int>();
     return people;
   }
-  void removeEvent(){
+  void removeEvent() {
     //TODO: Implement removeEvents in Party
   }
 }

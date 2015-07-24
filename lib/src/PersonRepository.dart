@@ -4,39 +4,39 @@
  * copyright 2015 Pioneer Valley Gamer Collective
  */
 part of Partyrepository.dart;
+
 /**
- * OrganizationRepository
+ * PersonRepository
  * This class is used to search out Person objects from the database,
  * and return them to the client.
  */
-class PersonRepository{
-  
-  Person fetch(){
+class PersonRepository {
+  Person fetch() {
     //TODO: Implement fetch in PersonRepo
     Person people = new Person();
     return people;
   }
-  List<Person> fetchAll(){
+  List<Person> fetchAll() {
     //TODO: Implement fetchAll in PersonRepo
     List<Person> people = new List<Person>();
     return people;
   }
-  List<int> search(){
+  List<int> search() {
     //TODO: Implement search in PersonRepo
     List<int> people = new List<int>();
     return people;
   }
-  List<int> searchByName(){
+  List<int> searchByName() {
     //TODO: Implement searchByName in PersonRepo
     List<int> people = new List<int>();
     return people;
   }
-  List<int> searchByOrganization(){
+  List<int> searchByOrganization() {
     //TODO: Implement searchByOrganization in PersonRepo
     List<int> people = new List<int>();
     return people;
   }
-  List<int> searchByOrganizationRole(){
+  List<int> searchByOrganizationRole() {
     //TODO: Implement searchByOrganizationRole in PersonRepo
     List<int> people = new List<int>();
     return people;
