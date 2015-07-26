@@ -22,7 +22,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A Party object.
-  Party fetch(){
+  Party fetch() {
     //TODO: Implement fetch in PartyRepo
     Party people = new Party();
     return people;
@@ -32,7 +32,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of Party objects.
-  List<Party> fetchAll(){
+  List<Party> fetchAll() {
     //TODO: Implement fetchAll in PartyRepo
     List<Party> people = new List<Party>();
     return people;
@@ -42,7 +42,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of Party objects.
-  List<int> search(){
+  List<int> search() {
     //TODO: Implement search in PartyRepo
     List<int> people = new List<int>();
     return people;
@@ -52,7 +52,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> searchByName(){
+  List<int> searchByName() {
     //TODO: Implement searchByName in PartyRepo
     List<int> people = new List<int>();
     return people;
@@ -62,7 +62,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> searchByDesc(){
+  List<int> searchByDesc() {
     //TODO: Implement searchByDesc in PartyRepo
     List<int> people = new List<int>();
     return people;
@@ -72,7 +72,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> searchByRole(){
+  List<int> searchByRole() {
     //TODO: Implement searchByRole in PartyRepo
     List<int> people = new List<int>();
     return people;
@@ -81,7 +81,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> searchByRelationship(){
+  List<int> searchByRelationship() {
     //TODO: Implement searchByRelationship in PartyRepo
     List<int> people = new List<int>();
     return people;
@@ -91,7 +91,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> searchByShipment(){
+  List<int> searchByShipment() {
     //TODO: Implement searchByShipment in PartyRepo
     List<int> people = new List<int>();
     return people;
@@ -101,7 +101,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> searchByCommunicationMechanism(){
+  List<int> searchByCommunicationMechanism() {
     //TODO: Implement searchByCommunicationMechanism in PartyRepo
     List<int> people = new List<int>();
     return people;
@@ -111,7 +111,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> searchByCommunicationEvent(){
+  List<int> searchByCommunicationEvent() {
     //TODO: Implement searchByCommunicationEvent in PartyRepo
     List<int> people = new List<int>();
     return people;
@@ -121,7 +121,7 @@ class PartyRepository {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> searchByEvent(){
+  List<int> searchByEvent() {
     //TODO: Implement searchByEvent in PartyRepo
     List<int> people = new List<int>();
     return people;

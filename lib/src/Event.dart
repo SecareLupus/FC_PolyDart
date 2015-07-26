@@ -26,9 +26,9 @@ class Event {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of schedules.
-  List <int> getSchedules () {
+  List<int> getSchedules () {
     //TODO: Implement getSchedules in Event
-    List <int> schedules = new List<int>();
+    List<int> schedules = new List<int>();
     return schedules;
   }
 

@@ -12,14 +12,14 @@ class Organization extends Party {
   int _id;
   int _parentid;
   
-  Organization(){
+  Organization() {
     
   }
 
   /// getid returns this party's ID.
   ///
   /// @returns The ID number of this party.
-  int getid(){
+  int getid() {
     return this._id;
   }
 
@@ -27,7 +27,7 @@ class Organization extends Party {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns String of organization name.
-  String getName(){
+  String getName() {
     //TODO: Implement getName in Organization
     String people = new String();
     return people;
@@ -37,7 +37,7 @@ class Organization extends Party {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns List of integers.
-  List <int> getFacilities(){
+  List <int> getFacilities() {
     //TODO: Implement getFacilities in Organization
     List<int> people = new List<int>();
     return people;
@@ -47,7 +47,7 @@ class Organization extends Party {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns List of integers.
-  List <int> getPersons(){
+  List <int> getPersons() {
     //TODO: Implement getPersons in Organization
     List<int> people = new List<int>();
     return people;
@@ -56,28 +56,28 @@ class Organization extends Party {
   /// addPerson adds a person to an organization.
   ///
   /// @param name Placeholder for parameter name.
-  void addPerson(){
+  void addPerson() {
     //TODO: Implement addPersons in Organization
   }
 
   /// termPerson removes a person from an organization.
   ///
   /// @param name Placeholder for parameter name.
-  void termPerson(){
+  void termPerson() {
     //TODO: Implement termPersons in Organization
   }
 
   /// addFacility adds a facility to an organization.
   ///
   /// @param name Placeholder for parameter name.
-  void addFacility(){
+  void addFacility() {
     //TODO: Implement addFacility in Organization
   }
 
   /// removeFacility removes a facility from an organization.
   ///
   /// @param name Placeholder for parameter name.
-  void removeFacility(){
+  void removeFacility() {
     //TODO: Implement removeFacility in Organization
   }
 

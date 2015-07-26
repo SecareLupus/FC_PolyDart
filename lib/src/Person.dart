@@ -13,15 +13,13 @@ class Person extends Party {
   int _id;
   int _parentid;
   
-  Person(){
-    
-  }
+  Person() {}
 
   /// getName returns the person's name.
   ///
   /// @param name Placeholder for parameter name.
   /// @returns String of person's name.
-  String getName(){
+  String getName() {
     //TODO: Implement getName in Person
     String people = new String();
     return people;
@@ -31,7 +29,7 @@ class Person extends Party {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns String of person's gender.
-  String getGender(){
+  String getGender() {
     //TODO: Implement getGender in Person
     String people = new String();
     return people;
@@ -40,7 +38,7 @@ class Person extends Party {
   /// getid returns this person's ID.
   ///
   /// @returns The ID number of this person.
-  int getid(){
+  int getid() {
     return this._id;
   }
 
@@ -48,7 +46,7 @@ class Person extends Party {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List <int> getAssociatedOrganizations(){
+  List<int> getAssociatedOrganizations() {
     //TODO: Implement getAssociatedOrganizations in Person
     List<int> people = new List<int>();
     return people;
@@ -58,7 +56,7 @@ class Person extends Party {
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List <int> getOrganizationRoles(){
+  List<int> getOrganizationRoles() {
     //TODO: Implement getOrganizationRoles in Person
     List<int> people = new List<int>();
     return people;

@@ -10,13 +10,13 @@ part of Partyrepository.dart;
 /// PersonRepository
 /// This class is used to search out Person objects from the database,
 /// and return them to the client.
-class PersonRepository{
+class PersonRepository {
 
   /// fetch returns a person.
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A person object.
-  Person fetch(){
+  Person fetch() {
     //TODO: Implement fetch in PersonRepo
     Person people = new Person();
     return people;
@@ -26,7 +26,7 @@ class PersonRepository{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of person objects.
-  List<Person> fetchAll(){
+  List<Person> fetchAll() {
     //TODO: Implement fetchAll in PersonRepo
     List<Person> people = new List<Person>();
     return people;
@@ -36,7 +36,7 @@ class PersonRepository{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A person object.
-  List<int> search(){
+  List<int> search() {
     //TODO: Implement search in PersonRepo
     List<int> people = new List<int>();
     return people;
@@ -46,7 +46,7 @@ class PersonRepository{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of person objects.
-  List<int> searchByName(){
+  List<int> searchByName() {
     //TODO: Implement searchByName in PersonRepo
     List<int> people = new List<int>();
     return people;
@@ -56,7 +56,7 @@ class PersonRepository{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> searchByOrganization(){
+  List<int> searchByOrganization() {
     //TODO: Implement searchByOrganization in PersonRepo
     List<int> people = new List<int>();
     return people;
@@ -66,7 +66,7 @@ class PersonRepository{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> searchByOrganizationRole(){
+  List<int> searchByOrganizationRole() {
     //TODO: Implement searchByOrganizationRole in PersonRepo
     List<int> people = new List<int>();
     return people;

@@ -42,7 +42,7 @@ class CommunicationMechanism{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of Facility objects.
-  List<Facility> getFacilityAssociation(){
+  List<Facility> getFacilityAssociation() {
     //TODO: Implement getFacilityAssociation in CommunicationMechanism
     List<Facility> people = new List<Facility>();
     return people;
@@ -51,14 +51,14 @@ class CommunicationMechanism{
   /// addFacilityAssociation creates a facility association.
   ///
   /// @param name Placeholder for parameter name.
-  void addFacilityAssociation(){
+  void addFacilityAssociation() {
     //TODO: Implement addFacilityAssociation in CommunicationMechanism
   }
 
   /// endFacilityAssociation removes a facility association.
   ///
   /// @param name Placeholder for parameter name.
-  void endFacilityAssociation(){
+  void endFacilityAssociation() {
     //TODO: Implement endFacilityAssociation in CommunicationMechanism
   }
 }
@@ -71,7 +71,7 @@ class Address extends CommunicationMechanism{
   /// getid returns this address' ID.
   ///
   /// @returns The ID number of this address.
-  int getid(){
+  int getid() {
     return this._id;
   }
 
@@ -79,7 +79,7 @@ class Address extends CommunicationMechanism{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns An address string.
-  String getAddress(){
+  String getAddress() {
     //TODO: Implement getAddress in CommunicationMechanism
     String people = new String();
     return people;
@@ -89,7 +89,7 @@ class Address extends CommunicationMechanism{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of address strings.
-  List<String> getFullAddress(){
+  List<String> getFullAddress() {
     //TODO: Implement getFullAddress in CommunicationMechanism
     List<String> people = new List<String>();
     return people;
@@ -98,7 +98,7 @@ class Address extends CommunicationMechanism{
 
 /// Email_Address
 /// This class is used to create Email_Address objects and methods for accessing Email_Address objects.
-class Email_Address extends CommunicationMechanism{
+class Email_Address extends CommunicationMechanism {
   int _id;
 
   /// getid returns this e-mail address' ID.
@@ -112,7 +112,7 @@ class Email_Address extends CommunicationMechanism{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns An e-mail string.
-  String getEMail(){
+  String getEMail() {
     //TODO: Implement getEMail in CommunicationMechanism
     String people = new String();
     return people;
@@ -121,13 +121,13 @@ class Email_Address extends CommunicationMechanism{
 
 /// Phone_Number
 /// This class is used to create Phone_Number objects and methods for accessing Phone_Number objects.
-class Phone_Number extends CommunicationMechanism{
+class Phone_Number extends CommunicationMechanism {
   int _id;
 
   /// getid returns this phone number's ID.
   ///
   /// @returns The ID number of this phone number.
-  int getid(){
+  int getid() {
     return this._id;
   }
 
@@ -135,7 +135,7 @@ class Phone_Number extends CommunicationMechanism{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns An e-mail string.
-  String getPhoneNumber(){
+  String getPhoneNumber() {
     //TODO: Implement getPhoneNumber in CommunicationMechanism
     String people = new String();
     return people;
