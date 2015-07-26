@@ -27,7 +27,7 @@ class Person extends Party {
     return people;
   }
 
-  /// getDescription returns the person's gender.
+  /// getGender returns the person's gender.
   ///
   /// @param name Placeholder for parameter name.
   /// @returns String of person's gender.
