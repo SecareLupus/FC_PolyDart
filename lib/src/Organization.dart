@@ -11,10 +11,8 @@ part of Party.dart;
 class Organization extends Party {
   int _id;
   int _parentid;
-  
+
   Organization() {
-    
-  }
 
   /// getid returns this party's ID.
   ///

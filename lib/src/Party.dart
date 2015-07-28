@@ -20,9 +20,8 @@ class Party {
 
   int _id;
   int _parentid;
-  
+
   Party () {
-  }
 
   /// getid returns this party's ID.
   ///
