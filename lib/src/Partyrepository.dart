@@ -17,7 +17,6 @@ part 'PersonRepository.dart';
 /// PartyRepository
 /// This class is used to store Party objects and methods for accessing Party objects.
 class PartyRepository {
-
   /// fetch returns a given party.
   ///
   /// @param name Placeholder for parameter name.
@@ -76,7 +75,7 @@ class PartyRepository {
     //TODO: Implement searchByRole in PartyRepo
     List<int> people = new List<int>();
     return people;
-}
+  }
   /// searchByRelationship searches for parties by relationship.
   ///
   /// @param name Placeholder for parameter name.

@@ -12,7 +12,7 @@ part of Party.dart;
 class Person extends Party {
   int _id;
   int _parentid;
-  
+
   Person() {}
 
   /// getName returns the person's name.

@@ -9,7 +9,7 @@ part of Partyrepository.dart;
 ///
 /// OrganizationRepository
 /// This class is used to store Organization objects and methods for accessing Organization objects.
-class OrganizationRepository{
+class OrganizationRepository {
 
   /// fetch returns a given organization.
   ///
