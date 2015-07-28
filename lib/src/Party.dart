@@ -1,94 +1,184 @@
-/**
- * Party.dart
- * Friend computer 2.0
- * copyright 2015 Pioneer Valley Gamer Collective
- */
+/// Party.dart
+/// Version 0.0.1a
+/// Copyright 2015 Pioneer Valley Gamer Collective
+
 library Party;
+
 part 'Organization.dart';
 part 'Person.dart';
-/**
- * Party
- * This class is used to create Party objects and methods for Party objects.
- */
 
+/// This class depends on:
+/// * Organization.dart
+/// * Person.dart
+///
+/// Party is a library used for the classes lorem, ipsum, and loremipsum, with
+/// the goal of loremipsumming.
+///
+/// Party
+/// This class is used to create Party objects and methods for Party objects.
 class Party {
+
   int _id;
   int _parentid;
   
-  Party (){
-    
+  Party () {
   }
-  int getid(){
+
+  /// getid returns this party's ID.
+  ///
+  /// @returns The ID number of this party.
+  int getid() {
     return this._id;
   }
-  String getDescription(){
+
+  /// getDescription returns the description of a party.
+  ///
+  /// @param name Placeholder for parameter name.
+  /// @returns Description of people.
+  String getDescription() {
     //TODO: Implement getDescription in Party
     String people = new String();
     return people;
   }
-  List <Role> getRoles(){
+
+  /// getRoles returns the roles of a party.
+  ///
+  /// @param name Placeholder for parameter name.
+  /// @returns Roles of people.
+  List <Role> getRoles() {
     //TODO: Implement getRoles in Party
     List<Role> people = new List<Role>();
     return people;
   }
-  List <Party> getRelationship(){
+
+  /// getRelationship returns the relationship of a party.
+  ///
+  /// @param name Placeholder for parameter name.
+  /// @returns Relationship of people.
+  List <Party> getRelationship() {
     //TODO: Implement getRelationship in Party
     List<Party> people = new List<Party>();
     return people;
   }
-  List <String> getRelationshipNotes(){
+
+  /// getRelationshipNotes returns the notes of a party relationship.
+  ///
+  /// @param name Placeholder for parameter name.
+  /// @returns Relationship notes of people.
+  List <String> getRelationshipNotes() {
     //TODO: Implement getRelationshipNotes in Party
     List<String> people = new List<String>();
     return people;
   }
-  void addRelationship(){
+
+  /// addRelationship adds a relationship to a party.
+  ///
+  /// @param name Placeholder for parameter name.
+  void addRelationship() {
     //TODO: Implement addRelationship in Party
   }
-  void endRelationship(){
+
+  /// endRelationship removes a party's relationship.
+  ///
+  /// @param name Placeholder for parameter name.
+  void endRelationship() {
     //TODO: Implement endRelationship in Party
   }
-  void addDescription(){
+
+  /// addDescription adds a description to a party.
+  ///
+  /// @param name Placeholder for parameter name.
+  void addDescription() {
     //TODO: Implement addDescription in Party
   }
-  void endDescription(){
+
+  /// endDescription removes a party's description.
+  ///
+  /// @param name Placeholder for parameter name.
+  void endDescription() {
     //TODO: Implement endDescription in Party
   }
-  void addRole(){
+
+  /// addRole adds a role of a party.
+  ///
+  /// @param name Placeholder for parameter name.
+  void addRole() {
     //TODO: Implement addRole in Party
   }
-  void endRole(){
+
+  /// endRole removes a party role.
+  ///
+  /// @param name Placeholder for parameter name.
+  void endRole() {
     //TODO: Implement endRole in Party
   }
-  List <Shipments> getShipments(){
+
+  /// getShipments returns a list of shipments.
+  ///
+  /// @param name Placeholder for parameter name.
+  /// @returns A list of shipments.
+  List <Shipments> getShipments() {
     //TODO: Implement getShipments in Party
     List<Shipments> people = new List<Shipments>();
     return people;
   }
-  void addCommunicationMechanism(){
+
+  /// addCommunicationMechanism adds a communication mechanism to the party.
+  ///
+  /// @param name Placeholder for parameter name.
+  void addCommunicationMechanism() {
     //TODO: Implement addCommunicationMechanism in Party
   }
-  List <int> getCommunicationMechanisms(){
+
+  /// getDescription returns a list of the party's communication mechanisms.
+  ///
+  /// @param name Placeholder for parameter name.
+  /// @returns A list of communication mechanisms.
+  List <int> getCommunicationMechanisms() {
     //TODO: Implement getCommunicationMechanism in Party
     List<int> people = new List<int>();
     return people;
   }
-  void endCommunicationMechanism(){
+
+  /// endCommunicationMechanism removes a communication mechanism.
+  ///
+  /// @param name Placeholder for parameter name.
+  void endCommunicationMechanism() {
     //TODO: Implement endCommunicationMechanism in Party
   }
-  List <int> getCommunicationEvents(){
+
+  /// getCommunicationEvents a list of party communication events.
+  ///
+  /// @param name Placeholder for parameter name.
+  /// @returns A list of communication events.
+  List <int> getCommunicationEvents() {
     //TODO: Implement getCommunicationEvents in Party
     List<int> people = new List<int>();
     return people;
   }
-  void addEvent(){
+
+  /// addEvent adds an event to the party.
+  ///
+  /// @param name Placeholder for parameter name.
+  void addEvent() {
     //TODO: Implement addEvents in Party
   }
-  List <int> getEvents(){
+
+  /// getDescription returns a list of party events.
+  ///
+  /// @param name Placeholder for parameter name.
+  /// @returns A list of events.
+  List <int> getEvents() {
     //TODO: Implement getEvents in Party
     List<int> people = new List<int>();
     return people;
   }
-  void removeEvent(){
+
+  /// getDescription removes a party event.
+  ///
+  /// @param name Placeholder for parameter name.
+  void removeEvent() {
     //TODO: Implement removeEvents in Party
   }
+
 }
