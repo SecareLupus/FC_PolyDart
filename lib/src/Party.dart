@@ -22,7 +22,7 @@ class Party {
   int _parentid;
 
   Party () {
-
+  }
   /// getid returns this party's ID.
   ///
   /// @returns The ID number of this party.

@@ -22,7 +22,7 @@ class PersonRepository {
     return people;
   }
 
-  /// fetch returns a list of people.
+  /// fetchAll returns a list of people.
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of person objects.
@@ -35,7 +35,7 @@ class PersonRepository {
   /// search searches for a person.
   ///
   /// @param name Placeholder for parameter name.
-  /// @returns A person object.
+  /// @returns A list of integers.
   List<int> search() {
     //TODO: Implement search in PersonRepo
     List<int> people = new List<int>();
@@ -45,14 +45,14 @@ class PersonRepository {
   /// searchByName searches for a person by name.
   ///
   /// @param name Placeholder for parameter name.
-  /// @returns A list of person objects.
+  /// @returns A list of integers.
   List<int> searchByName() {
     //TODO: Implement searchByName in PersonRepo
     List<int> people = new List<int>();
     return people;
   }
 
-  /// searchByName searches for a person by organization.
+  /// searchByOrganization searches for a person by organization.
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
@@ -62,7 +62,7 @@ class PersonRepository {
     return people;
   }
 
-  /// searchByName searches for a person by organization role.
+  /// searchByOrganizationRole searches for a person by organization role.
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
