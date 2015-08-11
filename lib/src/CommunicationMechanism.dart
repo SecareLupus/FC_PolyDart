@@ -18,9 +18,9 @@ class CommunicationMechanism{
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of Party objects.
-  List<Party> getPartyAssociations(){
+  List<int> getPartyAssociations(){
     //TODO: Implement getPartyAssociations in CommunicationMechanism
-    List<Party> people = new List<Party>();
+    List<int> people = new List<int>();
     return people;
   }
 
