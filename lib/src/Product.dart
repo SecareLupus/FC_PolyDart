@@ -323,12 +323,12 @@ class Good extends Product {
     return people;
   }
 
-  /// getRecorderingGuideines returns a list of recording guidelines.
+  /// getReorderingGuidelines returns a list of reordering guidelines.
   ///
   /// @param name Placeholder for parameter name.
   /// @returns A list of integers.
-  List<int> getRecorderingGuidelines() {
-    //TODO: Implement getRecorderingGuidelines in Product
+  List<int> getReorderingGuidelines() {
+    //TODO: Implement getReorderingGuidelines in Product
     List<int> people = new List<int>();
     return people;
   }
@@ -403,6 +403,78 @@ class Good extends Product {
   /// @param name Placeholder for parameter name.
   void addShipmentReceipt() {
     //TODO: Implement addShipmentReceipt in Product
+  }
+}
+  /// ProductCategory
+  /// This class is used to create ProductCategory objects and methods for ProductCategory objects.
+  class ProductCategory extends Product {
+  int _id;
+  int parent_id;
+  String description;
+
+  List<int> getProducts() {
+  //TODO: Implement getProducts in Product
+  List<int> people = new List<int>();
+  return people;
+  }
+
+  void addProduct() {
+  //TODO: Implement addProduct in Product
+  }
+
+  void removeProduct() {
+  //TODO: Implement removeProduct in Product
+  }
+
+  List<int> getParentCategories() {
+  //TODO: Implement getParentCategories in Product
+  List<int> people = new List<int>();
+  return people;
+  }
+  []
+  void addParentCategory() {
+  //TODO: Implement addParentCategory in Product
+  }
+
+  void removeParentCategory() {
+  //TODO: Implement removeParentCategory in Product
+  }
+
+  List<int> getChildCategories() {
+  //TODO: Implement getChildCategories in Product
+  List<int> people = new List<int>();
+  return people;
+  }
+
+  void addChildCategory() {
+  //TODO: Implement addChildCategory in Product
+  }
+
+  void removeChildCategory() {
+  //TODO: Implement removeChildCategory in Product
+  }
+
+  List<int> getSalesTax() {
+  //TODO: Implement getSalesTax in Product
+  List<int> people = new List<int>();
+  return people;
+  }
+
+}
+class ProductCategory extends Product {
+  int _id;
+  int parent_id;
+  String description;
+
+  List<int> getProducts() {
+    //TODO: Implement getProducts in Product
+    List<int> people = new List<int>();
+    return people;
+  }
+  FeatureType getFeatureType() {
+    //TODO: Implement getFeatureType in Product
+    FeatureType people = new FeatureType();
+    return people;
   }
 }
 
