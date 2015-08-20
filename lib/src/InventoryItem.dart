@@ -42,7 +42,7 @@ class InventoryItem {
   /// @returns An integer.
   int getQty(){
     //TODO: Implement getQty in InventoryItem
-    int people = new int();
+    int people = 0;
     return people;
   }
 

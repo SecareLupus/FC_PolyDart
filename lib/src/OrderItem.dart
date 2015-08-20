@@ -32,7 +32,7 @@ class OrderItem {
   /// @returns An integer.
   int getProduct() {
     //TODO: Implement getProduct in OrderItem
-    int people = new int();
+    int people = 0;
     return people;
   }
 
@@ -42,7 +42,7 @@ class OrderItem {
   /// @returns An integer.
   int getFeature() {
     //TODO: Implement getFeature in OrderItem
-    int people = new int();
+    int people = 0;
     return people;
   }
 }

@@ -3,22 +3,27 @@
 /// Copyright 2015 Pioneer Valley Gamer Collective
 
 /// CommunicationMechanism
-/// This class is used to create different kinds of CommunicationMechanism objects and methods for accessing CommunicationMechanism objects.
+/// This class is used to create different kinds of CommunicationMechanism objects and
+/// methods for accessing CommunicationMechanism objects.
 class CommunicationMechanism{
   int _id;
 
-  /// getid returns this communication mechanism's ID.
-  ///
-  /// @returns The ID number of this communication mechanism.
+  /// Returns the int [id] of [this].
   int getid(){
     return this._id;
   }
 
-  /// getPartyAssociations returns a list of party associations.
+  /// Returns a list of [Party] ids which are associated with [this]
   ///
+<<<<<<< HEAD
   /// @param name Placeholder for parameter name.
   /// @returns A list of Party objects.
   List<int> getPartyAssociations(){
+=======
+  /// Generates a [List<int>] of [Party] ids from [Party_Communication_Association] where
+  ///   party_id references [this], or an empty [List<int>] if no associations exist.
+  List<Party> getPartyAssociations(){
+>>>>>>> Updated some comments to new format.
     //TODO: Implement getPartyAssociations in CommunicationMechanism
     List<int> people = new List<int>();
     return people;
