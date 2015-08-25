@@ -3,7 +3,8 @@
 /// Copyright 2015 Pioneer Valley Gamer Collective
 
 /// CommunicationMechanism
-/// This class is used to create different kinds of CommunicationMechanism objects and methods for accessing CommunicationMechanism objects.
+/// This class is used to create different kinds of CommunicationMechanism objects and
+/// methods for accessing CommunicationMechanism objects.
 class CommunicationMechanism{
   int _id;
 
