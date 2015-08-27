@@ -11,7 +11,8 @@ final ApiServer _apiServer = new ApiServer();
 
 main() async {
   _apiServer.addApi(new FCApi());
-  HttpServer server = await HttpServer.bind(InternetAddress.ANY_IP_V6, 8080);
-  print("Listening on ${server.address.toString()}:${server.port}");
-  server.listen(_apiServer.httpRequestHandler);
+  HttpServer.bind(InternetAddress.ANY_IP_V6, 8080).then((binding) {
+    print("Listening on ${binding.address}:${binding.port}");
+    binding.listen(_apiServer.httpRequestHandler);
+  });
 }
