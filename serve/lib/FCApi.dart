@@ -1,19 +1,18 @@
 import "package:rpc/rpc.dart";
-import "package:redis_client/redis_client.dart";
-import "MessageForms.dart";
-import "KeyGen.dart";
+import "MessageForms.dart" as Message;
+import "KeyGen.dart" as KeyGen;
 
 @ApiClass(
   name: 'fc',
   version: 'v1',
   description: 'Friend Computer API')
 class FCApi {
-  @ApiMethod(method: 'GET', path: 'helo/{pubkey}')
-  SynResponse getLoginKey(String pubkey) {
+  @ApiMethod(method: 'GET', path: 'syn')
+  Message.SynResponse getLoginKey() {
     print("getLoginKey() accessed");
-    var tmp = KeyGen.getLoginKey("test");
+    var tmp = KeyGen.KeyGen.getLoginKey("test");
     print("Key: $tmp");
-    print(KeyGen.getPerms(tmp.login_key));
+    print(KeyGen.KeyGen.getPerms(tmp.login_key));
     return null;
   }
 

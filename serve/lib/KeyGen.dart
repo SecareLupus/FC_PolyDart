@@ -1,3 +1,5 @@
+library keygen;
+
 import 'package:uuid/uuid.dart';
 import "package:redis_client/redis_client.dart";
 
@@ -17,12 +19,12 @@ class KeyGen {
     return uuid.v4();
   }
 
-  static String getLoginKey(String pubkey) async {
-    await RedisClient.connect(connectionString)
+  static String getLoginKey(String pubkey) {
+    RedisClient.connect(connectionString)
     .then((RedisClient client) {
       var tmp = _getNewUUID();
       // Use your client here. Eg.:
-      client.set(tmp, [NECC_PERMS.LOGIN])
+      client.set
       .then((_) => tmp);
     });
   }
