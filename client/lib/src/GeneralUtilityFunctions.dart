@@ -5,7 +5,7 @@
 /// GeneralUtilityFunctions
 /// This file has several functions for checking and modifying inputs
 
-import 'package:validator/validator.dart';
+import '../../../packages/validator/validator.dart';
 
 bool isAlphanumerical(String alphanum) {
   //TODO test isAlphaNumerical in GeneralUtilityFunctions
