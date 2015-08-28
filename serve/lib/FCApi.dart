@@ -8,13 +8,13 @@ import "KeyGen.dart" as KeyGen;
   version: 'v1',
   description: 'Friend Computer API')
 class FCApi {
-  @ApiMethod(method: 'GET', path: 'syn')
-  Future<Message.SynResponse> getLoginKey() async {
+  @ApiMethod(method: 'GET', path: 'syn/{pubkey}')
+  Future<Message.SynResponse> getLoginKey(String pubkey) async {
     print("getLoginKey() accessed");
-    var tmp = await KeyGen.KeyGen.getLoginKey("test");
+    var tmp = await KeyGen.KeyGen.getLoginKey(pubkey);
     print("Key: $tmp");
     //print(KeyGen.KeyGen.getPerms(tmp.login_key));
-    return new Message.SynResponse()..server_pub_key = "test"
+    return new Message.SynResponse()..server_pub_key = pubkey
                                     ..login_key = tmp;
   }
 
