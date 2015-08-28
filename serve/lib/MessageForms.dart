@@ -19,3 +19,8 @@ class LoginRequest {
   String username;
   String password;
 }
+
+class LoginResponse {
+  bool success;
+  String user_key;
+}

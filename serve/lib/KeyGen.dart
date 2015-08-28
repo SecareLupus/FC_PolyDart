@@ -13,15 +13,14 @@ enum NECC_PERMS {
   LOGIN
 }
 
-class KeyGen {
-  static var connectionString = "localhost:6379";
+  var connectionString = "localhost:6379";
 
-  static String _getNewUUID() {
+  String _getNewUUID() {
     var uuid = new Uuid();
     return uuid.v4();
   }
 
-  static Future<String> getLoginKey(String pubkey) async {
+  Future<String> getLoginKey(String pubkey) async {
     if (Platform.isLinux) {
       RedisClient cl = await RedisClient.connect(connectionString);
       if (await cl.exists(pubkey)) {
@@ -30,31 +29,22 @@ class KeyGen {
         var result = await cl.setex(pubkey, 100, _getNewUUID());
         return (await cl.get(pubkey));
       }
-      /*
-      String tmp = "";
-      RedisClient.connect(connectionString)
-      .then((RedisClient client) {
-        client.get(pubkey).then ((s) {
-          if (s.length > 0)
-            tmp = s;
-        });
-        if (tmp.length <= 0)
-          tmp = _getNewUUID();
-        // Use your client here. Eg.:
-        client.set(tmp, pubkey)
-        .then((_) => tmp);
-      });
-      */
     } else {
       return _getNewUUID();
     }
   }
 
-  static List<NECC_PERMS> getPerms(String key) {
+  Future<String> getUserKey() async {
+    return _getNewUUID();
+  }
+
+  List<NECC_PERMS> getPerms(String key) {
     RedisClient.connect(connectionString)
     .then((RedisClient client) {
       client.get(key)
       .then((val) => val);
     });
   }
-}
+   bool hasPerm(String key, NECC_PERM perm) {
+     return true;
+   }
