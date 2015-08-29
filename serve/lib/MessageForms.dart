@@ -1,17 +1,11 @@
-class MSG1 {
-  String api_key;
-  String name;
-  int capacity;
-}
+library message;
 
-class MSG2 {
-  String api_key;
-  int newCapacity;
-}
+import "dart:convert";
+import "package:cipher/cipher.dart";
 
 class SynResponse {
   String login_key;
-  String server_pub_key;
+  PubKeyMessage pubkey;
 }
 
 class LoginRequest {
@@ -23,4 +17,19 @@ class LoginRequest {
 class LoginResponse {
   bool success;
   String user_key;
+}
+
+class PubKeyMessage {
+  String modulus;
+  String exponent;
+}
+
+PubKeyMessage pubKeyToMessage(Uint8List modulus, Uint8List exponent) {
+  PubKeyMessage tmp = new PubKeyMessage()
+    ..modulus = UTF8.decode(modulus)
+    ..exponent = UTF8.decode(exponent);
+}
+
+RSAPublicKey pubKeyFromMessage(String modulus, String exponent) {
+  return new RSAPublicKey(UTF8.encode(modulus), UTF8.encode(exponent));
 }

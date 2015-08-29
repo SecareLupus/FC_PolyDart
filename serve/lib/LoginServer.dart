@@ -1,3 +1,5 @@
+library loginserver;
+
 import "MessageForms.dart" as Message;
 
   bool loginAttempt(Message.LoginRequest credentials) {
