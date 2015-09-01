@@ -5,6 +5,8 @@ import 'dart:async';
 import 'package:uuid/uuid.dart';
 import "package:redis_client/redis_client.dart";
 import "package:cipher/cipher.dart";
+import "package:cipher/block/aes_fast.dart";
+import "package:cipher/random/auto_seed_block_ctr_random.dart";
 import "package:bignum/bignum.dart";
 
 enum NECC_PERMS {
@@ -22,7 +24,7 @@ String _getNewUUID() {
   return uuid.v4();
 }
 
-Future<String> getLoginKey(String pubkey) async {
+Future<String> getLoginKey(String modulus, String exponent) async {
   if (Platform.isLinux) {
     RedisClient cl = await RedisClient.connect(connectionString);
     if (await cl.exists(pubkey)) {
@@ -52,8 +54,10 @@ bool hasPerm(String key, NECC_PERMS perm) {
 }
 
 AsymmetricKeyPair genKeyPair() {
+  AESFastEngine afe = new AESFastEngine();
+  afe.init(true, new KeyParameter(new Uint8List()));
   var rsapars = new RSAKeyGeneratorParameters(new BigInteger("65537"), 2048, 12);
-  var params = new ParametersWithRandom(rsapars, new SecureRandom());
+  var params = new ParametersWithRandom(rsapars, new AutoSeedBlockCtrRandom(afe));
 
   var keyGenerator = new KeyGenerator("RSA")
     ..init(params);
@@ -61,4 +65,33 @@ AsymmetricKeyPair genKeyPair() {
   var keyPair = keyGenerator.generateKeyPair();
 
   return keyPair;
+}
+
+class keyGenRandom implements SecureRandom {
+
+  void seed(CipherParameters params) {
+
+  }
+
+  int nextUint8() {
+
+  }
+
+  int nextUint16() {
+
+  }
+
+  int nextUint32() {
+
+  }
+
+  BigInteger nextBigInteger(int bitLength) {
+
+  }
+
+  Uint8List nextBytes(int count) {
+
+  }
+
+
 }

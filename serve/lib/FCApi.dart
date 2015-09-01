@@ -10,12 +10,12 @@ import "LoginServer.dart" as LoginServer;
   description: 'Friend Computer API')
 class FCApi {
 
-  @ApiMethod(method: 'GET', path: 'syn/{pubkey}')
-  Future<Message.SynResponse> getLoginKey(String pubkey) async {
+  @ApiMethod(method: 'GET', path: 'syn/{mod}/{exp}')
+  Future<Message.SynResponse> getLoginKey(String mod, String exp) async {
     print("getLoginKey() accessed");
-    var tmp = await KeyGen.getLoginKey(pubkey);
+    var tmp = await KeyGen.getLoginKey(mod, exp);
     print("Key: $tmp");
-    return new Message.SynResponse()..server_pub_key = pubkey
+    return new Message.SynResponse()..pubkey = pubkey
                                     ..login_key = tmp;
   }
 

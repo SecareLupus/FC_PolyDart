@@ -1,11 +1,18 @@
 library message;
 
 import "dart:convert";
+import "dart:typed_data";
 import "package:cipher/cipher.dart";
+import 'package:bignum/bignum.dart';
 
 class SynResponse {
   String login_key;
   PubKeyMessage pubkey;
+
+  void doSomething(cb(String s)) {
+    login_key = cb(login_key);
+    pubkey.doSomething(cb);
+  }
 }
 
 class LoginRequest {
@@ -22,6 +29,11 @@ class LoginResponse {
 class PubKeyMessage {
   String modulus;
   String exponent;
+
+  void doSomething(cb(String s)) {
+    modulus = cb(modulus);
+    exponent = cb(modulus);
+  }
 }
 
 PubKeyMessage pubKeyToMessage(Uint8List modulus, Uint8List exponent) {
@@ -31,5 +43,5 @@ PubKeyMessage pubKeyToMessage(Uint8List modulus, Uint8List exponent) {
 }
 
 RSAPublicKey pubKeyFromMessage(String modulus, String exponent) {
-  return new RSAPublicKey(UTF8.encode(modulus), UTF8.encode(exponent));
+  return new RSAPublicKey(new BigInteger(modulus), new BigInteger(exponent));
 }
