@@ -7,64 +7,98 @@
 
 import 'package:validator/validator.dart';
 
+/// Determines whether a [String] is alphanumeric.
+///
+/// Takes a [String] and passes it through a function that checks if it is alphanumeric.
+/// returns true if and only if [alphanum] is made of only alphabet and number characters.
 bool isAlphanumerical(String alphanum) {
   //TODO test isAlphaNumerical in GeneralUtilityFunctions
   return isAlphanumeric(alphanum);
 }
 
+/// Determines whether a [String] is numeric.
+///
+/// Takes a [String] and passes it through a function that checks if it is numeric.
+/// returns true if and only if [numb] is made of only number characters.
 bool isNumerical(String numb) {
   //TODO test isNumerical in GeneralUtilityFunctions
   return isNumeric(numb);
 }
 
+/// Determines whether a [String] is made of alphabet characters.
+///
+/// Takes a [String] and passes it through a function that checks if it is made of alphabet characters.
+/// returns true if and only if [alpha] is made of only alphabet characters.
 bool isAlphabet(String alpha) {
   //TODO test isAlphabet in GeneralUtilityFunctions
   return isAlpha(alpha);
 }
 
+/// Determines whether a [String] is a DateTime object.
+///
+/// Takes a [String] and passes it through a function that checks if it is a Date.
+/// returns true if and only if [date] is a Date.
 bool isDateTime(String date) {
   //TODO test isDateTime in GeneralUtilityFunctions
   return isDate(date);
 }
 
+/// Determines whether a [String] is an Email address.
+///
+/// Takes a [String] and passes it through a function that checks if it is an Email address.
+/// returns true if and only if [address] is an Email address.
 bool isEMail(String address) {
   //TODO test isEMail in GeneralUtilityFunctions
   return isEmail(address);
 }
 
+/// Formats a [String] as a Date.
+///
+/// Takes a [String] and passes it through a function that checks if it is an Email address.
+/// returns true if and only if [address] is an Email address.
 DateTime formatDate(String datetime) {
   //TODO test formatDate in GeneralUtilityFunctions
   return toDate(datetime);
 }
+
+/// Formats a [String] for safe use in both HTML and SQL.
+///
+/// Takes a [String] and passes it through a function that makes it safe for use in both HTML and SQL.
+/// returns the cleaned [String].
 String cleanString(String dirty) {
   //TODO implement cleanString in GeneralUtilityFunctions
   return dirty;
 }
+
+/// Returns an [int] representing number of whole days between two [DateTimes].
+///
+/// Takes two [DateTimes] and creates a [Duration] that is the difference between the two [DateTimes].
+/// It then returns the number of days between them as an [int] by using the method 'inDays'.
 int daysBetweenDates(DateTime past, DateTime future) {
   //TODO test daysBetweenDates in GeneralUtilityFunctions
   Duration difference = past.difference(future);
   return difference.inDays;
 }
+
+/// Determines whether two dates are equal.
+///
+/// Takes two [DateTimes] and uses the method isAtSameMomentAs on one [DateTime], passing in the other.
+/// It then returns true if and onlly if the two [DateTimes] are equal.
 bool isDatesEqual(DateTime past, DateTime future) {
   //TODO test isDatesEqual in GeneralUtilityFunctions
   return past.isAtSameMomentAs(future);
 }
-String getDayOfWeek(int month) {
-  //TODO test getDayOfWeek in GeneralUtilityFunctions
-  if (month ==1){return 'January';}
-  if (month ==2){return 'February';}
-  if (month ==3){return 'March';}
-  if (month ==4){return 'April';}
-  if (month ==5){return 'May';}
-  if (month ==6){return 'June';}
-  if (month ==7){return 'July';}
-  if (month ==8){return 'August';}
-  if (month ==9){return 'September';}
-  if (month ==10){return 'October';}
-  if (month ==11){return 'November';}
-  if (month ==12){return 'December';}
-  return null;
+
+/// Returns a [String] representing the day of the week, to which the [DateTime] corresponds.
+///
+/// Takes an [DateTime] and returns the name of the day of the week as a [String].
+String getDayOfWeek(DateTime day) {
+  //TODO implement getDayOfWeek in GeneralUtilityFunctions
+  return "";
 }
+/// Returns a [String] of the numbers in [alphanum].
+///
+/// Takes an [String] and scans it for numbers adding the number characters to [numbers] before returning [numbers]
 String extractNums(String alphanum) {
   //TODO test extractNums in GeneralUtilityFunctions
   String numbers;
@@ -75,14 +109,23 @@ String extractNums(String alphanum) {
   }
   return numbers;
 }
+/// Returns a [String] formatted as a telephone number.
+///
+/// Takes an [int] and formats it as a [String] formatted as a telephone number.
 String formatPhoneNumber(int number) {
   //TODO implement formatPhoneNumber in GeneralUtilityFunctions
   return toDate(datetime);
 }
+/// Returns an [int] representing how many days are in the [month].
+///
+/// Takes a [String] and Returns an [int] representing how many days are in the [month].
 int getDaysInMonth(String month) {
   //TODO implement getDaysInMonth in GeneralUtilityFunctions
   return toDate(datetime);
 }
+/// Returns a [String] formatted as a dollar amount.
+///
+/// Takes a [number] and formats it as a [String] formatted as a dollar amount.
 String formatMoney(num money) {
 //TODO implement formatMoney in GeneralUtilityFunctions
   return toDate(datetime);
