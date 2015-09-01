@@ -47,3 +47,10 @@ crashlytics-build.properties
 
 #Who commits backup files?
 *.bak
+
+#Ignore dart generated files
+web/
+packages/
+.packages
+.pub/
+pubspec.lock
