@@ -17,13 +17,11 @@ import "package:bignum/bignum.dart";
 final ApiServer _apiServer = new ApiServer();
 
 main() async {
-  AsymmetricKeyPair tmp = KeyGen.genKeyPair();
+  String key1 = await KeyGen.getLoginKey("PUBKEYSAREAWESOME");
+  String key2 = await KeyGen.getLoginKey("THISONETOO");
+  String key3 = await KeyGen.getLoginKey("ONEMORENOW");
 
-  Encryption encEngine = new Encryption(tmp);
-
-  print(tmp.toString());
-  print(encEngine.toString());
-
+  print
   /* This is the real code. Uncomment to run server.
   _apiServer.addApi(new FCApi());
   HttpServer.bind(InternetAddress.ANY_IP_V6, 8080).then((binding) {

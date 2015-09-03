@@ -40,6 +40,7 @@ PubKeyMessage pubKeyToMessage(Uint8List modulus, Uint8List exponent) {
   PubKeyMessage tmp = new PubKeyMessage()
     ..modulus = UTF8.decode(modulus)
     ..exponent = UTF8.decode(exponent);
+  return tmp;
 }
 
 RSAPublicKey pubKeyFromMessage(String modulus, String exponent) {

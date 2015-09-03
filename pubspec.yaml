@@ -8,3 +8,4 @@ dependencies:
   uuid: 0.5.0
   cipher: "^0.7.1"
   bignum: "^0.0.7"
+  rsa: "^0.0.2"
