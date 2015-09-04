@@ -1,47 +1,51 @@
 import "dart:convert";
-import "KeyGen.dart" show NECC_PERMS;
+
+import "KeyGen.dart" show ReqPerms;
 
 enum SessionType {
-  CLIENT,
-  USER
+  client,
+  user
 }
 
 class SessionJson {
-  String sesskey;
-  String pubkey;
+  String sessionKey;
+  String pubKey;
   SessionType type;
-  List<NECC_PERMS> perms = [];
+  List<ReqPerms> perms = [];
 
 
-  SessionJson(String this.sesskey, String this.pubkey, SessionType this.type, List<NECC_PERMS> this.perms);
+  SessionJson(String this.sessionKey, String this.pubKey, SessionType this.type, List<ReqPerms> this.perms);
 
   SessionJson.fromJSON(String json) {
-    var tmp = JSON.decode(json);
-    print("INSIDE CONSTRUCTOR: $tmp");
-    sesskey = tmp['api'];
-    pubkey = tmp['pubkey'];
-    switch (tmp['type']) {
+    var _jsonDump = JSON.decode(json);
+
+    sessionKey = _jsonDump['api'];
+    pubKey = _jsonDump['pubkey'];
+    switch (_jsonDump['type']) {
       case "user":
-        type = SessionType.USER;
+        type = SessionType.user;
         break;
       case "client":
-        type = SessionType.CLIENT;
+        type = SessionType.client;
         break;
     }
-    if(tmp['perms'] != "none") {
-      tmp['perms'].forEach((v) {
+    if(_jsonDump['perms'] != "none") {
+      _jsonDump['perms'].forEach((v) {
         switch (v) {
           case "delete":
-            perms.add(NECC_PERMS.DELETE);
+            perms.add(ReqPerms.delete);
             break;
           case "login":
-            perms.add(NECC_PERMS.LOGIN);
+            perms.add(ReqPerms.login);
             break;
           case "read":
-            perms.add(NECC_PERMS.READ);
+            perms.add(ReqPerms.read);
             break;
           case "write":
-            perms.add(NECC_PERMS.WRITE);
+            perms.add(ReqPerms.write);
+            break;
+          default:
+            perms.add(ReqPerms.unknown);
             break;
         }
       });
@@ -49,42 +53,42 @@ class SessionJson {
   }
 
   String toString() {
-    String tmp = "{";
+    String _json = "{";
 
-    tmp += "\"api\": \"${sesskey}\", ";
-    tmp += "\"pubkey\": \"${pubkey}\", ";
+    _json += "\"api\": \"$sessionKey\", ";
+    _json += "\"pubkey\": \"$pubKey\", ";
     switch (type) {
-      case SessionType.CLIENT:
-        tmp += "\"type\": \"client\", ";
+      case SessionType.client:
+        _json += "\"type\": \"client\", ";
         break;
-      case SessionType.USER:
-        tmp += "\"type\": \"user\", ";
+      case SessionType.user:
+        _json += "\"type\": \"user\", ";
         break;
     }
     if (perms.isEmpty) {
-      tmp += "\"perms\": \"none\"";
+      _json += "\"perms\": \"none\"";
     } else {
-      tmp += "\"perms\": [";
+      _json += "\"perms\": [";
       perms.forEach((v) {
         switch (v) {
-          case NECC_PERMS.DELETE:
-            tmp += "\"delete\", ";
+          case ReqPerms.delete:
+            _json += "\"delete\", ";
             break;
-          case NECC_PERMS.LOGIN:
-            tmp += "\"login\", ";
+          case ReqPerms.login:
+            _json += "\"login\", ";
             break;
-          case NECC_PERMS.READ:
-            tmp += "\"read\", ";
+          case ReqPerms.read:
+            _json += "\"read\", ";
             break;
-          case NECC_PERMS.WRITE:
-            tmp += "\"write\", ";
+          case ReqPerms.write:
+            _json += "\"write\", ";
             break;
         }
       });
-      tmp = tmp.substring(0, tmp.length - 2);
-      tmp += "]";
+      _json = _json.substring(0, _json.length - 2);
+      _json += "]";
     }
-    tmp += "}";
-    return tmp;
+    _json += "}";
+    return _json;
   }
 }

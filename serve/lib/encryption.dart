@@ -1,76 +1,56 @@
 library encryption;
 
-import "package:cipher/cipher.dart";
-import "package:cipher/impl/server.dart";
 import "dart:convert";
-
-enum KeyType {
-  PUBLIC,
-  PRIVATE
-}
+import "package:rsa/rsa.dart";
 
 class Encryption {
-  RSAPublicKey pubkey;
-  RSAPrivateKey privkey;
+  KeyPair pair;
 
-  Encryption(AsymmetricKeyPair keypair) {
-    initCipher();
-    pubkey = keypair.publicKey;
-    privkey = keypair.privateKey;
+  bool get hasPub { return pair.hasPublicKey; }
+  bool get hasPriv { return pair.hasPrivateKey; }
+  bool get canEncrypt { return hasPub; }
+  bool get canDecrypt { return hasPriv; }
+  bool get canSign { return hasPriv; }
+  bool get canVerify { return hasPub; }
+  Key get pubKey { return pair.publicKey; }
+  Key get privKey { return pair.privateKey; }
+
+  Encryption(String pubkey, [String privkey = ""]) {
+    Key pub = KeyPair.parsePem(pubkey).publicKey;
+    Key priv = (privkey == "" || privkey == null) ? null : KeyPair.parsePem(privkey).privateKey;
+    pair = new KeyPair(priv, pub);
   }
 
-  String encrypt(String plaintext, KeyType k) {
+  String encrypt(String plaintext) {
+    if (!canEncrypt)
+      return plaintext;
+
     String ciphertext = "";
-    RSAAsymmetricKey key;
-    AsymmetricKeyParameter params;
-
-    // Encrypt the plaintext using the [k] key
-    if (k == KeyType.PUBLIC) {
-      //Encrypt using pubkey
-      key = pubkey;
-      params = new PublicKeyParameter<RSAPublicKey>(pubkey);
-    } else if (k == KeyType.PRIVATE) {
-      //Encrypt using privkey
-      key = privkey;
-      params = new PrivateKeyParameter<RSAPrivateKey>(privkey);
-    } else {
-      throw ArgumentError;
-    }
-
-    var cipher = new AsymmetricBlockCipher("RSA")
-      ..init( true, params );
-
-    ciphertext = UTF8.decode(cipher.process(UTF8.encode(plaintext)));
-
+    ciphertext = pair.encrypt(plaintext);
     return ciphertext;
   }
 
-  String decrypt(String ciphertext, KeyType k) {
+  String decrypt(String ciphertext) {
+    if (!canEncrypt)
+      return ciphertext;
+
     String plaintext = "";
-    AsymmetricKeyParameter params;
-
-    // Decrypt the ciphertext using the [k] key
-    if (k == KeyType.PUBLIC) {
-      //Decrypt using pubkey
-      params = new PublicKeyParameter<RSAPublicKey>(pubkey);
-    } else if (k == KeyType.PRIVATE) {
-      //Decrypt using privkey
-      params = new PrivateKeyParameter<RSAPrivateKey>(privkey);
-    } else {
-      throw ArgumentError;
-    }
-
-    var cipher = new AsymmetricBlockCipher("RSA")
-      ..init( false, params );
-
-    plaintext = UTF8.decode(cipher.process(UTF8.encode(plaintext)));
+    plaintext = pair.decrypt(ciphertext);
     return plaintext;
   }
-}
 
-/*
-var pubpar = () => new PublicKeyParameter<RSAPublicKey>(pubk);
-    var cipher = new AsymmetricBlockCipher("RSA")
-      ..init( true, pubpar )
-    ;
- */
+  String sign(String message) {
+    if (!canSign)
+      return message;
+
+    var signed = pair.sign(UTF8.encode(message));
+    return DSC.encode(signed);
+  }
+
+  bool verify(String sig, String message) {
+    if (!canVerify)
+      throw new StateError("Encryption objects cannot verify without a PubKey.");
+
+    return pair.verify(DSC.decode(sig), UTF8.encode(message));
+  }
+}

@@ -6,6 +6,7 @@ dependencies:
   rpc: "^0.5.2"
   sqljocky: "^0.13.0"
   uuid: 0.5.0
-  cipher: "^0.7.1"
-  bignum: "^0.0.7"
-  rsa: "^0.0.2"
+  rsa:
+      git:
+        url: git://github.com/SecareLupus/rsa.git
+        ref: master

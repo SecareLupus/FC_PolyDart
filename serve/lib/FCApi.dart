@@ -16,8 +16,8 @@ class FCApi {
     print("getLoginKey() accessed");
     var tmp = await KeyGen.getLoginKey(pubkey);
     print("Key: $tmp");
-    return new Message.SynResponse()..pubkey = pubkey
-                                    ..login_key = tmp;
+    return new Message.SynResponse()..pubKey = pubkey
+                                    ..loginKey = tmp;
   }
 
   @ApiMethod(method: 'POST', path: 'login')
@@ -25,11 +25,11 @@ class FCApi {
     if (LoginServer.loginAttempt(credentials)) {
       return new Message.LoginResponse()
         ..success = true
-        ..user_key = await KeyGen.getUserKey();
+        ..userKey = await KeyGen.getUserKey(credentials.loginKey);
     } else {
       return new Message.LoginResponse()
         ..success = false
-        ..user_key = "";
+        ..userKey = "";
     }
   }
 }
