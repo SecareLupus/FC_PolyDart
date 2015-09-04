@@ -1,44 +1,36 @@
-// Copyright (c) 2015, <your name>. All rights reserved. Use of this source code
-// is governed by a BSD-style license that can be found in the LICENSE file.
+import "dart:io";
+import "lib/fc/v1.dart";
+import "../serve/lib/encryption.dart";
 
-import 'dart:html';
+main() async {
+  String privkey = """-----BEGIN RSA PRIVATE KEY-----
+MIICWgIBAAKBgE1WuGcrt3mXKOMRoL4RMCfmb48oYZs7Hm9Clwxemx2PhTe4++DT
+C8h1K89RWXhd6YmgyjjOe5CgfZd8Ksm2Q4pVh2kNO9+6sWGc/tx0YyhmYi3GMSJd
+KNxHgGv21lCcvzjLD1C8rlg0KD3OiRSHwdYsiBGCqJKptOlu46HFwhpxAgMBAAEC
+gYBLMrYMgwJcNLEp0FsWVAoZ0cLJVL9LO3mFPx81hMuYO5ORsckfOrXrTJqzc2rm
+UZIhIvldsM+Oua5EXBQSm6khRzkQSz6hyFYnHwQMzU0qZZBbLmKMyKdbOP2iVDPu
+Nxhazf5p0eQSq11chNfp+K3DUyC5eP/Whw1LhGHXsEGHjQJBAJhOp/OEz9plEOdl
+1UaY0dzkWPuCmuXZhOQ9kQBRsAqKl33AUHdQTs/d3qrpjCzybybj2VOS7Lr0PyPB
+hRscERcCQQCB/fIZawhocInIoadzfgA3b/feWyGsM8leH50PR7vnwvh2OpTYRH7z
+aOqS5ii36w/nyb9bqxSxRGauoWUD7RW3AkBYC1gheMwjBruP2JlCt0LR+5rIwcZD
+Ssv8mO6CjbZDUbyjMBIT9vOoTCzVBi9HKFpC1AIkwtFgfaMmS09jzYS/AkBBaNf2
+hE4Rx3b9VqJc0e0n+BZgc7jI3rIXw46TTsQ1hXzieO3GuQisUIGgc2HP0d8KAhFg
+/gAGhuWoP5wF0rmXAkBENqO9DeOaSfsVhQbniMzGyDdVUujGaIjAh3G24sApjcKv
+MmF+nBtmFX0ZdxkQTY3rkrcnb6bxHSLcnelfruuQ
+-----END RSA PRIVATE KEY-----""";
+  String pubkey = """-----BEGIN PUBLIC KEY-----
+MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgE1WuGcrt3mXKOMRoL4RMCfmb48o
+YZs7Hm9Clwxemx2PhTe4++DTC8h1K89RWXhd6YmgyjjOe5CgfZd8Ksm2Q4pVh2kN
+O9+6sWGc/tx0YyhmYi3GMSJdKNxHgGv21lCcvzjLD1C8rlg0KD3OiRSHwdYsiBGC
+qJKptOlu46HFwhpxAgMBAAE=
+-----END PUBLIC KEY-----""";
 
-import 'package:paper_elements/paper_input.dart';
-import 'package:polymer/polymer.dart';
+  Encryption enc = new Encryption(pubkey, privkey);
+  HttpClient client = new HttpClient();
+  FcApi callServer = new FcApi(client);
 
-/// A Polymer `<main-app>` element.
-@CustomTag('main-app')
-class MainApp extends PolymerElement {
-  @observable String reversed = '';
-
-  /// Constructor used to create instance of MainApp.
-  MainApp.created() : super.created();
-
-  void reverseText(Event event, Object object, PaperInput target) {
-    reversed = target.value.split('').reversed.join('');
-  }
-
-  // Optional lifecycle methods - uncomment if needed.
-
-//  /// Called when an instance of main-app is inserted into the DOM.
-//  attached() {
-//    super.attached();
-//  }
-
-//  /// Called when an instance of main-app is removed from the DOM.
-//  detached() {
-//    super.detached();
-//  }
-
-//  /// Called when an attribute (such as a class) of an instance of
-//  /// main-app is added, changed, or removed.
-//  attributeChanged(String name, String oldValue, String newValue) {
-//    super.attributeChanges(name, oldValue, newValue);
-//  }
-
-//  /// Called when main-app has been fully prepared (Shadow DOM created,
-//  /// property observers set up, event listeners attached).
-//  ready() {
-//    super.ready();
-//  }
+  SynRequest reqLogin = new SynRequest()..pubKey = pubkey;
+  var tmp = await callServer.getLoginKey(reqLogin);
+  print("Server Pubkey: ${tmp.pubKey}");
+  print("Client LoginKey: ${tmp.loginKey}");
 }

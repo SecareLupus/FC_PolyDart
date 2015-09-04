@@ -1,5 +1,13 @@
 library message;
 
+class SynRequest {
+  String pubKey;
+
+  void doSomething(cb(String s)) {
+    pubKey = cb(pubKey);
+  }
+}
+
 class SynResponse {
   String loginKey;
   String pubKey;

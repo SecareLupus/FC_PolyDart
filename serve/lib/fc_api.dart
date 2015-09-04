@@ -1,6 +1,7 @@
 import "dart:async";
 import "package:rpc/rpc.dart";
 import "package:rsa/rsa.dart";
+import "encryption.dart" show LocalServer;
 import "message_forms.dart" as Message;
 import "keygen.dart" as KeyGen;
 import "LoginServer.dart" as LoginServer;
@@ -10,13 +11,11 @@ import "LoginServer.dart" as LoginServer;
   version: 'v1',
   description: 'Friend Computer API')
 class FCApi {
-
   @ApiMethod(method: 'POST', path: 'syn')
-  Future<Message.SynResponse> getLoginKey(String pubkey) async {
-    print("getLoginKey() accessed");
-    var tmp = await KeyGen.getLoginKey(pubkey);
+  Future<Message.SynResponse> getLoginKey(Message.SynRequest pubkey) async {
+    var tmp = await KeyGen.getLoginKey(pubkey.pubKey);
     print("Key: $tmp");
-    return new Message.SynResponse()..pubKey = pubkey
+    return new Message.SynResponse()..pubKey = LocalServer.pubKey
                                     ..loginKey = tmp;
   }
 

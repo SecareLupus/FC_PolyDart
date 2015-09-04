@@ -29,7 +29,7 @@ Future<String> getLoginKey(String pubKey) async {
     RedisClient cl = await RedisClient.connect(sessionStore);
     String uuid = _getNewUuid();
     SessionJson sessionInfo = new SessionJson(uuid, pubKey, SessionType.client, [ReqPerms.login]);
-    await cl.setex(uuid, 500, sessionInfo.toString());
+    await cl.setex(uuid, 600, sessionInfo.toString());
     return (await cl.get(uuid));
   } else {
     return _getNewUuid();
@@ -46,7 +46,8 @@ Future<String> getUserKey(String sessionKey) async {
 
     String uuid = _getNewUuid();
     SessionJson sessionInfo = new SessionJson(uuid, pubKey, SessionType.user, [ReqPerms.read, ReqPerms.write]);
-    await cl.setex(uuid, 100, sessionInfo.toString());
+    await cl.setex(uuid, 300, sessionInfo.toString());
+    await cl.expire(sessionKey, 600);
     return (await cl.get(uuid));
   } else {
     return _getNewUuid();   //On Windows, generate a random ID, and return that instead of doing anything useful.
@@ -54,7 +55,15 @@ Future<String> getUserKey(String sessionKey) async {
   }
 }
 
-List<ReqPerms> getPerms(String key) {
+Future<String> getPubKey(String apiKey) async {
+  RedisClient cl = await RedisClient.connect(sessionStore);
+
+  String targetData = await cl.get(apiKey);
+  SessionJson targetSession = new SessionJson.fromJSON(targetData);
+  return targetSession.pubKey;
+}
+
+Future<List<ReqPerms>> getPerms(String key) async {
   RedisClient.connect(sessionStore)
   .then((RedisClient client) {
     client.get(key)
@@ -62,6 +71,6 @@ List<ReqPerms> getPerms(String key) {
   });
 }
 
-bool hasPerm(String key, ReqPerms perm) {
+bool hasPerm(String key, ReqPerms perm) async {
   return true;
 }

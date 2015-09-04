@@ -54,3 +54,46 @@ class Encryption {
     return pair.verify(DSC.decode(sig), UTF8.encode(message));
   }
 }
+
+class LocalServer {
+  //These values should not be hardcoded, but loaded from a file.
+  static final String pubKey = """-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCIZtVky0gSZyg14w9/hdOcddqc
+OnU1EQG75fzQ6dC0ci57cb/Tj/EYRaPDoZ2qubsVHUj5dGAFVy5RHYYaqM7gYb/c
+8GTEpt4czllDkScQc6TMl+VO6bEh55MN8mmmk/VrJw4Vh5GqBHLAU7ugWzwmU/1I
+b8V/myyG+8A13yeZfQIDAQAB
+-----END PUBLIC KEY-----""";
+  static final String _privKey = """-----BEGIN RSA PRIVATE KEY-----
+  MIICXQIBAAKBgQCIZtVky0gSZyg14w9/hdOcddqcOnU1EQG75fzQ6dC0ci57cb/T
+  j/EYRaPDoZ2qubsVHUj5dGAFVy5RHYYaqM7gYb/c8GTEpt4czllDkScQc6TMl+VO
+  6bEh55MN8mmmk/VrJw4Vh5GqBHLAU7ugWzwmU/1Ib8V/myyG+8A13yeZfQIDAQAB
+  AoGACND8wgMRqX7ZboI6ojd4Mgi8FJUCtmdfAVIgQTCbuM4YiwoTKA2Ju9PkfeSY
+  WEyg9wBpkxYejrnP2JZb8KUwmeAIfgLG1D9Pc7BbuEgUJIhGBjcnnnGCc/pIt4l8
+  MqXT9EoO0g2ufmbuy0ZANdge5Ba062AP7t6vftEopGXOV1ECQQDD9uStV0JYu9Px
+  w5oD5VOZ5znY7gdE5P8RE4CO8Sn1CUSWpz9aYRYxuAyIGj2bmZ/e7Rbwtv77VJT3
+  eErZ17zbAkEAsjCNN2YLPbbFnBORocdhsLt9KPpTa7F0gCfu6twTGc9BhF5efHJT
+  MWsJjJFs4azoQ7AZBYEmii+a86I72temhwJBAI8J/z9byyzz5S+6pAgl85EKS5pB
+  nIK4WEpBnvw3onWezzbcW40AAvBFtLf/12plh2F0U+Ne393ajmXYo2JBbDMCQBvo
+  LrW2bZxEu74t8mj76Pjc5EU+r0H2kOBhYLG3teYc543rmbCz1wOuV9iEDiFqCxZO
+  xhxulbKesg3mIqmrjJECQQCspPSM93flfY+vCpAn6CRXtFhlckjuGOMxvzMh8Isv
+  1QuACkZRBf5M7VkvjOfvM3zjeMQqfAEDYBn35I/2fFrT
+  -----END RSA PRIVATE KEY-----""";
+
+  static final Encryption serverEncryption = new Encryption(pubKey, _privKey);
+
+  static String encrypt(String plaintext) {
+    return serverEncryption.encrypt(plaintext);
+  }
+
+  static String decrypt(String ciphertext) {
+    return serverEncryption.decrypt(ciphertext);
+  }
+
+  static String sign(String message) {
+    return serverEncryption.sign(message);
+  }
+
+  static bool verify(String sig, String message) {
+    return serverEncryption.verify(sig, message);
+  }
+}
