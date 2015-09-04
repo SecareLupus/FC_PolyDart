@@ -1,6 +1,6 @@
 library loginserver;
 
-import "MessageForms.dart" as Message;
+import "message_forms.dart" as Message;
 
   bool loginAttempt(Message.LoginRequest credentials) {
     int index = _getUserIndex(credentials.username);

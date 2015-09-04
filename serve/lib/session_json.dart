@@ -1,6 +1,6 @@
 import "dart:convert";
 
-import "KeyGen.dart" show ReqPerms;
+import "keygen.dart" show ReqPerms;
 
 enum SessionType {
   client,

@@ -1,8 +1,8 @@
 import "dart:async";
 import "package:rpc/rpc.dart";
 import "package:rsa/rsa.dart";
-import "MessageForms.dart" as Message;
-import "KeyGen.dart" as KeyGen;
+import "message_forms.dart" as Message;
+import "keygen.dart" as KeyGen;
 import "LoginServer.dart" as LoginServer;
 
 @ApiClass(

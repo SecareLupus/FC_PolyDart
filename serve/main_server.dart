@@ -5,11 +5,11 @@
 
 import "dart:io";
 import "package:rpc/rpc.dart";
-import "lib/FCApi.dart";
+import "lib/fc_api.dart";
 
 //TEST IMPORTS START
-import "lib/KeyGen.dart" as KeyGen;
-import "lib/Encryption.dart";
+import "lib/keygen.dart" as KeyGen;
+import "lib/encryption.dart";
 //TEST IMPORTS END
 
 final ApiServer _apiServer = new ApiServer();
@@ -39,6 +39,7 @@ qJKptOlu46HFwhpxAgMBAAE=
 
   Encryption enc = new Encryption(pubkey, privkey);
   Encryption dec = new Encryption(pubkey, null);
+             dec = new Encryption(pubkey); //Same as line above
 
   String plaintext = "This is plaintext for the encryption testing";
   print("Plaintext: $plaintext");

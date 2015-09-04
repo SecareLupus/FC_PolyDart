@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:uuid/uuid.dart';
 import "package:redis_client/redis_client.dart";
 
-import "SessionJson.dart";
+import "session_json.dart";
 
 enum ReqPerms {
   full,
