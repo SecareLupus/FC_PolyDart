@@ -15,8 +15,8 @@ class Product {
 
   /// getCategories returns a list of categories.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [Category] ids from [Category_Product_Association] where
+  ///   Product_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getCategories() {
     //TODO: Implement getCategories in Product
     List<int> people = new List<int>();
@@ -25,8 +25,8 @@ class Product {
 
   /// getPrimaryCategories returns a list of primary categories.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [PrimaryCategory] ids from [PrimaryCategory_Product_Association] where
+  ///   Product_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getPrimaryCategories() {
     //TODO: Implement getPrimaryCategories in Product
     List<int> people = new List<int>();
@@ -35,8 +35,8 @@ class Product {
 
   /// getFeatures returns a list of features.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [Features] ids from [Features_Product_Association] where
+  ///   Product_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getFeatures() {
     //TODO: Implement getFeatures in Product
     List<int> people = new List<int>();
@@ -45,8 +45,8 @@ class Product {
 
   /// getProductType returns a product type.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A product type object.
+  /// Generates a [List<int>] of [ProductType] ids from [ProductType_Product_Association] where
+  ///   Product_id references [this], or an empty [List<int>] if no parents exist.
   ProductType getProductType() {
     //TODO: Implement getProductType in Product
     ProductType people = new ProductType();
@@ -55,9 +55,9 @@ class Product {
 
   /// getGood returns a good.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A good object.
-  Good getGood() {
+  /// Generates a [Good] from the database where
+  ///   Product_id references [this], or an empty [Good] if no parents exist.
+  Good getGood(int id) {
     //TODO: Implement getGood in Product
     Good people = new Good();
     return people;
@@ -65,9 +65,9 @@ class Product {
 
   /// getService returns a service.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A service object.
-  Service getService() {
+  /// Generates a [Service] from the database where
+  ///   Product_id references [this], or an empty [Service] if no parents exist.
+  Service getService(int id) {
     //TODO: Implement getService in Product
     Service people = new Service();
     return people;
@@ -75,9 +75,9 @@ class Product {
 
   /// getSupplierLinks returns a list of supplier links.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
-  List<int> getSupplierLinks() {
+  /// Generates a [List<int>] of [SupplierLink] ids from [SupplierLink_Product_Association] where
+  ///   Product_id references [this], or an empty [List<int>] if no parents exist.
+  List<int> getSupplierLinks(int id) {
     //TODO: Implement getSupplierLinks in Product
     List<int> people = new List<int>();
     return people;
@@ -85,8 +85,8 @@ class Product {
 
   /// getComponents returns a list of components.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [Component] ids from [Component_Product_Association] where
+  ///   Product_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getComponents() {
     //TODO: Implement getComponents in Product
     List<int> people = new List<int>();
@@ -165,8 +165,8 @@ class Product {
 
   /// getPriceComponents returns a list of price components.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [PriceComponent] ids from [PriceComponent_Product_Association] where
+  ///   Product_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getPriceComponents() {
     //TODO: Implement getPriceComponents in Product
     List<int> people = new List<int>();
@@ -175,127 +175,145 @@ class Product {
 
   /// addCategory adds a category to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addCategory() {
+  /// Takes an [int] id for a [Category], and creates an [Category_Product_Association]
+  ///   record referencing [this] and the given [Category]. Returns no value.
+  void addCategory(int id) {
     //TODO: Implement addCategory in Product
   }
 
   /// endCategory removes a category from a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void endCategory() {
+  /// Takes an [int] id for a [Category], and removes all [Category_Product_Association]
+  ///   records referencing [this] and the given [Category]. Returns no value.
+  void endCategory(int id) {
     //TODO: Implement endCategory in Product
   }
 
   /// makeCategoryPrimary makes a product category primary.
   ///
-  /// @param name Placeholder for parameter name.
-  void makeCategoryPrimary() {
+  /// Takes an [int] id for a [Category], and makes the [Category] primary.
+  /// Returns no value.
+  void makeCategoryPrimary(int id) {
     //TODO: Implement makeCategoryPrimary in Product
   }
 
   /// addFeature adds a feature to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addFeature() {
+  /// Takes an [int] id for a [Feature], and creates an [Feature_Product_Association]
+  ///   record referencing [this] and the given [Feature]. Returns no value.
+  void addFeature(int id) {
     //TODO: Implement addFeature in Product
   }
 
   /// endFeature removes a feature from a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void endFeature() {
+  /// Takes an [int] id for a [Feature], and removes all [Feature_Product_Association]
+  ///   records referencing [this] and the given [Feature]. Returns no value.
+  void endFeature(int id) {
     //TODO: Implement endFeature in Product
   }
 
   /// addSupplier adds a supplier to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addSupplier() {
+  /// Takes an [int] id for a [Supplier], and creates an [Supplier_Product_Association]
+  ///   record referencing [this] and the given [Supplier]. Returns no value.
+  void addSupplier(int id) {
     //TODO: Implement addSupplier in Product
   }
 
   /// endSupplier removes a category from a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void endSupplier() {
+  /// Takes an [int] id for a [Supplier], and removes all [Supplier_Product_Association]
+  ///   records referencing [this] and the given [Supplier]. Returns no value.
+  void endSupplier(int id) {
     //TODO: Implement endSupplier in Product
   }
 
   /// addComponent adds a component to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addComponent() {
+  /// Takes an [int] id for a [Component], and creates an [Component_Product_Association]
+  ///   record referencing [this] and the given [Component]. Returns no value.
+  void addComponent(int id) {
     //TODO: Implement addComponent in Product
   }
 
   /// endComponent removes a component from a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void endComponent() {
+  /// Takes an [int] id for a [Component], and removes all [Component_Product_Association]
+  ///   records referencing [this] and the given [Component]. Returns no value.
+  void endComponent(int id) {
     //TODO: Implement endComponent in Product
   }
 
   /// addSubstitute adds a substitute to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addSubstitute() {
+  /// Takes an [int] id for a [Substitute], and creates an [Substitute_Product_Association]
+  ///   record referencing [this] and the given [Substitute]. Returns no value.
+  void addSubstitute(int id) {
     //TODO: Implement addSubstitute in Product
   }
 
   /// endSubstitute removes a substitute from a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void endSubstitute() {
+  /// Takes an [int] id for a [Substitute], and removes all [Substitute_Product_Association]
+  ///   records referencing [this] and the given [Substitute]. Returns no value.
+  void endSubstitute(int id) {
     //TODO: Implement endSubstitute in Product
   }
 
   /// addReplacement adds a replacement to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addReplacement() {
+  /// Takes an [int] id for a [Replacement], and creates an [Replacement_Product_Association]
+  ///   record referencing [this] and the given [Replacement]. Returns no value.
+  void addReplacement(int id) {
     //TODO: Implement addReplacement in Product
   }
 
   /// addCompliment adds a compliment to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addCompliment() {
+  /// Takes an [int] id for a [Compliment], and creates an [Compliment_Product_Association]
+  ///   record referencing [this] and the given [Compliment]. Returns no value.
+  void addCompliment(int id) {
     //TODO: Implement addCompliment in Product
   }
 
   /// endCompliment removes a compliment from a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void endCompliment() {
+  /// Takes an [int] id for a [Compliment], and removes all [Compliment_Product_Association]
+  ///   records referencing [this] and the given [Compliment]. Returns no value.
+  void endCompliment(int id) {
     //TODO: Implement endCompliment in Product
   }
 
   /// addIncompatibility adds a compatibility to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addIncompatibility() {
+  /// Takes an [int] id for an [Incompatibility], and creates an [Incompatibility_Product_Association]
+  ///   record referencing [this] and the given [Incompatibility]. Returns no value.
+  void addIncompatibility(int id) {
     //TODO: Implement addIncompatibility in Product
   }
 
   /// endIncompatibility removes a compatibility from a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void endIncompatibility() {
+  /// Takes an [int] id for an [Incompatibility], and removes all [Incompatibility_Product_Association]
+  ///   records referencing [this] and the given [Incompatibility]. Returns no value.
+  void endIncompatibility(int id) {
     //TODO: Implement endIncompatibility in Product
   }
 
   /// addPriceComponent adds a price component to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addPriceComponent() {
+  /// Takes an [int] id for a [PriceComponent], and creates an [PriceComponent_Product_Association]
+  ///   record referencing [this] and the given [PriceComponent]. Returns no value.
+  void addPriceComponent(int id) {
     //TODO: Implement addPriceComponent in Product
   }
 
   /// endPriceComponent removes a price component from a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void endPriceComponent() {
+  /// Takes an [int] id for a [PriceComponent], and removes all [PriceComponent_Product_Association]
+  ///   records referencing [this] and the given [PriceComponent]. Returns no value.
+  void endPriceComponent(int id) {
     //TODO: Implement endPriceComponent in Product
   }
 }
@@ -315,8 +333,8 @@ class Good extends Product {
 
   /// getInventoryItems returns a list of inventory items.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [InventoryItem] ids from [InventoryItem_Good_Association] where
+  ///   Good_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getInventoryItems() {
     //TODO: Implement getInventoryItems in Product
     List<int> people = new List<int>();
@@ -325,8 +343,8 @@ class Good extends Product {
 
   /// getReorderingGuidelines returns a list of reordering guidelines.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [ReorderingGuideline] ids from [ReorderingGuideline_Good_Association] where
+  ///   Good_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getReorderingGuidelines() {
     //TODO: Implement getReorderingGuidelines in Product
     List<int> people = new List<int>();
@@ -335,8 +353,8 @@ class Good extends Product {
 
   /// getIdentifications returns a list of identifications.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [Identification] ids from [Identification_Good_Association] where
+  ///   Good_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getIdentifications() {
     //TODO: Implement getIdentifications in Product
     List<int> people = new List<int>();
@@ -345,8 +363,8 @@ class Good extends Product {
 
   /// getItemsShipments returns a list of item shipments.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [ItemsShipment] ids from [ItemsShipment_Good_Association] where
+  ///   Good_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getItemsShipments() {
     //TODO: Implement getItemsShipments in Product
     List<int> people = new List<int>();
@@ -355,8 +373,8 @@ class Good extends Product {
 
   /// getReceivedShipments returns a list of received shipments.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [ReceivedShipment] ids from [ReceivedShipment_Good_Association] where
+  ///   Good_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getReceivedShipments() {
     //TODO: Implement getReceivedShipments in Product
     List<int> people = new List<int>();
@@ -365,43 +383,49 @@ class Good extends Product {
 
   /// addInventoryItem adds an inventory item to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addInventoryItem() {
+  /// Takes an [int] id for a [InventoryItem], and creates an [InventoryItem_Good_Association]
+  ///   record referencing [this] and the given [InventoryItem]. Returns no value.
+  void addInventoryItem(int id) {
     //TODO: Implement addInventoryItem in Product
   }
 
   /// addReorderGuideline adds a reorder guideline to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addReorderGuideline() {
+  /// Takes an [int] id for a [ReorderGuideline], and creates an [ReorderGuideline_Good_Association]
+  ///   record referencing [this] and the given [ReorderGuideline]. Returns no value.
+  void addReorderGuideline(int id) {
     //TODO: Implement addReorderGuideline in Product
   }
 
   /// endReorderGuideline removes a reorder guideline from a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void endReorderGuideline() {
+  /// Takes an [int] id for a [ReorderGuideline], and removes all [ReorderGuideline_Good_Association]
+  ///   records referencing [this] and the given [ReorderGuideline]. Returns no value.
+  void endReorderGuideline(int id) {
     //TODO: Implement endReorderGuideline in Product
   }
 
   /// addIdentification adds an identification to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addIdentification() {
+  /// Takes an [int] id for a [Identification], and creates an [Identification_Good_Association]
+  ///   record referencing [this] and the given [Identification]. Returns no value.
+  void addIdentification(int id) {
     //TODO: Implement addIdentification in Product
   }
 
   /// addShipment adds a shipment to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addShipment() {
+  /// Takes an [int] id for a [Shipment], and creates an [Shipment_Good_Association]
+  ///   record referencing [this] and the given [Shipment]. Returns no value.
+  void addShipment(int id) {
     //TODO: Implement addShipment in Product
   }
 
   /// addShipmentReceipt adds a shipment receipt to a product.
   ///
-  /// @param name Placeholder for parameter name.
-  void addShipmentReceipt() {
+  /// Takes an [int] id for a [ShipmentReceipt], and creates an [ShipmentReceipt_Good_Association]
+  ///   record referencing [this] and the given [ShipmentReceipt]. Returns no value.
+  void addShipmentReceipt(int id) {
     //TODO: Implement addShipmentReceipt in Product
   }
 }
@@ -412,69 +436,102 @@ class Good extends Product {
   int parent_id;
   String description;
 
-  List<int> getProducts() {
-  //TODO: Implement getProducts in Product
-  List<int> people = new List<int>();
-  return people;
-  }
-
-  void addProduct() {
-  //TODO: Implement addProduct in Product
-  }
-
-  void removeProduct() {
-  //TODO: Implement removeProduct in Product
-  }
-
-  List<int> getParentCategories() {
-  //TODO: Implement getParentCategories in Product
-  List<int> people = new List<int>();
-  return people;
-  }
-  []
-  void addParentCategory() {
-  //TODO: Implement addParentCategory in Product
-  }
-
-  void removeParentCategory() {
-  //TODO: Implement removeParentCategory in Product
-  }
-
-  List<int> getChildCategories() {
-  //TODO: Implement getChildCategories in Product
-  List<int> people = new List<int>();
-  return people;
-  }
-
-  void addChildCategory() {
-  //TODO: Implement addChildCategory in Product
-  }
-
-  void removeChildCategory() {
-  //TODO: Implement removeChildCategory in Product
-  }
-
-  List<int> getSalesTax() {
-  //TODO: Implement getSalesTax in Product
-  List<int> people = new List<int>();
-  return people;
-  }
-
-}
-class ProductCategory extends Product {
-  int _id;
-  int parent_id;
-  String description;
-
+  /// getProducts returns a list of Product ids.
+  ///
+  /// Generates a [List<int>] of [Product] ids from [Product_ProductCategory_Association] where
+  ///   ProductCategory_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getProducts() {
     //TODO: Implement getProducts in Product
     List<int> people = new List<int>();
     return people;
   }
+
+  /// addProduct adds a Product to a ProductCategory.
+  ///
+  /// Takes an [int] id for a [Product], and creates an [Product_ProductCategory_Association]
+  ///   record referencing [this] and the given [Product]. Returns no value.
+  void addProduct(int id) {
+    //TODO: Implement addProduct in Product
+  }
+
+  /// removeProduct removes a Product from a ProductCategory.
+  ///
+  /// Takes an [int] id for a [Product], and removes all [Product_ProductCategory_Association]
+  ///   records referencing [this] and the given [Product]. Returns no value.
+  void removeProduct(int id) {
+    //TODO: Implement removeProduct in Product
+  }
+
+  /// getParentCategories returns a list of ParentCategory ids.
+  ///
+  /// Generates a [List<int>] of [ParentCategory] ids from [ParentCategory_ProductCategory_Association] where
+  ///   ProductCategory_id references [this], or an empty [List<int>] if no parents exist.
+  List<int> getParentCategories() {
+    //TODO: Implement getParentCategories in Product
+    List<int> people = new List<int>();
+    return people;
+  }
+
+  /// addParentCategory adds a ParentCategory to a ProductCategory.
+  ///
+  /// Takes an [int] id for a [ParentCategory], and creates an [ParentCategory_ProductCategory_Association]
+  ///   record referencing [this] and the given [ParentCategory]. Returns no value.
+  void addParentCategory(int id) {
+    //TODO: Implement addParentCategory in Product
+  }
+
+  /// removeParentCategory removes a ParentCategory from a ProductCategory.
+  ///
+  /// Takes an [int] id for a [ParentCategory], and removes all [ParentCategory_ProductCategory_Association]
+  ///   records referencing [this] and the given [ParentCategory]. Returns no value.
+  void removeParentCategory(int id) {
+    //TODO: Implement removeParentCategory in Product
+  }
+
+  /// getChildCategories returns a list of ChildCategory ids.
+  ///
+  /// Generates a [List<int>] of [ChildCategory] ids from [ChildCategory_ProductCategory_Association] where
+  ///   ProductCategory_id references [this], or an empty [List<int>] if no parents exist.
+  List<int> getChildCategories() {
+    //TODO: Implement getChildCategories in Product
+    List<int> people = new List<int>();
+    return people;
+  }
+
+  /// addChildCategory adds a ChildCategory to a ProductCategory.
+  ///
+  /// Takes an [int] id for a [ChildCategory], and creates an [ChildCategory_ProductCategory_Association]
+  ///   record referencing [this] and the given [ChildCategory]. Returns no value.
+  void addChildCategory(int id) {
+    //TODO: Implement addChildCategory in Product
+  }
+
+  /// removeProduct removes a ChildCategory from a ChildCategoryCategory.
+  ///
+  /// Takes an [int] id for a [ChildCategory], and removes all [ChildCategory_ProductCategory_Association]
+  ///   records referencing [this] and the given [ChildCategory]. Returns no value.
+  void removeChildCategory(int id) {
+    //TODO: Implement removeChildCategory in Product
+  }
+
+  /// getSalesTax returns a list of SalesTax ids.
+  ///
+  /// @param name Placeholder for parameter name.
+  /// @returns A list of integers.
+  List<int> getSalesTax() {
+    //TODO: Implement getSalesTax in Product
+    List<int> people = new List<int>();
+    return people;
+  }
+
+  /// getGender returns a FeatureType.
+  ///
+  /// Generates a [FeatureType] from the database, or an empty [FeatureType] if no parents exist.
   FeatureType getFeatureType() {
     //TODO: Implement getFeatureType in Product
     FeatureType people = new FeatureType();
     return people;
   }
 }
+
 
