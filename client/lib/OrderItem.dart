@@ -16,30 +16,31 @@ class OrderItem {
   String description;
   String comment;
 
+  OrderItem () {}
+
   /// getOrderItemType returns the type of order item.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns An OrderItemType object.
+  /// Generates a [OrderItemType] from the database.
   OrderItemType getOrderItemType() {
     //TODO: Implement getOrderItemType in OrderItem
     OrderItemType people = new OrderItemType();
     return people;
   }
 
-  /// getProduct returns a product.
+  /// getProduct returns a product id.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns An integer.
+  /// Generates an [int] of a [Product] id from [Product_OrderItem_Association] where
+  ///   OrderItem_id references [this], or an empty [int] if no parents exist.
   int getProduct() {
     //TODO: Implement getProduct in OrderItem
     int people = 0;
     return people;
   }
 
-  /// getFeature returns a feature.
+  /// getFeature returns a feature id.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns An integer.
+  /// Generates an [int] of a [Feature] id from [Feature_OrderItem_Association] where
+  ///   OrderItem_id references [this], or an empty [int] if no parents exist.
   int getFeature() {
     //TODO: Implement getFeature in OrderItem
     int people = 0;

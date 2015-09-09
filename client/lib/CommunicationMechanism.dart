@@ -15,15 +15,9 @@ class CommunicationMechanism{
 
   /// Returns a list of [Party] ids which are associated with [this]
   ///
-<<<<<<< HEAD
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of Party objects.
-  List<int> getPartyAssociations(){
-=======
   /// Generates a [List<int>] of [Party] ids from [Party_Communication_Association] where
   ///   party_id references [this], or an empty [List<int>] if no associations exist.
-  List<Party> getPartyAssociations(){
->>>>>>> Updated some comments to new format.
+  List<int> getPartyAssociations(){
     //TODO: Implement getPartyAssociations in CommunicationMechanism
     List<int> people = new List<int>();
     return people;
@@ -31,25 +25,25 @@ class CommunicationMechanism{
 
   /// addPartyAssociation creates a party association.
   ///
-  /// @param name Placeholder for parameter name.
+  /// creates and adds a party association to the communication mechanism in the database.
   void addPartyAssociation(){
     //TODO: Implement addPartyAssociations in CommunicationMechanism
   }
 
   /// addPartyAssociation removes a party association.
   ///
-  /// @param name Placeholder for parameter name.
+  /// deletes and removes a party association from the communication mechanism in the database.
   void endPartyAssociation(){
     //TODO: Implement endPartyAssociations in CommunicationMechanism
   }
 
   /// getFacilityAssociations returns a list of facility associations.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of Facility objects.
-  List<Facility> getFacilityAssociation() {
+  /// Generates a [List<int>] of [FacilityAssociation] ids from [FacilityAssociation_CommunicationMechanism_Association]
+  ///   where communicationmechanism_id references [this], or an empty [List<int>] if no parents exist.
+  List<int> getFacilityAssociation() {
     //TODO: Implement getFacilityAssociation in CommunicationMechanism
-    List<Facility> people = new List<Facility>();
+    List<int> people = new List<int>();
     return people;
   }
 
