@@ -81,18 +81,26 @@ b8V/myyG+8A13yeZfQIDAQAB
 
   static final Encryption serverEncryption = new Encryption(pubKey, _privKey);
 
+  //Encrypt a string with the local public key. This message can be read by the server.
+  //Returns a ciphertext String.
   static String encrypt(String plaintext) {
     return serverEncryption.encrypt(plaintext);
   }
 
+  //Decrypt a string with the local private key. Decrypts messages encrypted with LocalServer.encrypt().
+  //Returns a plaintext String.
   static String decrypt(String ciphertext) {
     return serverEncryption.decrypt(ciphertext);
   }
 
+  //Signs a message to prove the server sent it. Anyone can verify this signature.
+  //Returns a signature digest String.
   static String sign(String message) {
     return serverEncryption.sign(message);
   }
 
+  //Verifies that sig is both valid, from the LocalServer, and also a signed digest of message.
+  //Returns true if sig is a signed digest of message, false otherwise.
   static bool verify(String sig, String message) {
     return serverEncryption.verify(sig, message);
   }

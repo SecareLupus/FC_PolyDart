@@ -1,6 +1,7 @@
 import "dart:io";
 import "lib/fc/v1.dart";
 import "../serve/lib/encryption.dart";
+import 'package:http/http.dart' as http;
 
 main() async {
   String privkey = """-----BEGIN RSA PRIVATE KEY-----
@@ -26,8 +27,8 @@ qJKptOlu46HFwhpxAgMBAAE=
 -----END PUBLIC KEY-----""";
 
   Encryption enc = new Encryption(pubkey, privkey);
-  HttpClient client = new HttpClient();
-  FcApi callServer = new FcApi(client);
+  http.Client cl = new http.Client();
+  FcApi callServer = new FcApi(cl);
 
   SynRequest reqLogin = new SynRequest()..pubKey = pubkey;
   var tmp = await callServer.getLoginKey(reqLogin);

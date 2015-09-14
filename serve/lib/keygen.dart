@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import "package:redis_client/redis_client.dart";
 
 import "session_json.dart";
+import "encryption.dart" show LocalServer;
 
 enum ReqPerms {
   full,
@@ -24,20 +25,22 @@ String _getNewUuid() {
   return uuid.v4();
 }
 
-Future<String> getLoginKey(String pubKey) async {
-  if (Platform.isLinux) {
+Future<String> getLoginKey(String pubKey, [String address = ""]) async {
+  sessionStore = address == "" ? sessionStore : address;
+  if (Platform.isLinux || address != "") {
     RedisClient cl = await RedisClient.connect(sessionStore);
     String uuid = _getNewUuid();
     SessionJson sessionInfo = new SessionJson(uuid, pubKey, SessionType.client, [ReqPerms.login]);
-    await cl.setex(uuid, 600, sessionInfo.toString());
-    return (await cl.get(uuid));
+    await cl.setex(uuid, 600, LocalServer.encrypt(sessionInfo.toString()));
+    return (LocalServer.decrypt(await cl.get(uuid)));
   } else {
     return _getNewUuid();
   }
 }
 
-Future<String> getUserKey(String sessionKey) async {
-  if (Platform.isLinux) {
+Future<String> getUserKey(String sessionKey, [String address = ""]) async {
+  sessionStore = (address == "") ? sessionStore : address;
+  if (Platform.isLinux || address != "") {
     RedisClient cl = await RedisClient.connect(sessionStore);
 
     String clientData = await cl.get(sessionKey);
@@ -64,13 +67,13 @@ Future<String> getPubKey(String apiKey) async {
 }
 
 Future<List<ReqPerms>> getPerms(String key) async {
-  RedisClient.connect(sessionStore)
+  return RedisClient.connect(sessionStore)
   .then((RedisClient client) {
-    client.get(key)
+    return client.get(key)
     .then((val) => val);
   });
 }
 
-bool hasPerm(String key, ReqPerms perm) async {
+Future<bool> hasPerm(String key, ReqPerms perm) async {
   return true;
 }
