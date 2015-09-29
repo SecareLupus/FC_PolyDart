@@ -31,7 +31,7 @@ class Shipment {
 
   /// getItems returns the shipment items.
   ///
-  /// Generates a [List<int>] of [Item] ids from [Item_Shipment_Association] where
+  /// Generates a [List<int>] of [Item] ids from [Shipment_Item] where
   ///   Shipment_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getItems() {
     //TODO: Implement getItems in Shipment
@@ -41,7 +41,7 @@ class Shipment {
 
   /// addItem adds an item to the shipment.
   ///
-  /// Takes an [int] id for a [Item], and creates an [Item_Shipment_Association]
+  /// Takes an [int] id for a [Item], and creates an [Shipment_Item]
   ///   record referencing [this] and the given [Item]. Returns no value.
   void addItem() {
     //TODO: Implement addItem in Shipment
@@ -49,7 +49,7 @@ class Shipment {
 
   /// removeItem removes an item from the shipment.
   ///
-  /// Takes an [int] id for a [Item], and removes all [Item_Shipment_Association]
+  /// Takes an [int] id for a [Item], and removes all [Shipment_Item]
   ///   records referencing [this] and the given [Item]. Returns no value.
   void removeItem() {
     //TODO: Implement removeItem in Shipment
@@ -57,7 +57,7 @@ class Shipment {
 
   /// getStatusUpdates returns status updates.
   ///
-  /// Generates a [List<int>] of [StatusUpdate] ids from [StatusUpdate_Shipment_Association] where
+  /// Generates a [List<int>] of [StatusUpdate] ids from [Shipment_Status_Type] where
   ///   Shipment_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getStatusUpdates() {
     //TODO: Implement getStatusUpdates in Shipment
@@ -67,7 +67,7 @@ class Shipment {
 
   /// addStatusUpdate adds a status update to the shipment.
   ///
-  /// Takes an [int] id for a [StatusUpdate], and creates an [StatusUpdate_Shipment_Association]
+  /// Takes an [int] id for a [StatusUpdate], and creates an [Shipment_Status_Type]
   ///   record referencing [this] and the given [StatusUpdate]. Returns no value.
   void addStatusUpdate() {
     //TODO: Implement addStatusUpdate in Shipment

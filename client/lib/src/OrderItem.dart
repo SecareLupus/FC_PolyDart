@@ -29,8 +29,8 @@ class OrderItem {
 
   /// getProduct returns a product id.
   ///
-  /// Generates an [int] of a [Product] id from [Product_OrderItem_Association] where
-  ///   OrderItem_id references [this], or an empty [int] if no parents exist.
+  ///returns an [it] of a [Product] id where
+  ///   r an empty [int] if no parents exist.n
   int getProduct() {
     //TODO: Implement getProduct in OrderItem
     int people = 0;
@@ -39,8 +39,8 @@ class OrderItem {
 
   /// getFeature returns a feature id.
   ///
-  /// Generates an [int] of a [Feature] id from [Feature_OrderItem_Association] where
-  ///   OrderItem_id references [this], or an empty [int] if no parents exist.
+  /// returns an [it] of a [Feature] id where
+  ///   r an empty [int] if no parents exist.n
   int getFeature() {
     //TODO: Implement getFeature in OrderItem
     int people = 0;
