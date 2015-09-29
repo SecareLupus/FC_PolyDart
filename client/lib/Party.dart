@@ -23,17 +23,14 @@ class Party {
 
   Party () {
   }
-  /// getid returns this party's ID.
-  ///
-  /// @returns The ID number of this party.
+  /// Returns the int [id] of [this].
   int getid() {
     return this._id;
   }
 
   /// getDescription returns the description of a party.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns Description of people.
+  /// Generates a [String] from the database. or an empty [String] if no parents exist.
   String getDescription() {
     //TODO: Implement getDescription in Party
     String people = new String();
@@ -42,28 +39,28 @@ class Party {
 
   /// getRoles returns the roles of a party.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns Roles of people.
-  List <Role> getRoles() {
+  /// Generates a [List<int>] of [Role] ids from [Party_Role] where
+  ///   Party_id references [this], or an empty [List<int>] if no parents exist.
+  List <int> getRoles() {
     //TODO: Implement getRoles in Party
-    List<Role> people = new List<Role>();
+    List<int> people = new List<int>();
     return people;
   }
 
   /// getRelationship returns the relationship of a party.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns Relationship of people.
-  List <Party> getRelationship() {
+  /// Generates a [List<int>] of [Relationship] ids from [Party_Relationship] where
+  ///   Party_id references [this], or an empty [List<int>] if no parents exist.
+  List <int> getRelationships() {
     //TODO: Implement getRelationship in Party
-    List<Party> people = new List<Party>();
+    List<int> people = new List<int>();
     return people;
   }
 
   /// getRelationshipNotes returns the notes of a party relationship.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns Relationship notes of people.
+  /// Generates a [List<int>] of [RelationshipNote] ids from [Relationship_Note] where
+  ///   Party_id references [this], or an empty [List<int>] if no parents exist.
   List <String> getRelationshipNotes() {
     //TODO: Implement getRelationshipNotes in Party
     List<String> people = new List<String>();
@@ -72,67 +69,74 @@ class Party {
 
   /// addRelationship adds a relationship to a party.
   ///
-  /// @param name Placeholder for parameter name.
-  void addRelationship() {
+  /// Takes an [int] id for a [Relationship], and creates an [Party_Relationship]
+  ///   record referencing [this] and the given [Relationship]. Returns no value.
+  void addRelationship(int id) {
     //TODO: Implement addRelationship in Party
   }
 
   /// endRelationship removes a party's relationship.
   ///
-  /// @param name Placeholder for parameter name.
-  void endRelationship() {
+  /// Takes an [int] id for a [Relationship], and removes all [Party_Relationship]
+  ///   records referencing [this] and the given [Relationship]. Returns no value.
+  void endRelationship(int id) {
     //TODO: Implement endRelationship in Party
   }
 
   /// addDescription adds a description to a party.
   ///
-  /// @param name Placeholder for parameter name.
-  void addDescription() {
+  /// Takes an [int] id for a [Description], and creates an [Party_Description_Association]
+  ///   record referencing [this] and the given [Description]. Returns no value.
+  void addDescription(int id) {
     //TODO: Implement addDescription in Party
   }
 
   /// endDescription removes a party's description.
   ///
-  /// @param name Placeholder for parameter name.
-  void endDescription() {
+  /// Takes an [int] id for a [Description], and removes all [Party_Description_Association]
+  ///   records referencing [this] and the given [Description]. Returns no value.
+  void endDescription(int id) {
     //TODO: Implement endDescription in Party
   }
 
   /// addRole adds a role of a party.
   ///
-  /// @param name Placeholder for parameter name.
-  void addRole() {
+  /// Takes an [int] id for a [Role], and creates an [Party_Role]
+  ///   record referencing [this] and the given [Role]. Returns no value.
+  void addRole(int id) {
     //TODO: Implement addRole in Party
   }
 
   /// endRole removes a party role.
   ///
-  /// @param name Placeholder for parameter name.
-  void endRole() {
+  /// Takes an [int] id for a [Role], and removes all [Party_Role]
+  ///   records referencing [this] and the given [Role]. Returns no value.
+  void endRole(int id) {
     //TODO: Implement endRole in Party
   }
 
   /// getShipments returns a list of shipments.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of shipments.
-  List <Shipments> getShipments() {
+  /// Generates a [List<int>] of [Shipment] ids from [Shipment] where
+  ///   Party_id references [this], or an empty [List<int>] if no parents exist.
+  List <int> getShipments() {
     //TODO: Implement getShipments in Party
-    List<Shipments> people = new List<Shipments>();
+    List<int> people = new List<int>();
     return people;
   }
 
   /// addCommunicationMechanism adds a communication mechanism to the party.
   ///
-  /// @param name Placeholder for parameter name.
-  void addCommunicationMechanism() {
+  /// Takes an [int] id for a [CommunicationMechanism], and creates an [Party_Communication_Association]
+  ///   record referencing [this] and the given [CommunicationMechanism]. Returns no value.
+  void addCommunicationMechanism(int id) {
     //TODO: Implement addCommunicationMechanism in Party
   }
 
   /// getDescription returns a list of the party's communication mechanisms.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of communication mechanisms.
+  /// Generates a [List<int>] of [CommunicationMechanism] ids from [Party_Communication_Association] where
+  ///   Party_id references [this], or an empty [List<int>] if no parents exist.
   List <int> getCommunicationMechanisms() {
     //TODO: Implement getCommunicationMechanism in Party
     List<int> people = new List<int>();
@@ -141,15 +145,16 @@ class Party {
 
   /// endCommunicationMechanism removes a communication mechanism.
   ///
-  /// @param name Placeholder for parameter name.
-  void endCommunicationMechanism() {
+  /// Takes an [int] id for a [CommunicationMechanism], and removes all [Party_Communication_Association]
+  ///   records referencing [this] and the given [CommunicationMechanism]. Returns no value.
+  void endCommunicationMechanism(int id) {
     //TODO: Implement endCommunicationMechanism in Party
   }
 
   /// getCommunicationEvents a list of party communication events.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of communication events.
+  /// Generates a [List<int>] of [CommunicationEvent] ids from [Communication_Event] where
+  ///   Party_id references [this], or an empty [List<int>] if no parents exist.
   List <int> getCommunicationEvents() {
     //TODO: Implement getCommunicationEvents in Party
     List<int> people = new List<int>();
@@ -158,15 +163,16 @@ class Party {
 
   /// addEvent adds an event to the party.
   ///
-  /// @param name Placeholder for parameter name.
-  void addEvent() {
+  /// Takes an [int] id for a [Event], and creates an [Event_Party_Association]
+  ///   record referencing [this] and the given [Event]. Returns no value.
+  void addEvent(int id) {
     //TODO: Implement addEvents in Party
   }
 
   /// getDescription returns a list of party events.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of events.
+  /// Generates a [List<int>] of [Event] ids from [Event_Party_Association] where
+  ///   Party_id references [this], or an empty [List<int>] if no parents exist.
   List <int> getEvents() {
     //TODO: Implement getEvents in Party
     List<int> people = new List<int>();
@@ -175,8 +181,9 @@ class Party {
 
   /// getDescription removes a party event.
   ///
-  /// @param name Placeholder for parameter name.
-  void removeEvent() {
+  /// Takes an [int] id for a [Event], and removes all [Event_Party_Association]
+  ///   records referencing [this] and the given [Event]. Returns no value.
+  void removeEvent(int id) {
     //TODO: Implement removeEvents in Party
   }
 

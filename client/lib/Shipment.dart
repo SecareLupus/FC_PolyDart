@@ -22,8 +22,7 @@ class Shipment {
 
   /// getShipmentType returns the type of shipment.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of shipment types.
+  /// Generates a [ShipmentType] from the database, or an empty [ShipmentType] if no parents exist.
   ShipmentType getShipmentType() {
     //TODO: Implement getShipmentType in Shipment
     ShipmentType people = new ShipmentType();
@@ -32,8 +31,8 @@ class Shipment {
 
   /// getItems returns the shipment items.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [Item] ids from [Shipment_Item] where
+  ///   Shipment_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getItems() {
     //TODO: Implement getItems in Shipment
     List<int> people = new List<int>();
@@ -42,22 +41,24 @@ class Shipment {
 
   /// addItem adds an item to the shipment.
   ///
-  /// @param name Placeholder for parameter name.
+  /// Takes an [int] id for a [Item], and creates an [Shipment_Item]
+  ///   record referencing [this] and the given [Item]. Returns no value.
   void addItem() {
     //TODO: Implement addItem in Shipment
   }
 
   /// removeItem removes an item from the shipment.
   ///
-  /// @param name Placeholder for parameter name.
+  /// Takes an [int] id for a [Item], and removes all [Shipment_Item]
+  ///   records referencing [this] and the given [Item]. Returns no value.
   void removeItem() {
     //TODO: Implement removeItem in Shipment
   }
 
   /// getStatusUpdates returns status updates.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [StatusUpdate] ids from [Shipment_Status_Type] where
+  ///   Shipment_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getStatusUpdates() {
     //TODO: Implement getStatusUpdates in Shipment
     List<int> people = new List<int>();
@@ -66,7 +67,8 @@ class Shipment {
 
   /// addStatusUpdate adds a status update to the shipment.
   ///
-  /// @param name Placeholder for parameter name.
+  /// Takes an [int] id for a [StatusUpdate], and creates an [Shipment_Status_Type]
+  ///   record referencing [this] and the given [StatusUpdate]. Returns no value.
   void addStatusUpdate() {
     //TODO: Implement addStatusUpdate in Shipment
   }

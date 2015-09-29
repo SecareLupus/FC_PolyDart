@@ -23,9 +23,9 @@ class Organization extends Party {
 
   /// getName returns the name of an organization.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns String of organization name.
-  String getName() {
+  /// Generates a [String] from the database where the [DateTime] matches the [DateTime] in the database,
+  /// or an empty [String] if no parents exist.
+  String getName(DateTime Date) {
     //TODO: Implement getName in Organization
     String people = new String();
     return people;
@@ -33,8 +33,8 @@ class Organization extends Party {
 
   /// getName returns the facilities of an organization.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns List of integers.
+  /// Generates a [List<int>] of [Facility] ids from [Facility_Organization_Association] where
+  ///   Organization_id references [this], or an empty [List<int>] if no parents exist.
   List <int> getFacilities() {
     //TODO: Implement getFacilities in Organization
     List<int> people = new List<int>();
@@ -43,9 +43,10 @@ class Organization extends Party {
 
   /// getPersons returns the people in an organization.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns List of integers.
-  List <int> getPersons() {
+  /// Generates a [List<int>] of [Person] ids from [Organization_Person_Association] where
+  ///   the [DateTime] matches the [DateTime] in the database; Organization_id references [this],
+  ///   or an empty [List<int>] if no parents exist.
+  List <int> getPersons(DateTime Date) {
     //TODO: Implement getPersons in Organization
     List<int> people = new List<int>();
     return people;
@@ -53,29 +54,33 @@ class Organization extends Party {
 
   /// addPerson adds a person to an organization.
   ///
-  /// @param name Placeholder for parameter name.
-  void addPerson() {
+  /// Takes an [int] id for a [Person], and creates an [Organization_Person_Association]
+  ///   record referencing [this] and the given [Person]. Returns no value.
+  void addPerson(int id) {
     //TODO: Implement addPersons in Organization
   }
 
   /// termPerson removes a person from an organization.
   ///
-  /// @param name Placeholder for parameter name.
-  void termPerson() {
+  /// Takes an [int] id for a [Person], and removes all [Organization_Person_Association]
+  ///   records referencing [this] and the given [Person]. Returns no value.
+  void termPerson(int id) {
     //TODO: Implement termPersons in Organization
   }
 
   /// addFacility adds a facility to an organization.
   ///
-  /// @param name Placeholder for parameter name.
-  void addFacility() {
+  /// Takes an [int] id for a [Facility], and creates an [Facility_Organization_Association]
+  ///   record referencing [this] and the given [Facility]. Returns no value.
+  void addFacility(int id) {
     //TODO: Implement addFacility in Organization
   }
 
   /// removeFacility removes a facility from an organization.
   ///
-  /// @param name Placeholder for parameter name.
-  void removeFacility() {
+  /// Takes an [int] id for a [Facility], and removes all [Facility_Organization_Association]
+  ///   records referencing [this] and the given [Facility]. Returns no value.
+  void removeFacility(int id) {
     //TODO: Implement removeFacility in Organization
   }
 

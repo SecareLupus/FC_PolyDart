@@ -17,8 +17,7 @@ class Person extends Party {
 
   /// getName returns the person's name.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns String of person's name.
+  /// Generates a [String] containing the [Person's] name from the database, or an empty [String] if no parents exist.
   String getName() {
     //TODO: Implement getName in Person
     String people = new String();
@@ -27,25 +26,22 @@ class Person extends Party {
 
   /// getGender returns the person's gender.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns String of person's gender.
+  /// Generates a [String] from the database, or an empty [String] if no parents exist.
   String getGender() {
     //TODO: Implement getGender in Person
     String people = new String();
     return people;
   }
 
-  /// getid returns this person's ID.
-  ///
-  /// @returns The ID number of this person.
+  /// Returns the int [id] of [this].
   int getid() {
     return this._id;
   }
 
   /// getAssociatedOrganizations returns the organizations associated with a person.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of associated [Organization] ids from [Organization_Person_Association] where
+  ///   Person_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getAssociatedOrganizations() {
     //TODO: Implement getAssociatedOrganizations in Person
     List<int> people = new List<int>();
@@ -54,8 +50,8 @@ class Person extends Party {
 
   /// getOrganizationRoles returns the organization roles of a person.
   ///
-  /// @param name Placeholder for parameter name.
-  /// @returns A list of integers.
+  /// Generates a [List<int>] of [Role] ids from [Person_Role] where
+  ///   Person_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getOrganizationRoles() {
     //TODO: Implement getOrganizationRoles in Person
     List<int> people = new List<int>();
