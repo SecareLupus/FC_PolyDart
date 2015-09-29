@@ -10,7 +10,7 @@ class Event {
   String _Name;
   String _Description;
 
-  Event () {}
+  Event (int id) {}
 
 
   /// getid returns this party's ID.

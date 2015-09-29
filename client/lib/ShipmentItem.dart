@@ -15,7 +15,7 @@ class ShipmentItem {
 
   /// getFeatures returns the features of a shipment item.
   ///
-  /// Generates a [List<int>] of [Feature] ids from [Feature_ShipmentItem_Association] where
+  /// Generates a [List<int>] of [Feature] ids from [Shipment_Item_Feature] where
   ///   ShipmentItem_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getFeatures() {
     //TODO: Implement getFeatures in ShipmentItem
@@ -25,7 +25,7 @@ class ShipmentItem {
 
   /// addFeature adds a feature to a shipment item.
   ///
-  /// Takes an [int] id for a [Feature], and creates an [Feature_ShipmentItem_Association]
+  /// Takes an [int] id for a [Feature], and creates an [Shipment_Item_Feature]
   ///   record referencing [this] and the given [Feature]. Returns no value.
   void addFeature() {
     //TODO: Implement addFeature in ShipmentItem
@@ -33,7 +33,7 @@ class ShipmentItem {
 
   /// removeFeature removes a feature from a shipment item.
   ///
-  /// Takes an [int] id for a [Feature], and removes all [Feature_ShipmentItem_Association]
+  /// Takes an [int] id for a [Feature], and removes all [Shipment_Item_Feature]
   ///   records referencing [this] and the given [Feature]. Returns no value.
   void removeFeature() {
     //TODO: Implement removeFeature in ShipmentItem
@@ -41,7 +41,7 @@ class ShipmentItem {
 
   /// getResponses returns the responses of a shipment item.
   ///
-  /// Generates a [List<int>] of [Response] ids from [Response_ShipmentItem_Association] where
+  /// Generates a [List<int>] of [Response] ids from [Shipment_Item] where
   ///   ShipmentItem_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getResponses() {
     //TODO: Implement getResponses in ShipmentItem
@@ -51,7 +51,7 @@ class ShipmentItem {
 
   /// addResponseItem adds a response item to a shipment item.
   ///
-  /// Takes an [int] id for a [Response], and creates an [Response_ShipmentItem_Association]
+  /// Takes an [int] id for a [Response], and creates a [Shipment_Item]
   ///   record referencing [this] and the given [Response]. Returns no value.
   void addResponseItem() {
     //TODO: Implement addResponseItem in ShipmentItem
@@ -59,7 +59,7 @@ class ShipmentItem {
 
   /// getOrderItems returns the order items of a shipment item.
   ///
-  /// Generates a [List<int>] of [OrderItem] ids from [OrderItem_ShipmentItem_Association] where
+  /// Generates a [List<int>] of [OrderItem] ids from [Order_Shipment] where
   ///   ShipmentItem_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getOrderItems() {
     //TODO: Implement getOrderItems in ShipmentItem
@@ -69,7 +69,7 @@ class ShipmentItem {
 
   /// addOrderItem adds an order item to a shipment item.
   ///
-  /// Takes an [int] id for a [OrderItem], and creates an [OrderItem_ShipmentItem_Association]
+  /// Takes an [int] id for a [OrderItem], and creates an [Order_Shipment]
   ///   record referencing [this] and the given [OrderItem]. Returns no value.
   void addOrderItem() {
     //TODO: Implement addOrderItem in ShipmentItem
@@ -77,7 +77,7 @@ class ShipmentItem {
 
   /// removeOrderItem removes an order item from a shipment item.
   ///
-  /// Takes an [int] id for a [OrderItem], and removes all [OrderItem_ShipmentItem_Association]
+  /// Takes an [int] id for a [OrderItem], and removes all [Order_Shipment]
   ///   records referencing [this] and the given [OrderItem]. Returns no value.
   void removeOrderItem() {
     //TODO: Implement removeOrderItem in ShipmentItem
@@ -85,7 +85,7 @@ class ShipmentItem {
 
   /// getIssuances returns the issuance of a shipment item.
   ///
-  /// Generates a [List<int>] of [Issuance] ids from [Issuance_ShipmentItem_Association] where
+  /// Generates a [List<int>] of [Issuance] ids from [Item_Issuance] where
   ///   ShipmentItem_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getIssuances() {
     //TODO: Implement getIssuances in ShipmentItem
@@ -95,7 +95,7 @@ class ShipmentItem {
 
   /// addIssuance adds an issuance to a shipment item.
   ///
-  /// Takes an [int] id for a [Issuance], and creates an [Issuance_ShipmentItem_Association]
+  /// Takes an [int] id for a [Issuance], and creates an [Item_Issuance]
   ///   record referencing [this] and the given [Feature]. Returns no value.
   void addIssuance() {
     //TODO: Implement addIssuance in ShipmentItem
@@ -103,7 +103,7 @@ class ShipmentItem {
 
   /// getPackages returns the packages of a shipment item.
   ///
-  /// Generates a [List<int>] of [Package] ids from [Package_ShipmentItem_Association] where
+  /// Generates a [List<int>] of [Package] ids from [Packaging_Content] where
   ///   ShipmentItem_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getPackages() {
     //TODO: Implement getPackages in ShipmentItem
@@ -113,7 +113,7 @@ class ShipmentItem {
 
   /// addPackage adds a package to a shipment item.
   ///
-  /// Takes an [int] id for a [Package], and creates an [Package_ShipmentItem_Association]
+  /// Takes an [int] id for a [Package], and creates an [Packaging_Content]
   ///   record referencing [this] and the given [Package]. Returns no value.
   void addPackage() {
     //TODO: Implement addPackage in ShipmentItem

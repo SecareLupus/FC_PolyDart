@@ -43,7 +43,7 @@ class Organization extends Party {
 
   /// getPersons returns the people in an organization.
   ///
-  /// Generates a [List<int>] of [Person] ids from [Person_Organization_Association] where
+  /// Generates a [List<int>] of [Person] ids from [Organization_Person_Association] where
   ///   the [DateTime] matches the [DateTime] in the database; Organization_id references [this],
   ///   or an empty [List<int>] if no parents exist.
   List <int> getPersons(DateTime Date) {
@@ -54,7 +54,7 @@ class Organization extends Party {
 
   /// addPerson adds a person to an organization.
   ///
-  /// Takes an [int] id for a [Person], and creates an [Person_Organization_Association]
+  /// Takes an [int] id for a [Person], and creates an [Organization_Person_Association]
   ///   record referencing [this] and the given [Person]. Returns no value.
   void addPerson(int id) {
     //TODO: Implement addPersons in Organization
@@ -62,7 +62,7 @@ class Organization extends Party {
 
   /// termPerson removes a person from an organization.
   ///
-  /// Takes an [int] id for a [Person], and removes all [Person_Organization_Association]
+  /// Takes an [int] id for a [Person], and removes all [Organization_Person_Association]
   ///   records referencing [this] and the given [Person]. Returns no value.
   void termPerson(int id) {
     //TODO: Implement termPersons in Organization

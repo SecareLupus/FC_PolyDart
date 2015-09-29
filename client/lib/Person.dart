@@ -50,7 +50,7 @@ class Person extends Party {
 
   /// getOrganizationRoles returns the organization roles of a person.
   ///
-  /// Generates a [List<int>] of [OrganizationRole] ids from [OrganizationRole_Person_Association] where
+  /// Generates a [List<int>] of [Role] ids from [Person_Role] where
   ///   Person_id references [this], or an empty [List<int>] if no parents exist.
   List<int> getOrganizationRoles() {
     //TODO: Implement getOrganizationRoles in Person

@@ -39,7 +39,7 @@ class Party {
 
   /// getRoles returns the roles of a party.
   ///
-  /// Generates a [List<int>] of [Role] ids from [Role_Party_Association] where
+  /// Generates a [List<int>] of [Role] ids from [Party_Role] where
   ///   Party_id references [this], or an empty [List<int>] if no parents exist.
   List <int> getRoles() {
     //TODO: Implement getRoles in Party
@@ -49,7 +49,7 @@ class Party {
 
   /// getRelationship returns the relationship of a party.
   ///
-  /// Generates a [List<int>] of [Relationship] ids from [Relationship_Party_Association] where
+  /// Generates a [List<int>] of [Relationship] ids from [Party_Relationship] where
   ///   Party_id references [this], or an empty [List<int>] if no parents exist.
   List <int> getRelationships() {
     //TODO: Implement getRelationship in Party
@@ -59,7 +59,7 @@ class Party {
 
   /// getRelationshipNotes returns the notes of a party relationship.
   ///
-  /// Generates a [List<int>] of [RelationshipNote] ids from [RelationshipNote_Party_Association] where
+  /// Generates a [List<int>] of [RelationshipNote] ids from [Relationship_Note] where
   ///   Party_id references [this], or an empty [List<int>] if no parents exist.
   List <String> getRelationshipNotes() {
     //TODO: Implement getRelationshipNotes in Party
@@ -69,7 +69,7 @@ class Party {
 
   /// addRelationship adds a relationship to a party.
   ///
-  /// Takes an [int] id for a [Relationship], and creates an [Relationship_Party_Association]
+  /// Takes an [int] id for a [Relationship], and creates an [Party_Relationship]
   ///   record referencing [this] and the given [Relationship]. Returns no value.
   void addRelationship(int id) {
     //TODO: Implement addRelationship in Party
@@ -77,7 +77,7 @@ class Party {
 
   /// endRelationship removes a party's relationship.
   ///
-  /// Takes an [int] id for a [Relationship], and removes all [Relationship_Party_Association]
+  /// Takes an [int] id for a [Relationship], and removes all [Party_Relationship]
   ///   records referencing [this] and the given [Relationship]. Returns no value.
   void endRelationship(int id) {
     //TODO: Implement endRelationship in Party
@@ -85,7 +85,7 @@ class Party {
 
   /// addDescription adds a description to a party.
   ///
-  /// Takes an [int] id for a [Description], and creates an [Description_Party_Association]
+  /// Takes an [int] id for a [Description], and creates an [Party_Description_Association]
   ///   record referencing [this] and the given [Description]. Returns no value.
   void addDescription(int id) {
     //TODO: Implement addDescription in Party
@@ -93,7 +93,7 @@ class Party {
 
   /// endDescription removes a party's description.
   ///
-  /// Takes an [int] id for a [Description], and removes all [Description_Party_Association]
+  /// Takes an [int] id for a [Description], and removes all [Party_Description_Association]
   ///   records referencing [this] and the given [Description]. Returns no value.
   void endDescription(int id) {
     //TODO: Implement endDescription in Party
@@ -101,7 +101,7 @@ class Party {
 
   /// addRole adds a role of a party.
   ///
-  /// Takes an [int] id for a [Role], and creates an [Role_Party_Association]
+  /// Takes an [int] id for a [Role], and creates an [Party_Role]
   ///   record referencing [this] and the given [Role]. Returns no value.
   void addRole(int id) {
     //TODO: Implement addRole in Party
@@ -109,7 +109,7 @@ class Party {
 
   /// endRole removes a party role.
   ///
-  /// Takes an [int] id for a [Role], and removes all [Role_Party_Association]
+  /// Takes an [int] id for a [Role], and removes all [Party_Role]
   ///   records referencing [this] and the given [Role]. Returns no value.
   void endRole(int id) {
     //TODO: Implement endRole in Party
@@ -117,7 +117,7 @@ class Party {
 
   /// getShipments returns a list of shipments.
   ///
-  /// Generates a [List<int>] of [Shipment] ids from [Shipment_Party_Association] where
+  /// Generates a [List<int>] of [Shipment] ids from [Shipment] where
   ///   Party_id references [this], or an empty [List<int>] if no parents exist.
   List <int> getShipments() {
     //TODO: Implement getShipments in Party
@@ -127,7 +127,7 @@ class Party {
 
   /// addCommunicationMechanism adds a communication mechanism to the party.
   ///
-  /// Takes an [int] id for a [CommunicationMechanism], and creates an [CommunicationMechanism_Party_Association]
+  /// Takes an [int] id for a [CommunicationMechanism], and creates an [Party_Communication_Association]
   ///   record referencing [this] and the given [CommunicationMechanism]. Returns no value.
   void addCommunicationMechanism(int id) {
     //TODO: Implement addCommunicationMechanism in Party
@@ -135,7 +135,7 @@ class Party {
 
   /// getDescription returns a list of the party's communication mechanisms.
   ///
-  /// Generates a [List<int>] of [CommunicationMechanism] ids from [CommunicationMechanism_Party_Association] where
+  /// Generates a [List<int>] of [CommunicationMechanism] ids from [Party_Communication_Association] where
   ///   Party_id references [this], or an empty [List<int>] if no parents exist.
   List <int> getCommunicationMechanisms() {
     //TODO: Implement getCommunicationMechanism in Party
@@ -145,7 +145,7 @@ class Party {
 
   /// endCommunicationMechanism removes a communication mechanism.
   ///
-  /// Takes an [int] id for a [CommunicationMechanism], and removes all [CommunicationMechanism_Party_Association]
+  /// Takes an [int] id for a [CommunicationMechanism], and removes all [Party_Communication_Association]
   ///   records referencing [this] and the given [CommunicationMechanism]. Returns no value.
   void endCommunicationMechanism(int id) {
     //TODO: Implement endCommunicationMechanism in Party
@@ -153,7 +153,7 @@ class Party {
 
   /// getCommunicationEvents a list of party communication events.
   ///
-  /// Generates a [List<int>] of [CommunicationEvent] ids from [CommunicationEvent_Party_Association] where
+  /// Generates a [List<int>] of [CommunicationEvent] ids from [Communication_Event] where
   ///   Party_id references [this], or an empty [List<int>] if no parents exist.
   List <int> getCommunicationEvents() {
     //TODO: Implement getCommunicationEvents in Party
