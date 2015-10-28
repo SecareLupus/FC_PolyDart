@@ -7,7 +7,7 @@ import 'package:uuid/uuid.dart';
 import "package:redis_client/redis_client.dart";
 
 import "session_json.dart";
-import "encryption.dart" show LocalServer;
+import "encryption.dart";
 
 enum ReqPerms {
   full,
@@ -25,18 +25,27 @@ String _getNewUuid() {
   return uuid.v4();
 }
 
+///Processes a client request for an LKey, receiving a json representation of a
+/// wagRSAEncryption object with a null private key. Also takes an optional string
+/// representing the address of the Redis server, if not the localhost. The pubKey
+/// json string will be encrypted with the server's pubkey before storage, to ensure
+/// its safety. An expiration timer is set, allowing clients to time-out.
 Future<String> getLoginKey(String pubKey, [String address = ""]) async {
   sessionStore = address == "" ? sessionStore : address;
   if (Platform.isLinux || address != "") {
     RedisClient cl = await RedisClient.connect(sessionStore);
     String uuid = _getNewUuid();
     SessionJson sessionInfo = new SessionJson(uuid, pubKey, SessionType.client, [ReqPerms.login]);
-    await cl.setex(uuid, 600, LocalServer.encrypt(sessionInfo.toString()));
-    return (LocalServer.decrypt(await cl.get(uuid)));
+    String jsonstring = sessionInfo.toString();
+    String encrypted = LocalServer.encrypt(jsonstring);
+    await cl.setex(uuid, 600, encrypted);
+    return (uuid);
   } else {
     return _getNewUuid();
   }
 }
+
+
 
 Future<String> getUserKey(String sessionKey, [String address = ""]) async {
   sessionStore = (address == "") ? sessionStore : address;

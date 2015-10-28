@@ -66,7 +66,7 @@ class SessionJson {
         break;
     }
     if (perms.isEmpty) {
-      _json += "\"perms\": \"none\"";
+      _json += "\"perms\": \"none\"  ";
     } else {
       _json += "\"perms\": [";
       perms.forEach((v) {

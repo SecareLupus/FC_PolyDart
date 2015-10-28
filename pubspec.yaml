@@ -6,7 +6,7 @@ dependencies:
   rpc: "^0.5.2"
   sqljocky: "^0.13.0"
   uuid: 0.5.0
-  rsa:
+  WAGEncryption:
       git:
-        url: git://github.com/SecareLupus/rsa.git
+        url: git://github.com/SecareLupus/WAGEncryption.git
         ref: master

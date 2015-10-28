@@ -47,7 +47,7 @@ bool isDateTime(String date) {
 ///
 /// Takes a [String] and passes it through a function that checks if it is an Email address.
 /// returns true if and only if [address] is an Email address.
-bool isEMail(String address) {
+bool isEmail(String address) {
   //TODO test isEMail in GeneralUtilityFunctions
   return isEmail(address);
 }
