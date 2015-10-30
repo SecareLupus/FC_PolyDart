@@ -37,7 +37,7 @@ Future<String> getLoginKey(String pubKey, [String address = ""]) async {
     String uuid = _getNewUuid();
     SessionJson sessionInfo = new SessionJson(uuid, pubKey, SessionType.client, [ReqPerms.login]);
     String jsonstring = sessionInfo.toString();
-    String encrypted = LocalServer.encrypt(jsonstring);
+    String encrypted = LocalServer.localAESCipher.encrypt(jsonstring);
     await cl.setex(uuid, 600, encrypted);
     return (uuid);
   } else {
@@ -53,6 +53,7 @@ Future<String> getUserKey(String sessionKey, [String address = ""]) async {
     RedisClient cl = await RedisClient.connect(sessionStore);
 
     String clientData = await cl.get(sessionKey);
+    clientData = LocalServer.localAESCipher.decrypt(clientData);
     SessionJson clientSession = new SessionJson.fromJSON(clientData);
     String pubKey = clientSession.pubKey;
 
@@ -71,11 +72,13 @@ Future<String> getPubKey(String apiKey) async {
   RedisClient cl = await RedisClient.connect(sessionStore);
 
   String targetData = await cl.get(apiKey);
+  targetData = LocalServer.localAESCipher.decrypt(targetData);
   SessionJson targetSession = new SessionJson.fromJSON(targetData);
   return targetSession.pubKey;
 }
 
 Future<List<ReqPerms>> getPerms(String key) async {
+  //TODO: Write getPerms
   return RedisClient.connect(sessionStore)
   .then((RedisClient client) {
     return client.get(key)
@@ -84,5 +87,6 @@ Future<List<ReqPerms>> getPerms(String key) async {
 }
 
 Future<bool> hasPerm(String key, ReqPerms perm) async {
+  //TODO: Write hasPerm
   return true;
 }

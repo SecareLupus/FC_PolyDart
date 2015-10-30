@@ -25,11 +25,12 @@ class FCApi {
     String LKey = await KeyGen.getLoginKey(pubkey.pubKey);
     //Encrypt LKey with client's provided pubkey
     wagRSAEncryption clPub = new wagRSAEncryption.deserialize(pubkey.pubKey);
-    LKey = clPub.encrypt(LKey);
+
     //Return a serialized server pubkey, and the encrypted LKey
     wagRSAEncryption pub = LocalServer.pubOnly;
-    return new Message.LKeyResponse()..pubKey = pub.serializeKeys()
-                                    ..loginKey = LKey;
+    wagMessageEncryption crypt = new wagMessageEncryption(LocalServer.localRSACipher, clPub);
+    return new Message.LKeyResponse()..pubKey = crypt.encrypt(pub.serializeKeys())
+                                    ..loginKey = crypt.encrypt(LKey);
   }
 
   @ApiMethod(method: 'POST', path: 'login')
