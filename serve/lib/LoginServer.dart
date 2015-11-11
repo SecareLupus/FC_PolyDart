@@ -1,6 +1,6 @@
 library loginserver;
 
-import "MessageForms.dart" as Message;
+import "message_forms.dart" as Message;
 
   bool loginAttempt(Message.LoginRequest credentials) {
     int index = _getUserIndex(credentials.username);
@@ -21,7 +21,7 @@ import "MessageForms.dart" as Message;
   bool _comparePassword(int index, String password) {
     List<String> passwords = ["Able","to","be","picked","for","sports"];
 
-    if (passwords.elementAt(index) == password) {
+    if (passwords[index] == password) {
       return true;
     }
     return false;
