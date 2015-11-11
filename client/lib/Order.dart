@@ -15,9 +15,10 @@ class Order {
   /// @param name Placeholder for parameter name.
   /// @returns An OrderType object.
   OrderType getOrderType() {
-    //TODO: Implement getProduct in Order
-    OrderType people = new OrderType();
-    return people;
+    //TODO: Implement getOrderType in Order
+    OrderType type = OrderType.PurchaseOrder;
+    type = OrderType.SalesOrder;
+    return type;
   }
 
   /// getItems returns the items of an order.
@@ -125,4 +126,9 @@ class Order {
   void addStatus(int) {
     //TODO: Implement addStatus in Order
   }
+}
+
+enum OrderType {
+  PurchaseOrder,
+  SalesOrder
 }

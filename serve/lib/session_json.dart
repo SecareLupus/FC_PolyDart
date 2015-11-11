@@ -1,6 +1,7 @@
 import "dart:convert";
 
 import "keygen.dart" show ReqPerms;
+import "package:WAGEncryption/WAGEncryption.dart" show trimNulls;
 
 enum SessionType {
   client,
@@ -17,10 +18,12 @@ class SessionJson {
   SessionJson(String this.sessionKey, String this.pubKey, SessionType this.type, List<ReqPerms> this.perms);
 
   SessionJson.fromJSON(String json) {
-    var _jsonDump = JSON.decode(json);
+    //Trim nulls from this string.
+    json = trimNulls(json);
+    Map _jsonDump = JSON.decode(json);
 
     sessionKey = _jsonDump['api'];
-    pubKey = _jsonDump['pubkey'];
+    pubKey = JSON.encode(_jsonDump['pubkey']);
     switch (_jsonDump['type']) {
       case "user":
         type = SessionType.user;
@@ -56,7 +59,7 @@ class SessionJson {
     String _json = "{";
 
     _json += "\"api\": \"$sessionKey\", ";
-    _json += "\"pubkey\": \"$pubKey\", ";
+    _json += "\"pubkey\": $pubKey, ";
     switch (type) {
       case SessionType.client:
         _json += "\"type\": \"client\", ";
@@ -66,7 +69,7 @@ class SessionJson {
         break;
     }
     if (perms.isEmpty) {
-      _json += "\"perms\": \"none\"";
+      _json += "\"perms\": \"none\"  ";
     } else {
       _json += "\"perms\": [";
       perms.forEach((v) {
