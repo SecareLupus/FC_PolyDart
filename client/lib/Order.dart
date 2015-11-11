@@ -16,9 +16,10 @@ class Order {
   ///
   /// Returns an [OrderType] from the database.
   OrderType getOrderType() {
-    //TODO: Implement getProduct in Order
-    OrderType people = new OrderType();
-    return people;
+    //TODO: Implement getOrderType in Order
+    OrderType type = OrderType.PurchaseOrder;
+    type = OrderType.SalesOrder;
+    return type;
   }
 
   /// getItems returns the items of an order.
@@ -133,4 +134,9 @@ class Order {
   void addStatus(int id) {
     //TODO: Implement addStatus in Order
   }
+}
+
+enum OrderType {
+  PurchaseOrder,
+  SalesOrder
 }
