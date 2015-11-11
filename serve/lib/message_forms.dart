@@ -5,6 +5,7 @@ library message;
 /// private key and the client's public key. This allows us to create a
 /// new copy of the encryption object with wagRSAEncryption.deserialize(pubKey).
 class LKeyRequest {
+  //Unencrypted
   String pubKey;
 }
 
@@ -16,8 +17,12 @@ class LKeyRequest {
 /// wagRSAEncryption.deserialize(pubKey). Our new LKey should be encrypted with
 /// the client's pubkey.
 class LKeyResponse {
+  //Encrypted with Client_PubKey and Signed with Server_PrivKey
   String loginKey;
+  //Unencrypted
   String pubKey;
+
+  //String toString() => "LKeyResponse; {'loginKey': '$loginKey', 'pubKey': '$pubKey'";
 }
 
 ///Used when client is attempting to open a user session. This message includes
@@ -25,7 +30,9 @@ class LKeyResponse {
 /// username/password credentials. These strings should be signed by the client,
 /// and encrypted with the server's pubkey, so only the server can decrypt them.
 class LoginRequest {
+  //Encrypted with Server_PubKey
   String loginKey;
+  //Encrypted with Server_PubKey and Signed with Client_PrivKey
   String username;
   String password;
 }
@@ -36,6 +43,7 @@ class LoginRequest {
 /// be encrypted with the client's pubkey, so only the client can decrypt them.
 ///
 class LoginResponse {
+  //Encrypted with Client_PubKey and Signed with Server_PrivKey
   bool success;
   String userKey;
 }

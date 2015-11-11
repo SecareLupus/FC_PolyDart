@@ -29,29 +29,30 @@ class FCApi {
     //Return a serialized server pubkey, and the encrypted LKey
     wagRSAEncryption pub = LocalServer.pubOnly;
     wagMessageEncryption crypt = new wagMessageEncryption(LocalServer.localRSACipher, clPub);
-    return new Message.LKeyResponse()..pubKey = crypt.encrypt(pub.serializeKeys())
+    return new Message.LKeyResponse()..pubKey = pub.serializeKeys()
                                     ..loginKey = crypt.encrypt(LKey);
   }
 
   @ApiMethod(method: 'POST', path: 'login')
   Future<Message.LoginResponse> apiLogin(Message.LoginRequest credentials) async {
+    String apiKey = LocalServer.localRSACipher.decrypt(credentials.loginKey);
+    //Crashes on KeyGen.getPubKey
+    String clPubKey = await KeyGen.getPubKey(apiKey);
+    wagMessageEncryption decipher = new wagMessageEncryption(new wagRSAEncryption.deserialize(clPubKey), LocalServer.localRSACipher);
+
+    credentials.username = decipher.decrypt(credentials.username);
+    credentials.password = decipher.decrypt(credentials.password);
+    wagMessageEncryption cipher = new wagMessageEncryption(LocalServer.localRSACipher, new wagRSAEncryption.deserialize(clPubKey));
+
     if (LoginServer.loginAttempt(credentials)) {
+      String uuid = await KeyGen.getUserKey(credentials.loginKey);
       return new Message.LoginResponse()
         ..success = true
-        ..userKey = await KeyGen.getUserKey(credentials.loginKey);
+        ..userKey = cipher.encrypt(uuid);
     } else {
       return new Message.LoginResponse()
         ..success = false
         ..userKey = "";
     }
-  }
-
-  @ApiMethod(method: 'GET', path: 'test')
-  Future<VoidMessage> test() async {
-    var tmp = await KeyGen.getLoginKey("THISISATEST");
-    SessionJson breakdown = new SessionJson.fromJSON(tmp);
-    print("Key: ${breakdown.sessionKey}");
-    print("toString(): ${breakdown.toString()}");
-    return new VoidMessage();
   }
 }

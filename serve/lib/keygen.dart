@@ -51,7 +51,7 @@ Future<String> getUserKey(String sessionKey, [String address = ""]) async {
   sessionStore = (address == "") ? sessionStore : address;
   if (Platform.isLinux || address != "") {
     RedisClient cl = await RedisClient.connect(sessionStore);
-
+    sessionKey = LocalServer.localRSACipher.decrypt(sessionKey);
     String clientData = await cl.get(sessionKey);
     clientData = LocalServer.localAESCipher.decrypt(clientData);
     SessionJson clientSession = new SessionJson.fromJSON(clientData);
@@ -59,9 +59,11 @@ Future<String> getUserKey(String sessionKey, [String address = ""]) async {
 
     String uuid = _getNewUuid();
     SessionJson sessionInfo = new SessionJson(uuid, pubKey, SessionType.user, [ReqPerms.read, ReqPerms.write]);
-    await cl.setex(uuid, 300, sessionInfo.toString());
+    String jsonstring = sessionInfo.toString();
+    String encrypted = LocalServer.localAESCipher.encrypt(jsonstring);
+    await cl.setex(uuid, 300, encrypted);
     await cl.expire(sessionKey, 600);
-    return (await cl.get(uuid));
+    return (uuid);
   } else {
     return _getNewUuid();   //On Windows, generate a random ID, and return that instead of doing anything useful.
                             //I blame Redis for not having a Windows version.
@@ -78,12 +80,12 @@ Future<String> getPubKey(String apiKey) async {
 }
 
 Future<List<ReqPerms>> getPerms(String key) async {
-  //TODO: Write getPerms
-  return RedisClient.connect(sessionStore)
-  .then((RedisClient client) {
-    return client.get(key)
-    .then((val) => val);
-  });
+  RedisClient cl = await RedisClient.connect(sessionStore);
+
+  String targetData = await cl.get(key);
+  targetData = LocalServer.localAESCipher.decrypt(targetData);
+  SessionJson targetSession = new SessionJson.fromJSON(targetData);
+  return targetSession.perms;
 }
 
 Future<bool> hasPerm(String key, ReqPerms perm) async {
