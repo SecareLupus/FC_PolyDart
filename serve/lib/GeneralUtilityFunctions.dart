@@ -5,7 +5,7 @@
 /// GeneralUtilityFunctions
 /// This file has several functions for checking and modifying inputs
 
-import '../../../packages/validator/validator.dart';
+import '../../packages/validator/validator.dart';
 
 /// Determines whether a [String] is alphanumeric.
 ///
