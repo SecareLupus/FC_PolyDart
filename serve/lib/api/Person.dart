@@ -1,42 +1,57 @@
 /// Person.dart
 /// Version 0.0.1a
 /// Copyright 2015 Pioneer Valley Gamer Collective
+import "Party.dart";
 
-part of Party.dart;
-
+///
 /// This class depends on:
 /// * Party.dart
 ///
 /// Person
 /// This class is used to create Person objects and methods for Person objects.
-class Person extends Party {
-  int _id;
-  int _parentid;
-
+class Person implements Party {
   Person() {}
 
   /// getName returns the person's name.
   ///
   /// Generates a [String] containing the [Person's] name from the database, or an empty [String] if no parents exist.
-  String getName() {
+  String getName([DateTime when = null]) {
     //TODO: Implement getName in Person
-    String people = new String();
-    return people;
+    String people = "";
+    //return people;
+    //*****************************
+    if (when == null) {
+      when = new DateTime.now();
+    }
+    when = new DateTime(when.year, when.month, when.day);
+    String sql = "SELECT name FROM Person_Name WHERE" +
+        "Person_id=${this.getid()} AND " +
+        "from_date<=${when} AND " +
+        "(thru_date>=${when} OR thru_date IS NULL)";
+    //*****************************
+    return "";
   }
 
   /// getGender returns the person's gender.
   ///
   /// Generates a [String] from the database, or an empty [String] if no parents exist.
-  String getGender() {
+  String getGender([DateTime when = null]) {
     //TODO: Implement getGender in Person
-    String people = new String();
+    String people = "";
+    //*****************************
+    if (when == null) {
+      when = new DateTime.now();
+    }
+    when = new DateTime(when.year, when.month, when.day);
+    String sql = "SELECT Gender_Type.name, Gender_Type.description FROM " +
+    "(Gender_Association INNER JOIN Gender_Type ON Gender_Association.Gender_Type_id=Gender_Type.id)" +
+    " WHERE Gender_Association.Person_id=${this.getid()} AND " +
+    "from_date<=${when} AND " +
+    "(thru_date>=${when} OR thru_date IS NULL)";
+    //*****************************
     return people;
   }
 
-  /// Returns the int [id] of [this].
-  int getid() {
-    return this._id;
-  }
 
   /// getAssociatedOrganizations returns the organizations associated with a person.
   ///

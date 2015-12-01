@@ -4,8 +4,9 @@
 
 library Party;
 
-part 'Organization.dart';
-part 'Person.dart';
+import "apiObject.dart";
+import "Person.dart";
+import "Organization.dart";
 
 /// This class depends on:
 /// * Organization.dart
@@ -16,16 +17,14 @@ part 'Person.dart';
 ///
 /// Party
 /// This class is used to create Party objects and methods for Party objects.
-class Party {
+abstract class Party extends apiObject {
+  factory Party(int id) {
+    //Query mysql database for Person and Organization objects that link to this id.
+    //return appropriate subclass.
 
-  int _id;
-  int _parentid;
-
-  Party () {
-  }
-  /// Returns the int [id] of [this].
-  int getid() {
-    return this._id;
+    if (id <= 0 || id > 0)
+      return new Person(id);
+    return new Organization(id);
   }
 
   /// getDescription returns the description of a party.
@@ -166,7 +165,9 @@ class Party {
   /// Takes an [int] id for a [Event], and creates an [Event_Party_Association]
   ///   record referencing [this] and the given [Event]. Returns no value.
   void addEvent(int id) {
-    //TODO: Implement addEvents in Party
+    int x = 4;
+    x++;
+    print("Added Event!");
   }
 
   /// getDescription returns a list of party events.

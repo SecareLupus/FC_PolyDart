@@ -1,24 +1,32 @@
 /// Organization.dart
 /// Version 0.0.1a
 /// Copyright 2015 Pioneer Valley Gamer Collective
-part of Party.dart;
+import "Party.dart";
+import "ObjectCache.dart";
 
 /// This class depends on:
 /// * Party.dart
 ///
 /// Organization
 /// This class is used to create Organization objects and methods for accessing Organization objects.
-class Organization extends Party {
-  int _id;
-  int _parentid;
+class Organization implements Party {
+  static OrganizationCache _cache = new OrganizationCache();
 
-  Organization() {}
+  Organization._create() {
+    //Create object in db, and then fill in any values we can, like id, etc.
+  }
 
-  /// getid returns this party's ID.
-  ///
-  /// @returns The ID number of this party.
-  int getid() {
-    return this._id;
+  factory Organization(int id) {
+    //If exists in cache, return that.
+    //Else create new one.
+    //Drag data out of db, put in object, flag object for updates.
+    Organization fetchCache = null;
+    if (id != -1)
+      fetchCache = _cache.getFromCache(id);
+    if (fetchCache == null) {
+      fetchCache = new Organization._create();
+    }
+    return fetchCache;
   }
 
   /// getName returns the name of an organization.
@@ -27,7 +35,7 @@ class Organization extends Party {
   /// or an empty [String] if no parents exist.
   String getName(DateTime Date) {
     //TODO: Implement getName in Organization
-    String people = new String();
+    String people = "";
     return people;
   }
 
@@ -83,5 +91,6 @@ class Organization extends Party {
   void removeFacility(int id) {
     //TODO: Implement removeFacility in Organization
   }
-
 }
+
+class OrganizationCache extends ObjectCache<Organization> {}

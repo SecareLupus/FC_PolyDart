@@ -1,12 +1,27 @@
 library message;
 
+abstract class wagMessage {
+  void encrypt();
+  void decrypt();
+}
+
 ///Used for initial contact with server, it includes a string, derived from
 /// calling [wagRSAEncryption.serializeKeys()] on an object with a null
 /// private key and the client's public key. This allows us to create a
 /// new copy of the encryption object with wagRSAEncryption.deserialize(pubKey).
-class LKeyRequest {
+class LKeyRequest implements wagMessage {
   //Unencrypted
   String pubKey;
+
+  @override
+  void decrypt() {
+    // TODO: implement decrypt
+  }
+
+  @override
+  void encrypt() {
+    // TODO: implement encrypt
+  }
 }
 
 ///Used when server responds to initial contact, it includes a string representing
