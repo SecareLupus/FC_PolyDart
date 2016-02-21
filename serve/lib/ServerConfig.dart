@@ -1,17 +1,17 @@
-import "package:sqljocky/sqljocky.dart";
-
-export "package:sqljocky/sqljocky.dart" show ConnectionPool, Results;
+import 'package:magnetfruit_mysql_database_handler/mysql_database_handler.dart';
+export 'package:magnetfruit_mysql_database_handler/mysql_database_handler.dart' show MySqlDatabaseHandler;
 
 class ServerConfig {
   static String _host = "localhost";
-  static int _port;
+  static int _port = 3306;
   static String _user = 'root';
   static String _password = 'password';
-  static String _db;
-  static int _max_conn;
-  static ConnectionPool _pool = new ConnectionPool(host: _host, port: _port, user: _user, password: _password, db: _db, max: _max_conn);
+  static String _db = 'fc_test';
 
-  static ConnectionPool getPool() {
-    return _pool;
+  static MySqlDatabaseHandler _databaseHandler = new MySqlDatabaseHandler(
+          _host, _port, _db, _user, _password);
+
+  static MySqlDatabaseHandler getHandler() {
+    return _databaseHandler;
   }
 }
