@@ -56,4 +56,3 @@ packages/
 pubspec.lock
 
 .atom
-serve/lib/entities/*
