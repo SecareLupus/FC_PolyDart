@@ -3,6 +3,7 @@ library objects;
 import 'package:magnetfruit_avocadorm/avocadorm.dart';
 import '../ServerConfig.dart';
 
+export "package:magnetfruit_database_handler/database_handler.dart" show Filter;
 export "../entities/entities.dart";
 export "../../../packages/log/log.dart";
 

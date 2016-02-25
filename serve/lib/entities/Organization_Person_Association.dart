@@ -10,23 +10,23 @@ part of entities;
 /// Association of people in organizations. Used to indicate that a given person is in a given organization.
 @Table('Organization_Person_Association')
 class Organization_Person_Association extends Entity {
-	// ***Table Columns***
-	@Column.PrimaryKey('id')
-	int id;
-	@Column('Person_id')
-	int Person_id;
-	@Column('Organization_id')
-	int Organization_id;
-	@Column('from_date')
-	DateTime from_date;
-	@Column('thru_date')
-	DateTime thru_date;
+  // ***Table Columns***
+  @Column.PrimaryKey('id')
+  int id;
+  @Column('Person_id')
+  int Person_id;
+  @Column('Organization_id')
+  int Organization_id;
+  @Column('from_date')
+  String from_date;
+  @Column('thru_date')
+  String thru_date;
 
-	// ***Table Foreign Key Entities***
-	@Column.ManyToOneForeignKey('Person_id')
-	Person person;
-	@Column.ManyToOneForeignKey('Organization_id')
-	Organization organization;
-	@Column.OneToManyForeignKey('Organization_Person_Association_id')
-	List<Organization_Role_Classification> organization_role_classifications;
+  // ***Table Foreign Key Entities***
+  @Column.ManyToOneForeignKey('Person_id')
+  Person person;
+  @Column.ManyToOneForeignKey('Organization_id')
+  Organization organization;
+  @Column.OneToManyForeignKey('Organization_Person_Association_id')
+  List<Organization_Role_Classification> organization_role_classifications;
 }

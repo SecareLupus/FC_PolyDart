@@ -10,21 +10,21 @@ part of entities;
 /// Associates a Person with a Gender_Type, for some period of time. Allows members' genders to change over time.
 @Table('Gender_Association')
 class Gender_Association extends Entity {
-	// ***Table Columns***
-	@Column.PrimaryKey('id')
-	int id;
-	@Column('Person_id')
-	int Person_id;
-	@Column('Gender_Type_id')
-	int Gender_Type_id;
-	@Column('from_date')
-	DateTime from_date;
-	@Column('thru_date')
-	DateTime thru_date;
+  // ***Table Columns***
+  @Column.PrimaryKey('id')
+  int id;
+  @Column('Person_id')
+  int Person_id;
+  @Column('Gender_Type_id')
+  int Gender_Type_id;
+  @Column('from_date')
+  String from_date;
+  @Column('thru_date')
+  String thru_date;
 
-	// ***Table Foreign Key Entities***
-	@Column.ManyToOneForeignKey('Person_id')
-	Person person;
-	@Column.ManyToOneForeignKey('Gender_Type_id')
-	Gender_Type gender_type;
+  // ***Table Foreign Key Entities***
+  @Column.ManyToOneForeignKey('Person_id')
+  Person person;
+  @Column.ManyToOneForeignKey('Gender_Type_id')
+  Gender_Type gender_type;
 }

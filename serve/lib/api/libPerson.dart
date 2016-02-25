@@ -45,37 +45,43 @@ class libPerson {
     Dev.message("Date_Thru: $thru");
 
     Person_Name newName = new Person_Name();
-    newName..Person_id = id
+    newName
+      ..Person_id = id
       ..name = name
       ..from_date = DateUtil.tokenize(from)
       ..thru_date = DateUtil.tokenize(thru);
-    db.avo.create(newName).then((e){}, onError: (err) {
+    db.avo.create(newName).then((v) {}, onError: (err) {
       Log.error("Error creating new name. E($err)");
     });
   }
 
   static Future addGender(int id, String gender,
       {DateTime from: null, DateTime thru: null}) async {
-    from ??= new DateTime.now();
+    from ??= DateUtil.today();
 
     Dev.message("Entering setGender()");
-    Dev.message("ID:" + id);
+    Dev.message("ID: $id");
     Dev.message("Gender: " + gender);
     Dev.message("Date_From: $from");
     Dev.message("Date_Thru: $thru");
 
-    genderFilter = [
-      new Filter("name", gender)
-    ];
+    var genderFilter = [new Filter("name", "Male")];
+    Dev.message("genderFilter list built: " + genderFilter.toString());
     List<Gender_Type> genders =
-      await db.avo.read(Gender_Type, filters: genderFilter);
+        await db.avo.read(Gender_Type, filters: genderFilter);
+
+    //TODO: Add gender to list if genders.length == 0
+    Dev.message("genders list compiled");
 
     Gender_Association newAssoc = new Gender_Association();
-    newAssoc..Person_id = id
+    newAssoc
+      ..Person_id = id
       ..Gender_Type_id = genders.first.id
-      ..from_date = from
-      ..thru_date = thru;
-    db.avo.create(newAssoc);
+      ..from_date = DateUtil.tokenize(from)
+      ..thru_date = DateUtil.tokenize(thru);
+    db.avo.create(newAssoc).then((pkValue) {}, onError: (e) {
+      Log.error("Error adding Gender_Association E($e)");
+    });
   }
 
   static Future addOrganization(int id, {int org_id: null}) async {
@@ -84,8 +90,9 @@ class libPerson {
     Dev.message("Organization_id: " + org_id);
 
     Organization_Person_Association newAssoc =
-      new Organization_Person_Association();
-    newAssoc..Person_id = id
+        new Organization_Person_Association();
+    newAssoc
+      ..Person_id = id
       ..Organization_id = org_id
       ..from_date = new DateTime.now()
       ..thru_date = null;
@@ -129,7 +136,7 @@ class libPerson {
   }
 
   static Future<String> getName(int id, {DateTime date: null}) async {
-    date ??= new DateTime.now();
+    date ??= DateUtil.today();
 
     Dev.message("Entering getName()");
     Dev.message("ID:" + id);
@@ -139,7 +146,7 @@ class libPerson {
   }
 
   static Future<List<String>> getNames(int id, {DateTime date: null}) async {
-    date ??= new DateTime.now();
+    date ??= DateUtil.today();
 
     Dev.message("Entering getNames()");
     Dev.message("ID:" + id);
@@ -147,14 +154,11 @@ class libPerson {
 
     List<String> collected = [];
 
-    filters = [
-      new Filter("Person_id", id)
-    ];
-    List<Person_Name> names =
-      await db.avo.read(Person_Name, filters: filters);
+    filters = [new Filter("Person_id", id)];
+    List<Person_Name> names = await db.avo.read(Person_Name, filters: filters);
     names.forEach((Person_Name f) {
-      if (DateUtil.parseText(f.from_date) <= date
-        && DateUtil.parseText(f.thru_date) >= date) {
+      if (DateUtil.parseText(f.from_date) <= date &&
+          DateUtil.parseText(f.thru_date) >= date) {
         collected.add(f.name);
       }
     });
@@ -162,7 +166,7 @@ class libPerson {
   }
 
   static Future<Gender_Type> getGender(int id, {date: null}) async {
-    date ??= new DateTime.now();
+    date ??= DateUtil.today();
 
     Dev.message("Entering getGender()");
     Dev.message("ID: $id");
@@ -172,7 +176,7 @@ class libPerson {
   }
 
   static Future<List<Gender_Type>> getGenders(int id, {date: null}) async {
-    date ??= new DateTime.now();
+    date ??= DateUtil.today();
 
     Dev.message("Entering getGenders()");
     Dev.message("ID: $id");
@@ -180,16 +184,12 @@ class libPerson {
 
     List<Gender_Type> collected = [];
 
-    filters = [
-      new Filter("Person_id", id)
-    ];
+    filters = [new Filter("Person_id", id)];
     List<Gender_Association> assoc =
-      await db.avo.read(Gender_Association, filters: filters);
+        await db.avo.read(Gender_Association, filters: filters);
     assoc.forEach((Gender_Association f) async {
       if (f.from_date <= date && f.thru_date >= date) {
-        collected.add(
-          await db.avo.readById(Gender_Type, f.Gender_Type_id)
-        );
+        collected.add(await db.avo.readById(Gender_Type, f.Gender_Type_id));
       }
     });
 
@@ -204,122 +204,127 @@ class libPerson {
    *  - Terminate an active person-organization association
    */
 
-  static Future<bool> setNameStart(int id, String name, {DateTime date: null}) async {
-    date ??= new DateTime.now();
+  static Future<bool> setNameStart(int id, String name,
+      {DateTime date: null}) async {
+    date ??= DateUtil.today();
 
     Dev.message("Entering setNameStart()");
     Dev.message("ID: $id");
     Dev.message("Name:" + name);
     Dev.message("Date:" + date);
 
-    var filters = [
-      new Filter("Person_id", id),
-      new Filter("name", name)
-    ];
-    List<Person_Name> names =
-      await db.avo.read(Person_Name, filters: filters);
+    var filters = [new Filter("Person_id", id), new Filter("name", name)];
+    List<Person_Name> names = await db.avo.read(Person_Name, filters: filters);
     names.forEach((Person_Name f) {
-      f.from_date = date;
+      f.from_date = DateUtil.tokenize(date);
       f.update();
     });
   }
 
-  static Future<bool> setNameEnd(int id, String name, {DateTime date: null}) async {
-    date ??= new DateTime.now();
+  static Future<bool> setNameEnd(int id, String name,
+      {DateTime date: null}) async {
+    date ??= DateUtil.today();
 
     Dev.message("Entering setNameEnd()");
     Dev.message("ID: $id");
     Dev.message("Name:" + name);
     Dev.message("Date:" + date);
 
-    var filters = [
-      new Filter("Person_id", id),
-      new Filter("name", name)
-    ];
-    List<Person_Name> names =
-      await db.avo.read(Person_Name, filters: filters);
+    var filters = [new Filter("Person_id", id), new Filter("name", name)];
+    List<Person_Name> names = await db.avo.read(Person_Name, filters: filters);
     names.forEach((Person_Name f) {
-      f.thru_date = date;
+      f.thru_date = DateUtil.tokenize(date);
       f.update();
     });
   }
 
-  static Future<bool> setGenderStart(int id, String gender, {DateTime date: null}) async {
-    date ??= new DateTime.now();
+  static Future<bool> setGenderStart(int id, String gender,
+      {DateTime date: null}) async {
+    date ??= DateUtil.today();
 
     Dev.message("Entering setGenderStart()");
     Dev.message("ID: $id");
     Dev.message("Gender:" + gender);
-    Dev.message("Date:" + date);
+    Dev.message("Date: $date");
 
-    var genderFilter = [
-      new Filter("name", gender)
-    ];
+    var genderFilter = [new Filter("name", gender)];
     List<Gender_Type> genders =
-      await db.avo.read(Gender_Type, genderFilter);
+        await db.avo.read(Gender_Type, filters: genderFilter);
     genders.forEach((Gender_Type f) async {
-      filters = [
+      var filters = [
         new Filter("Person_id", id),
         new Filter("Gender_Type_id", f.id)
       ];
       List<Gender_Association> assoc =
-        await db.avo.read(Gender_Association, filters);
+          await db.avo.read(Gender_Association, filters: filters);
       assoc.forEach((Gender_Association g) {
-        g.from_date = date;
-        g.update();
+        g.from_date = DateUtil.tokenize(date);
+        g.update().then((f) {
+          Dev.message("Date on leaving start date: " + date.toString());
+          return true;
+        }, onError: (e) {
+          return false;
+        });
       });
     });
   }
 
-  static Future<bool> setGenderEnd(int id, String gender, {DateTime date: null}) async {
-    date ??= new DateTime.now();
+  static Future<bool> setGenderEnd(int id, String gender,
+      {DateTime date: null}) async {
+    date ??= DateUtil.today();
 
     Dev.message("Entering setGenderEnd()");
     Dev.message("ID: $id");
     Dev.message("Gender:" + gender);
-    Dev.message("Date:" + date);
+    Dev.message("Date:" + date.toString());
 
-    var genderFilter = [
-      new Filter("name", gender)
-    ];
+    var genderFilter = [new Filter("name", gender)];
     List<Gender_Type> genders =
-      await db.avo.read(Gender_Type, genderFilter);
+        await db.avo.read(Gender_Type, filters: genderFilter);
     genders.forEach((Gender_Type f) async {
-      filters = [
+      var filters = [
         new Filter("Person_id", id),
         new Filter("Gender_Type_id", f.id)
       ];
       List<Gender_Association> assoc =
-        await db.avo.read(Gender_Association, filters);
+          await db.avo.read(Gender_Association, filters: filters);
       assoc.forEach((Gender_Association g) {
-        g.thru_date = date;
-        g.update();
+        g.thru_date = DateUtil.tokenize(date);
+        Dev.message("Why is this not tokenizing properly?");
+        g.update().then((f) {
+          return true;
+        }, onError: (e) {
+          Dev.error("Error setting gender end date E(" + e.toString() + ")");
+          return false;
+        });
       });
     });
   }
 
-  static Future<bool> setOrgStart(int id, int org_id, {DateTime date: null}) async {
-    date ??= new DateTime.now();
+  static Future<bool> setOrgStart(int id, int org_id,
+      {DateTime date: null}) async {
+    date ??= DateUtil.today();
 
     Dev.message("Entering setOrgStart()");
     Dev.message("ID: $id");
-    Dev.message("Organization_id:" + org_id);
-    Dev.message("Date:" + date);
+    Dev.message("Organization_id: $org_id");
+    Dev.message("Date: $date");
 
     var filters = [
       new Filter("Person_id", id),
       new Filter("Organization_id", org_id)
     ];
     List<Organization_Person_Association> assoc =
-      await db.avo.read(Organization_Person_Association, filters);
+        await db.avo.read(Organization_Person_Association, filters: filters);
     assoc.forEach((Organization_Person_Association f) {
-      f.from_date = date;
+      f.from_date = DateUtil.tokenize(date);
       f.update();
     });
   }
 
-  static Future<bool> setOrgEnd(int id, int org_id, {DateTime date: null}) async {
-    date ??= new DateTime.now();
+  static Future<bool> setOrgEnd(int id, int org_id,
+      {DateTime date: null}) async {
+    date ??= DateUtil.today();
 
     Dev.message("Entering setOrgEnd()");
     Dev.message("ID: $id");
@@ -331,9 +336,9 @@ class libPerson {
       new Filter("Organization_id", org_id)
     ];
     List<Organization_Person_Association> assoc =
-      await db.avo.read(Organization_Person_Association, filters);
+        await db.avo.read(Organization_Person_Association, filters: filters);
     assoc.forEach((Organization_Person_Association f) {
-      f.thru_date = date;
+      f.thru_date = DateUtil.tokenize(date);
       f.update();
     });
   }
@@ -359,12 +364,8 @@ class libPerson {
     Dev.message("ID: $id");
     Dev.message("Name:" + name);
 
-    var filters = [
-      new Filter("Person_id", id),
-      new Filter("name", name)
-    ];
-    List<Person_Name> names =
-      await db.avo.read(Person_Name, filters: filters);
+    var filters = [new Filter("Person_id", id), new Filter("name", name)];
+    List<Person_Name> names = await db.avo.read(Person_Name, filters: filters);
     names.forEach((Person_Name f) {
       f.delete();
     });
@@ -375,19 +376,17 @@ class libPerson {
     Dev.message("ID: $id");
     Dev.message("Gender:" + gender_name);
 
-    var genderFilter = [
-      new Filter("name", gender_name)
-    ];
+    var genderFilter = [new Filter("name", gender_name)];
 
     List<Gender_Type> genders =
-      await db.avo.read(Gender_Type, filters: genderFilter);
+        await db.avo.read(Gender_Type, filters: genderFilter);
     genders.forEach((Gender_Type f) async {
       var filters = [
         new Filter("Person_id", id),
         new Filter("Gender_Type_id", f.id)
       ];
       List<Gender_Association> assoc =
-        await db.avo.read(Gender_Association, filters: filters);
+          await db.avo.read(Gender_Association, filters: filters);
       assoc.forEach((Gender_Association g) {
         g.delete();
       });
@@ -404,7 +403,7 @@ class libPerson {
       new Filter("Organization_id", org_id)
     ];
     List<Organization_Person_Association> assoc =
-      await db.avo.read(Organization_Person_Association, filters: filters);
+        await db.avo.read(Organization_Person_Association, filters: filters);
     assoc.forEach((Organization_Person_Association f) {
       f.delete();
     });
