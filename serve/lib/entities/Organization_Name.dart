@@ -10,19 +10,19 @@ part of entities;
 /// A list of organization names, and the dates those names are relevant. This table allows records for companies that change names during their business with us.
 @Table('Organization_Name')
 class Organization_Name extends Entity {
-	// ***Table Columns***
-	@Column.PrimaryKey('id')
-	int id;
-	@Column('Organization_id')
-	int Organization_id;
-	@Column('name')
-	String name;
-	@Column('from_date')
-	DateTime from_date;
-	@Column('thru_date')
-	DateTime thru_date;
+  // ***Table Columns***
+  @Column.PrimaryKey('id')
+  int id;
+  @Column('Organization_id')
+  int Organization_id;
+  @Column('name')
+  String name;
+  @Column('from_date')
+  String from_date;
+  @Column('thru_date')
+  String thru_date;
 
-	// ***Table Foreign Key Entities***
-	@Column.ManyToOneForeignKey('Organization_id')
-	Organization organization;
+  // ***Table Foreign Key Entities***
+  @Column.ManyToOneForeignKey('Organization_id')
+  Organization organization;
 }

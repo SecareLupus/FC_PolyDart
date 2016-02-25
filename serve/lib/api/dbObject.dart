@@ -8,8 +8,8 @@ export "../entities/entities.dart";
 export "../../../packages/log/log.dart";
 
 class db {
-  static Avocadorm avocadorm;
-  static bool init = false;
+  static Avocadorm _avocadorm;
+  static bool _isInit = false;
 
   static void _init() {
     //All db info stored in ../ServerConfig.dart static objects.
@@ -17,23 +17,23 @@ class db {
 
     // Creates an avocadorm instance to the specified database,
     // with all [Entity]s contained in the 'entities' library.
-    avocadorm = new Avocadorm();
-    avocadorm.setDatabaseHandler(databaseHandler);
-    avocadorm.addEntitiesInLibrary('entities');
-    init = true;
+    _avocadorm = new Avocadorm();
+    _avocadorm.setDatabaseHandler(databaseHandler);
+    _avocadorm.addEntitiesInLibrary('entities');
+    _isInit = true;
   }
 
   static Avocadorm get avo {
-    if (init) {
-      return avocadorm;
+    if (_isInit) {
+      return _avocadorm;
     } else {
       _init();
-      return avocadorm;
+      return _avocadorm;
     }
   }
 
   static void close() {
-    avocadorm = null;
-    init = false;
+    _avocadorm = null;
+    _isInit = false;
   }
 }

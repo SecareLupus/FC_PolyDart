@@ -1,5 +1,5 @@
 class DateUtil {
-  static DateTime today() {
+  static DateTime get today {
     return cullTime(new DateTime.now());
   }
 
@@ -12,8 +12,7 @@ class DateUtil {
   }
 
   static String tokenize(DateTime dt) {
-    if(dt != null)
-      return dt.toIso8601String();
+    if (dt != null) return dt.toIso8601String();
     return null;
   }
 }
