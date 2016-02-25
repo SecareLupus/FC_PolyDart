@@ -3,7 +3,7 @@ dependencies:
   validator: ">=0.0.4 <0.1.0"
   test: "^0.12.4+4"
   redis_client: any
-  rpc: "^0.5.2"
+  rpc: "^0.5.5"
   magnetfruit_avocadorm:
     git:
       url: git://github.com/ProgrammersForABetterTomorrowYesterday/avocadorm.git
