@@ -9,14 +9,14 @@ part of entities;
 
 /// Subclass of Product representing the delivery of services and/or expertise.
 @Table('Service')
-class Service extends Entity {
-	// ***Table Columns***
-	@Column.PrimaryKey('id')
-	int id;
-	@Column('Product_id')
-	int Product_id;
+class Service extends Product {
+  // ***Table Columns***
+  @Column.PrimaryKey('id')
+  int id;
+  @Column('Product_id')
+  int Product_id;
 
-	// ***Table Foreign Key Entities***
-	@Column.ManyToOneForeignKey('Product_id')
-	Product product;
+  // ***Table Foreign Key Entities***
+  @Column.ManyToOneForeignKey('Product_id')
+  Product product;
 }

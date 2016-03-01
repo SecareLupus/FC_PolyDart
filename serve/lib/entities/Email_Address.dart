@@ -9,16 +9,16 @@ part of entities;
 
 /// Subtype of Communication_Mechanism, this is an email address.
 @Table('Email_Address')
-class Email_Address extends Entity {
-	// ***Table Columns***
-	@Column.PrimaryKey('id')
-	int id;
-	@Column('Communication_Mechanism_id')
-	int Communication_Mechanism_id;
-	@Column('email')
-	String email;
+class Email_Address extends Communication_Mechanism {
+  // ***Table Columns***
+  @Column.PrimaryKey('id')
+  int id;
+  @Column('Communication_Mechanism_id')
+  int Communication_Mechanism_id;
+  @Column('email')
+  String email;
 
-	// ***Table Foreign Key Entities***
-	@Column.ManyToOneForeignKey('Communication_Mechanism_id')
-	Communication_Mechanism communication_mechanism;
+  // ***Table Foreign Key Entities***
+  @Column.ManyToOneForeignKey('Communication_Mechanism_id')
+  Communication_Mechanism communication_mechanism;
 }

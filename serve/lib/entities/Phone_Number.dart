@@ -9,20 +9,20 @@ part of entities;
 
 /// Subtype of Communication_Mechanism, this is a phone number with an optional label.
 @Table('Phone_Number')
-class Phone_Number extends Entity {
-	// ***Table Columns***
-	@Column.PrimaryKey('id')
-	int id;
-	@Column('Communication_Mechanism_id')
-	int Communication_Mechanism_id;
-	@Column('phone_name')
-	String phone_name;
-	@Column('phone_number')
-	String phone_number;
+class Phone_Number extends Communication_Mechanism {
+  // ***Table Columns***
+  @Column.PrimaryKey('id')
+  int id;
+  @Column('Communication_Mechanism_id')
+  int Communication_Mechanism_id;
+  @Column('phone_name')
+  String phone_name;
+  @Column('phone_number')
+  String phone_number;
 
-	// ***Table Foreign Key Entities***
-	@Column.ManyToOneForeignKey('Communication_Mechanism_id')
-	Communication_Mechanism communication_mechanism;
-	@Column.OneToManyForeignKey('Phone_Number_id')
-	List<Shipment> shipments;
+  // ***Table Foreign Key Entities***
+  @Column.ManyToOneForeignKey('Communication_Mechanism_id')
+  Communication_Mechanism communication_mechanism;
+  @Column.OneToManyForeignKey('Phone_Number_id')
+  List<Shipment> shipments;
 }

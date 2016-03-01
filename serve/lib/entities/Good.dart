@@ -9,24 +9,24 @@ part of entities;
 
 /// Subclass of Product representing the delivery of physical goods.
 @Table('Good')
-class Good extends Entity {
-	// ***Table Columns***
-	@Column.PrimaryKey('id')
-	int id;
-	@Column('Product_id')
-	int Product_id;
+class Good extends Product {
+  // ***Table Columns***
+  @Column.PrimaryKey('id')
+  int id;
+  @Column('Product_id')
+  int Product_id;
 
-	// ***Table Foreign Key Entities***
-	@Column.ManyToOneForeignKey('Product_id')
-	Product product;
-	@Column.OneToManyForeignKey('Good_id')
-	List<Good_Identification> good_identifications;
-	@Column.OneToManyForeignKey('Good_id')
-	List<Reordering_Guidelines> reordering_guideliness;
-	@Column.OneToManyForeignKey('Good_id')
-	List<Inventory_Item> inventory_items;
-	@Column.OneToManyForeignKey('Good_id')
-	List<Shipment_Item> shipment_items;
-	@Column.OneToManyForeignKey('Good_id')
-	List<Shipment_Receipt> shipment_receipts;
+  // ***Table Foreign Key Entities***
+  @Column.ManyToOneForeignKey('Product_id')
+  Product product;
+  @Column.OneToManyForeignKey('Good_id')
+  List<Good_Identification> good_identifications;
+  @Column.OneToManyForeignKey('Good_id')
+  List<Reordering_Guidelines> reordering_guideliness;
+  @Column.OneToManyForeignKey('Good_id')
+  List<Inventory_Item> inventory_items;
+  @Column.OneToManyForeignKey('Good_id')
+  List<Shipment_Item> shipment_items;
+  @Column.OneToManyForeignKey('Good_id')
+  List<Shipment_Receipt> shipment_receipts;
 }

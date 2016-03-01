@@ -20,9 +20,9 @@ class Communication_Event extends Entity {
 	@Column('Communication_Mechanism_Type_id')
 	int Communication_Mechanism_Type_id;
 	@Column('datetime_start')
-	DateTime datetime_start;
+	String datetime_start;
 	@Column('datetime_end')
-	DateTime datetime_end;
+	String datetime_end;
 	@Column('note')
 	String note;
 
