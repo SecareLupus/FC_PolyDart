@@ -10,17 +10,17 @@ part of entities;
 /// Timestamped notes relating to a given Party_Relationship. These would be for logging information relevant to the relationship.
 @Table('Relationship_Note')
 class Relationship_Note extends Entity {
-	// ***Table Columns***
-	@Column.PrimaryKey('id')
-	int id;
-	@Column('Party_Relationship_id')
-	int Party_Relationship_id;
-	@Column('timestamp')
-	DateTime timestamp;
-	@Column('note')
-	String note;
+  // ***Table Columns***
+  @Column.PrimaryKey('id')
+  int id;
+  @Column('Party_Relationship_id')
+  int Party_Relationship_id;
+  @Column('timestamp')
+  String timestamp;
+  @Column('note')
+  String note;
 
-	// ***Table Foreign Key Entities***
-	@Column.ManyToOneForeignKey('Party_Relationship_id')
-	Party_Relationship party_relationship;
+  // ***Table Foreign Key Entities***
+  @Column.ManyToOneForeignKey('Party_Relationship_id')
+  Party_Relationship party_relationship;
 }

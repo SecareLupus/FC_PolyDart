@@ -108,8 +108,8 @@ class libOrg {
   static Future<List<Organization_Name>> getNames(int id,
       {DateTime date: null}) {
     Dev.message("Entering libOrg.getNames()");
-    Dev.message("ID:" + id);
-    Dev.message("Date: " + date);
+    Dev.message("ID: $id");
+    Dev.message("Date: ${date.toString()}");
 
     List<Filter> filters = [new Filter("Organization_id", id)];
     return db.avo.read(Organization_Name, filters: filters).then((names) {
