@@ -18,9 +18,9 @@ class Gender_Association extends Entity {
 	@Column('Gender_Type_id')
 	int Gender_Type_id;
 	@Column('from_date')
-	String from_date;
+	DateTime from_date;
 	@Column('thru_date')
-	String thru_date;
+	DateTime thru_date;
 
 	// ***Table Foreign Key Entities***
 	@Column.ManyToOneForeignKey('Person_id')
