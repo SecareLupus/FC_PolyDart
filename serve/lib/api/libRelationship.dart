@@ -103,10 +103,43 @@ class libRelationship {
    * - setNote()
    */
 
-  static Future<bool> setParty(int rel_id, int which, int party_id) {}
-  static Future<bool> setNote(int note_id, String newNote) {}
+  static Future<bool> setParty(int rel_id, int which, int party_id) {
+    return db.avo
+        .readById(Party_Relationship, rel_id)
+        .then((Party_Relationship r) {
+      if (which == 1) {
+        r.Party_id_1 = party_id;
+      } else if (which == 2) {
+        r.Party_id_2 = party_id;
+      }
+      return r.update().then((v) => true).catchError((e) {
+        print("Error E($e)");
+      });
+    });
+  }
+
+  static Future<bool> setNote(int note_id, String newNote) {
+    return db.avo
+        .readById(Relationship_Note, note_id)
+        .then((Relationship_Note n) {
+      n.note = newNote;
+      return n.update().then((v) => true).catchError((e) {
+        print("Error ($e)");
+      });
+    });
+  }
+
   static Future<bool> setNoteTS(int note_id, {DateTime timestamp: null}) {
     timestamp ??= new DateTime.now();
+
+    return db.avo
+        .readById(Relationship_Note, note_id)
+        .then((Relationship_Note n) {
+      n.timestamp = DateUtil.tokenize(timestamp);
+      return n.update().then((v) => true).catchError((e) {
+        print("Error ($e)");
+      });
+    });
   }
 
   /*
@@ -115,6 +148,11 @@ class libRelationship {
    * - dropNote()
    */
 
-  static Future<bool> dropRelationship(int id) {}
-  static Future<bool> dropNote(int id) {}
+  static Future<bool> dropRelationship(int id) {
+    return db.avo.deleteById(Party_Relationship, id).then((v) => true);
+  }
+
+  static Future<bool> dropNote(int id) {
+    return db.avo.deleteById(Relationship_Note, id).then((v) => true);
+  }
 }

@@ -10,27 +10,27 @@ part of entities;
 /// A relationship between two parties, as well as the dates that relationship is active, and a description of the relationship.
 @Table('Party_Relationship')
 class Party_Relationship extends Entity {
-	// ***Table Columns***
-	@Column.PrimaryKey('id')
-	int id;
-	@Column('Party_id_1')
-	int Party_id_1;
-	@Column('Party_id_2')
-	int Party_id_2;
-	@Column('from_date')
-	DateTime from_date;
-	@Column('thru_date')
-	DateTime thru_date;
-	@Column('comment')
-	String comment;
+  // ***Table Columns***
+  @Column.PrimaryKey('id')
+  int id;
+  @Column('Party_id_1')
+  int Party_id_1;
+  @Column('Party_id_2')
+  int Party_id_2;
+  @Column('from_date')
+  String from_date;
+  @Column('thru_date')
+  String thru_date;
+  @Column('comment')
+  String comment;
 
-	// ***Table Foreign Key Entities***
-	@Column.ManyToOneForeignKey('Party_id_1')
-	Party party_1;
-	@Column.ManyToOneForeignKey('Party_id_2')
-	Party party_2;
-	@Column.OneToManyForeignKey('Party_Relationship_id')
-	List<Relationship_Note> relationship_notes;
-	@Column.OneToManyForeignKey('Party_Relationship_id')
-	List<Communication_Event> communication_events;
+  // ***Table Foreign Key Entities***
+  @Column.ManyToOneForeignKey('Party_id_1')
+  Party party_1;
+  @Column.ManyToOneForeignKey('Party_id_2')
+  Party party_2;
+  @Column.OneToManyForeignKey('Party_Relationship_id')
+  List<Relationship_Note> relationship_notes;
+  @Column.OneToManyForeignKey('Party_Relationship_id')
+  List<Communication_Event> communication_events;
 }

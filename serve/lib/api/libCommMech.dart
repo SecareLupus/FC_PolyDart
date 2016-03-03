@@ -134,70 +134,187 @@ class libCommMech {
    */
 
   static Future<bool> setEmail(int id, String newEmail) {
+    Dev.message("Entering libCommMech.setEmail()");
+    Dev.message("New Email: $newEmail");
+
     var filters = [new Filter('Communication_Mechanism_id', id)];
 
     return db.avo.read(Email_Address, filters: filters).then(
         (List<Email_Address> e) {
       e.first.email = newEmail;
       e.first.update();
+      Dev.message("Successfully changed email for Mechanism #$id");
       return true;
     }, onError: (e) {
-      print("ERROR!!!!! E($e)");
+      print("Error setting email address E($e)");
     });
   }
 
   static Future<bool> setPhoneName(int id, String newName) {
-    //TODO: Empty Function
-    return true;
+    Dev.message("Entering libCommMech.setPhoneName()");
+    Dev.message("New Name: $newName");
+
+    var filters = [new Filter('Communication_Mechanism_id', id)];
+
+    return db.avo.read(Phone_Number, filters: filters).then(
+        (List<Phone_Number> e) {
+      e.first.phone_name = newName;
+      e.first.update();
+      Dev.message("Successfully changed phone_name for Mechanism #$id");
+      return true;
+    }, onError: (e) {
+      print("Error setting phone name E($e)");
+    });
   }
 
   static Future<bool> setPhoneNumber(int id, String newNumber) {
-    //TODO: Empty Function
-    return true;
+    Dev.message("Entering libCommMech.setPhoneNumber()");
+    Dev.message("New Number: $newNumber");
+
+    var filters = [new Filter('Communication_Mechanism_id', id)];
+
+    return db.avo.read(Phone_Number, filters: filters).then(
+        (List<Phone_Number> e) {
+      e.first.phone_number = newNumber;
+      e.first.update();
+      Dev.message("Successfully changed phone_number for Mechanism #$id");
+      return true;
+    }, onError: (e) {
+      print("Error setting phone number E($e)");
+    });
   }
 
   static Future<bool> setAddress(int id, String newAddress,
       [String newAddress2 = null]) {
-    //TODO: Empty Function
-    return true;
+    Dev.message("Entering libCommMech.setAddress()");
+    Dev.message("New Address: $newAddress");
+    Dev.message("New Address2: $newAddress2");
+
+    var filters = [new Filter('Communication_Mechanism_id', id)];
+
+    return db.avo.read(Address, filters: filters).then((List<Address> e) {
+      e.first.street_address = newAddress;
+      if (newAddress2 != null) {
+        e.first.street_address_2 = newAddress2;
+      }
+      e.first.update();
+      Dev.message("Successfully changed address for Mechanism #$id");
+      return true;
+    }, onError: (e) {
+      print("Error setting address E($e)");
+    });
   }
 
   static Future<bool> setAddress2(int id, String newAddress) {
-    //TODO: Empty Function
-    return true;
+    Dev.message("Entering libCommMech.setAddress2()");
+    Dev.message("New Address2: $newAddress");
+
+    var filters = [new Filter('Communication_Mechanism_id', id)];
+
+    return db.avo.read(Address, filters: filters).then((List<Address> e) {
+      e.first.street_address_2 = newAddress;
+      e.first.update();
+      Dev.message("Successfully changed address2 for Mechanism #$id");
+      return true;
+    }, onError: (e) {
+      print("Error setting address2 E($e)");
+    });
   }
 
   static Future<bool> setCity(int id, String newCity) {
-    //TODO: Empty Function
-    return true;
+    Dev.message("Entering libCommMech.setCity()");
+    Dev.message("New City: $newCity");
+
+    var filters = [new Filter('Communication_Mechanism_id', id)];
+
+    return db.avo.read(Address, filters: filters).then((List<Address> e) {
+      e.first.city = newCity;
+      e.first.update();
+      Dev.message("Successfully changed city for Mechanism #$id");
+      return true;
+    }, onError: (e) {
+      print("Error setting city E($e)");
+    });
   }
 
   static Future<bool> setState(int id, String newState) {
-    //TODO: Empty Function
-    return true;
+    Dev.message("Entering libCommMech.setState()");
+    Dev.message("New State: $newState");
+
+    var filters = [new Filter('Communication_Mechanism_id', id)];
+
+    return db.avo.read(Address, filters: filters).then((List<Address> e) {
+      e.first.state = newState;
+      e.first.update();
+      Dev.message("Successfully changed state for Mechanism #$id");
+      return true;
+    }, onError: (e) {
+      print("Error setting state E($e)");
+    });
   }
 
   static Future<bool> setZip(int id, String newZip) {
-    //TODO: Empty Function
-    return true;
+    Dev.message("Entering libCommMech.setZip()");
+    Dev.message("New Zip Code: $newZip");
+
+    var filters = [new Filter('Communication_Mechanism_id', id)];
+
+    return db.avo.read(Address, filters: filters).then((List<Address> e) {
+      e.first.zip = newZip;
+      e.first.update();
+      Dev.message("Successfully changed zip for Mechanism #$id");
+      return true;
+    }, onError: (e) {
+      print("Error setting zip E($e)");
+    });
   }
 
   /*
    *  DELETE
    */
 
-  static Future<bool> dropEmail(int id, [bool mech_also = true]) {
-    //TODO: Empty Function
+  static Future<bool> dropEmail(int id, [bool mech_also = true]) async {
+    int mech_id = null;
+
+    if (mech_also) {
+      await db.avo.readById(Email_Address, id).then((Email_Address e) {
+        mech_id = e.Communication_Mechanism_id;
+      });
+    }
+    await db.avo.deleteById(Email_Address, id);
+    if (mech_also) {
+      await db.avo.deleteById(Communication_Mechanism, mech_id);
+    }
     return true;
   }
 
-  static Future<bool> dropPhone(int id, [bool mech_also = true]) {
-    //TODO: Empty Function
+  static Future<bool> dropPhone(int id, [bool mech_also = true]) async {
+    int mech_id = null;
+
+    if (mech_also) {
+      await db.avo.readById(Phone_Number, id).then((Phone_Number e) {
+        mech_id = e.Communication_Mechanism_id;
+      });
+    }
+    await db.avo.deleteById(Phone_Number, id);
+    if (mech_also) {
+      await db.avo.deleteById(Communication_Mechanism, mech_id);
+    }
     return true;
   }
 
-  static Future<bool> dropAddress(int id, [bool mech_also = true]) {
-    //TODO: Empty Function
+  static Future<bool> dropAddress(int id, [bool mech_also = true]) async {
+    int mech_id = null;
+
+    if (mech_also) {
+      await db.avo.readById(Address, id).then((Address e) {
+        mech_id = e.Communication_Mechanism_id;
+      });
+    }
+    await db.avo.deleteById(Address, id);
+    if (mech_also) {
+      await db.avo.deleteById(Communication_Mechanism, mech_id);
+    }
     return true;
   }
 }
