@@ -1,5 +1,6 @@
 import "dart:async";
 import "dbObject.dart";
+import "DateUtil.dart";
 
 class libPerson {
   /*
@@ -11,54 +12,46 @@ class libPerson {
    *  - Add new Organization Association
    */
 
-  static Future<Person> addPerson([int party_id = null]) async {
+  static Future<Person> addPerson() async {
     Dev.message("Entering addPerson()");
-    Dev.message("Party_ID: " + party_id.toString());
 
-    if (party_id == null) {
-      Party newParty = new Party();
-      await db.avo.create(newParty).then((pkValue) {
-        newParty.id = pkValue;
-      });
-      Dev.message("Created party");
-      Dev.message(newParty.toString());
-      Dev.message("New Party's ID:" + newParty.id.toString());
-      Person newPerson = new Person();
-      newPerson.Party_id = newParty.id;
-      await db.avo.create(newPerson).then((pkValue) async {
-        Dev.message("New Person's ID:" + pkValue.toString());
-        Person per = await db.avo.readById(Person, pkValue);
-        Dev.message("New Person: " + per.toString());
-        return per;
-      });
-    } else {
-      Person newPerson = new Person();
-      newPerson.Party_id = party_id;
-      await db.avo.create(newPerson).then((pkValue) async {
-        Dev.message("New Person's ID:" + pkValue.toString());
-        Person per = await db.avo.readById(Person, pkValue);
-        Dev.message("New Person: " + per.toString());
-        return per;
-      });
-    }
+    Party newParty = new Party();
+    await db.avo.create(newParty).then((pkValue) {
+      newParty.id = pkValue;
+    });
+
+    Dev.message("Created party");
+    Dev.message(newParty.toString());
+    Dev.message("New Party's ID: ${newParty.id}");
+
+    Person newPerson = new Person();
+    newPerson.Party_id = newParty.id;
+    await db.avo.create(newPerson).then((pkValue) async {
+      Dev.message("New Person's ID: $pkValue");
+      newPerson = await db.avo.readById(Person, pkValue);
+      Dev.message("New Person: " + newPerson.toString());
+    });
+    return newPerson;
   }
 
   static Future addName(int id, String name,
       {DateTime from: null, DateTime thru: null}) async {
-    from ??= new DateTime.now();
+    from ??= DateUtil.today();
 
-    Dev.message("Entering setName()");
-    Dev.message("ID:" + id);
-    Dev.message("Name: " + name);
-    Dev.message("Date_From: " + from);
-    Dev.message("Date_Thru: " + thru);
+    Dev.message("Entering addName()");
+    Dev.message("ID: $id");
+    Dev.message("Name: $name");
+    Dev.message("Date_From: $from");
+    Dev.message("Date_Thru: $thru");
 
     Person_Name newName = new Person_Name();
     newName..Person_id = id
       ..name = name
-      ..from_date = from
-      ..thru_date = thru;
-    db.avo.create(newName);
+      ..from_date = DateUtil.tokenize(from)
+      ..thru_date = DateUtil.tokenize(thru);
+    db.avo.create(newName).then((e){}, onError: (err) {
+      Log.error("Error creating new name. E($err)");
+    });
   }
 
   static Future addGender(int id, String gender,
@@ -68,8 +61,8 @@ class libPerson {
     Dev.message("Entering setGender()");
     Dev.message("ID:" + id);
     Dev.message("Gender: " + gender);
-    Dev.message("Date_From: " + from);
-    Dev.message("Date_Thru: " + thru);
+    Dev.message("Date_From: $from");
+    Dev.message("Date_Thru: $thru");
 
     genderFilter = [
       new Filter("name", gender)
@@ -112,7 +105,7 @@ class libPerson {
 
   static Future<Person> getPerson(int id) async {
     Dev.message("Entering getPerson()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
 
     return await db.avo.readById(Person, id);
   }
@@ -129,7 +122,7 @@ class libPerson {
 
   static Future<Party> getParty(int id) async {
     Dev.message("Entering getPersonParty()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
 
     Person tmp = getPerson(id);
     return tmp.party;
@@ -160,7 +153,8 @@ class libPerson {
     List<Person_Name> names =
       await db.avo.read(Person_Name, filters: filters);
     names.forEach((Person_Name f) {
-      if (f.from_date <= date && f.thru_date >= date) {
+      if (DateUtil.parseText(f.from_date) <= date
+        && DateUtil.parseText(f.thru_date) >= date) {
         collected.add(f.name);
       }
     });
@@ -171,7 +165,7 @@ class libPerson {
     date ??= new DateTime.now();
 
     Dev.message("Entering getGender()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Date: " + date);
 
     return (await getGenders(id, date: date)).first;
@@ -181,7 +175,7 @@ class libPerson {
     date ??= new DateTime.now();
 
     Dev.message("Entering getGenders()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Date: " + date);
 
     List<Gender_Type> collected = [];
@@ -214,7 +208,7 @@ class libPerson {
     date ??= new DateTime.now();
 
     Dev.message("Entering setNameStart()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Name:" + name);
     Dev.message("Date:" + date);
 
@@ -234,7 +228,7 @@ class libPerson {
     date ??= new DateTime.now();
 
     Dev.message("Entering setNameEnd()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Name:" + name);
     Dev.message("Date:" + date);
 
@@ -254,7 +248,7 @@ class libPerson {
     date ??= new DateTime.now();
 
     Dev.message("Entering setGenderStart()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Gender:" + gender);
     Dev.message("Date:" + date);
 
@@ -281,7 +275,7 @@ class libPerson {
     date ??= new DateTime.now();
 
     Dev.message("Entering setGenderEnd()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Gender:" + gender);
     Dev.message("Date:" + date);
 
@@ -308,7 +302,7 @@ class libPerson {
     date ??= new DateTime.now();
 
     Dev.message("Entering setOrgStart()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Organization_id:" + org_id);
     Dev.message("Date:" + date);
 
@@ -328,7 +322,7 @@ class libPerson {
     date ??= new DateTime.now();
 
     Dev.message("Entering setOrgEnd()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Organization_id:" + org_id);
     Dev.message("Date:" + date);
 
@@ -354,7 +348,7 @@ class libPerson {
   //Delete a person from the db.
   static Future dropPerson(int id) async {
     Dev.message("Entering dropPerson()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
 
     Person tar = await db.avo.readById(Person, id);
     tar.delete();
@@ -362,7 +356,7 @@ class libPerson {
 
   static Future dropName(int id, String name) async {
     Dev.message("Entering dropName()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Name:" + name);
 
     var filters = [
@@ -378,7 +372,7 @@ class libPerson {
 
   static Future disassociateGender(int id, String gender_name) async {
     Dev.message("Entering disassociateGender()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Gender:" + gender_name);
 
     var genderFilter = [
@@ -402,7 +396,7 @@ class libPerson {
 
   static Future disassociateOrg(int id, int org_id) async {
     Dev.message("Entering disassociateOrg()");
-    Dev.message("ID: " + id);
+    Dev.message("ID: $id");
     Dev.message("Organization_id:" + org_id);
 
     var filters = [

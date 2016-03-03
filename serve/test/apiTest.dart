@@ -4,11 +4,18 @@ import "../lib/api/dbObject.dart";
 
 Future main() async {
   Dev.enable();
-  print("Entered Main!");
-  Person newPerson =
-    await libPerson.addPerson().then((Person thenPerson) {
-    print("Person Created");
-    print("New Person: " + thenPerson.toString());
+  Dev.message("Entered Main!");
+  libPerson.addPerson().then((Person newPerson) {
+    Dev.message("Person Created");
+    Dev.message("New Person: " + newPerson.toString());
+    Dev.message("Giving new person name 'Ted'");
+    String name = "Ted";
+    libPerson.addName(newPerson.id, name).then((var unk) {
+      Dev.message("Added name, variable returned: " + unk.toString());
+    }, onError: (e) {
+      Log.error("Error adding name to new person, E(" + e.toString() + ")");
+    });
+  }, onError: (e) {
+    Log.error("Error creating new person, E(" + e.toString() + ")");
   });
-  print("New Person (outside): " + newPerson.toString());
 }

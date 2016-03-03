@@ -18,9 +18,9 @@ class Person_Name extends Entity {
 	@Column('name')
 	String name;
 	@Column('from_date')
-	DateTime from_date;
+	String from_date;
 	@Column('thru_date')
-	DateTime thru_date;
+	String thru_date;
 
 	// ***Table Foreign Key Entities***
 	@Column.ManyToOneForeignKey('Person_id')
