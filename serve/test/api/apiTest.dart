@@ -100,12 +100,31 @@ void main() {
       });
     });
 
-    test("Creating phone number", () async {});
+    test("Creating phone number", () async {
+      phoneID = await libCommMech.createPhoneMechanism().then((Phone_Number n) {
+        return n.id;
+      });
+    });
 
-    test("Creating address", () async {});
+    test("Creating address", () async {
+      addressID = await libCommMech.createAddressMechanism().then((Address a) {
+        return a.id;
+      });
+    });
   });
 
-  group("Communication Event Tests", () {});
+  int eveID = -1;
+  group("Communication Event Tests", () {
+    test("Creating Communication Event", () async {
+      //TODO: ints are being returned where Entity(s) should be returned.
+      // I think this is due to avo.create() returning a pk and not an Entity
+      eveID = await libCommEvent
+          .createCommunicationEvent(relID, mechanism_type_string: "Phone Call")
+          .then((Communication_Event e) {
+        return e.id;
+      });
+    });
+  });
 }
 
 /*

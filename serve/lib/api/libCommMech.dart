@@ -14,7 +14,8 @@ class libCommMech {
     return db.avo.create(mcnsm).then((mcnsmPK) {
       Dev.message("Communication_Mechanism created, ID $mcnsmPK");
       Email_Address email = new Email_Address()
-        ..Communication_Mechanism_id = mcnsmPK;
+        ..Communication_Mechanism_id = mcnsmPK
+        ..email = addr;
       return db.avo.create(email).then((emailPK) {
         Dev.message("Email_Address created, ID $emailPK");
         return getEmail(emailPK);
@@ -22,13 +23,24 @@ class libCommMech {
     });
   }
 
-  static Future<Address> createAddressMechanism() {
+  static Future<Address> createAddressMechanism(
+      {String street: "",
+      String street2: "",
+      String city: "",
+      String state: "",
+      String zip: ""}) {
     Dev.message("Entering libCommMech.createAddressMechanism()");
 
     Communication_Mechanism mcnsm = new Communication_Mechanism();
     return db.avo.create(mcnsm).then((mcnsmPK) {
       Dev.message("Communication_Mechanism created, ID $mcnsmPK");
-      Address address = new Address()..Communication_Mechanism_id = mcnsmPK;
+      Address address = new Address()
+        ..Communication_Mechanism_id = mcnsmPK
+        ..street_address = street
+        ..street_address_2 = street2
+        ..city = city
+        ..state = state
+        ..zip = zip;
       return db.avo.create(address).then((addressPK) {
         Dev.message("Address created, ID $addressPK");
         return getAddress(addressPK);
@@ -36,14 +48,17 @@ class libCommMech {
     });
   }
 
-  static Future<Phone_Number> createPhoneMechanism() {
+  static Future<Phone_Number> createPhoneMechanism(
+      {String number: "", String name: ""}) {
     Dev.message("Entering libCommMech.createPhoneMechanism()");
 
     Communication_Mechanism mcnsm = new Communication_Mechanism();
     return db.avo.create(mcnsm).then((mcnsmPK) {
       Dev.message("Communication_Mechanism created, ID $mcnsmPK");
       Phone_Number phone = new Phone_Number()
-        ..Communication_Mechanism_id = mcnsmPK;
+        ..Communication_Mechanism_id = mcnsmPK
+        ..phone_name = name
+        ..phone_number = number;
       return db.avo.create(phone).then((phonePK) {
         Dev.message("Phone_Number created, ID $phonePK");
         return getPhone(phonePK);

@@ -28,11 +28,19 @@ class libCommEvent {
     Dev.message(
         "Mechanism Type #$mechanism_type_id, \"$mechanism_type_string\"");
 
-    //if status_type_string or mechanism_type_string are set, search the
-    //  correlated table for the string. create a new type if you need to
-    //  set status_type_id to either the id of the status type you found, or
-    //  the statuts_type you created. The process is repeated for
-    //  mechanism_type_id.
+    if (status_type_string != null) {
+      _createStatusType(status_type_string)
+          .then((Communication_Event_Status_Type t) {
+        status_type_id = t.id;
+      });
+    }
+
+    if (mechanism_type_string != null) {
+      _createMechanismType(mechanism_type_string)
+          .then((Communication_Mechanism_Type t) {
+        mechanism_type_id = t.id;
+      });
+    }
 
     Communication_Event commeve = new Communication_Event()
       ..Party_Relationship_id = relationship_id
