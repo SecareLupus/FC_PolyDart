@@ -7,7 +7,7 @@ class libCommMech {
    *  CREATE
    */
 
-  static Future<Email_Address> createEmailMechanism() {
+  static Future<Email_Address> createEmailMechanism([String addr = ""]) {
     Dev.message("Entering libCommMech.createEmailMechanism()");
 
     Communication_Mechanism mcnsm = new Communication_Mechanism();

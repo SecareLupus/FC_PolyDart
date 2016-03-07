@@ -48,6 +48,62 @@ class libCommEvent {
     });
   }
 
+  static Future<Communication_Mechanism_Type> _createMechanismType(
+      String description) {
+    return db.avo.read(Communication_Mechanism_Type,
+            filters: [new Filter('description', description)])
+        .then((List<Communication_Mechanism_Type> c) {
+      if (c.length == 0) {
+        Communication_Mechanism_Type newTyp = new Communication_Mechanism_Type()
+          ..description = description;
+        return db.avo.create(newTyp);
+      }
+      return c.first;
+    });
+  }
+
+  static Future<Communication_Event_Status_Type> _createStatusType(
+      String description) {
+    return db.avo.read(Communication_Event_Status_Type,
+            filters: [new Filter('description', description)])
+        .then((List<Communication_Event_Status_Type> c) {
+      if (c.length == 0) {
+        Communication_Event_Status_Type newTyp =
+            new Communication_Event_Status_Type()..description = description;
+        return db.avo.create(newTyp);
+      }
+      return c.first;
+    });
+  }
+
+  static Future<Communication_Event_Purpose_Type> _createPurposeType(
+      String description) {
+    return db.avo.read(Communication_Event_Purpose_Type,
+            filters: [new Filter('description', description)])
+        .then((List<Communication_Event_Purpose_Type> c) {
+      if (c.length == 0) {
+        Communication_Event_Purpose_Type newTyp =
+            new Communication_Event_Purpose_Type()..description = description;
+        return db.avo.create(newTyp);
+      }
+      return c.first;
+    });
+  }
+
+  static Future<Communication_Event_Role_Type> _createRoleType(
+      String description) {
+    return db.avo.read(Communication_Event_Role_Type,
+            filters: [new Filter('description', description)])
+        .then((List<Communication_Event_Role_Type> c) {
+      if (c.length == 0) {
+        Communication_Event_Role_Type newTyp =
+            new Communication_Event_Role_Type()..description = description;
+        return db.avo.create(newTyp);
+      }
+      return c.first;
+    });
+  }
+
   /*
    * READ
    * - Get list of Communication_Mechanism_Type objects
@@ -128,20 +184,20 @@ class libCommEvent {
    * UPDATE
    * - change the referenced relationship
    * - set mechanism type by id
-   * X set mechanism type by string, optionally create if necessary
+   * - set mechanism type by string, optionally create if necessary
    * - set status type by id
-   * X set status type by string, optionally create if necessary
-   * X add purpose type by id
-   * X add purpose type by string, optionally create if necessary
-   * X remove purpose type by id
-   * X remove purpose type by string
-   * X add role type by id
-   * X add role type by string, optionally create if necessary
-   * X remove role type by id
-   * X remove role type by string
-   * - set startdate
-   * - set enddate
-   * - set note
+   * - set status type by string, optionally create if necessary
+   * - add purpose type by id
+   * - add purpose type by string, optionally create if necessary
+   * - remove purpose type by id
+   * - remove purpose type by string
+   * - add role type by id
+   * - add role type by string, optionally create if necessary
+   * - remove role type by id
+   * - remove role type by string
+   * X set startdate
+   * X set enddate
+   * X set note
    */
 
   static Future<bool> setRelationship(int eve_id, int newRel) {
@@ -155,7 +211,14 @@ class libCommEvent {
     });
   }
 
-  static Future<bool> setMechanismType(int eve_id, int newMechTyp) {
+  static Future<bool> setMechanismType(int eve_id, int newMechTyp,
+      {String byString: null}) {
+    if (byString != null) {
+      _createMechanismType(byString).then((Communication_Mechanism_Type t) {
+        newMechTyp = t.id;
+      });
+    }
+
     return db.avo
         .readById(Communication_Event, eve_id)
         .then((Communication_Event event) {
@@ -166,9 +229,14 @@ class libCommEvent {
     });
   }
 
-  //static Future<bool> setMechanismTypeByString(int eve_id, String newMechTyp);
+  static Future<bool> setStatusType(int eve_id, int newStatTyp,
+      {String byString: null}) {
+    if (byString != null) {
+      _createStatusType(byString).then((Communication_Event_Status_Type t) {
+        newStatTyp = t.id;
+      });
+    }
 
-  static Future<bool> setStatusType(int eve_id, int newStatTyp) {
     return db.avo
         .readById(Communication_Event, eve_id)
         .then((Communication_Event event) {
@@ -179,10 +247,82 @@ class libCommEvent {
     });
   }
 
-  //static Future<bool> setStatusTypeByString(int eve_id, String newStatTyp);
+  static Future<bool> addPurposeType(int eve_id, int newPurpTyp,
+      {String byString: null, comments: null}) {
+    if (byString != null) {
+      _createPurposeType(byString).then((Communication_Event_Purpose_Type t) {
+        newPurpTyp = t.id;
+      });
+    }
 
-  //static Future<bool> addPurpose(int eve_id, int newPurpTyp);
-  //static Future<bool> setPurposeByString(int eve_id, String newPurpTyp);
+    Communication_Event_Purpose p = new Communication_Event_Purpose()
+      ..Communication_Event_id = eve_id
+      ..Communication_Event_Purpose_Type_id = newPurpTyp
+      ..comment = comments;
+    return db.avo.create(p).then((pkVal) {
+      return true;
+    });
+  }
+
+  static Future<bool> removePurposeType(int eve_id, int purpTypID,
+      {String byString: null}) {
+    if (byString != null) {
+      _createPurposeType(byString).then((Communication_Event_Purpose_Type t) {
+        purpTypID = t.id;
+      });
+    }
+
+    List<Filter> filters = [
+      new Filter('Communication_Event_id', eve_id),
+      new Filter('Communication_Event_Purpose_Type_id', purpTypID)
+    ];
+    return db.avo
+        .read(Communication_Event_Purpose, filters: filters)
+        .then((List<Communication_Event_Purpose> p) {
+      p.forEach((subP) {
+        db.avo.deleteById(Communication_Event_Purpose, subP.id);
+      });
+      return true;
+    });
+  }
+
+  static Future<bool> addRoleType(int eve_id, int newRoleTyp,
+      {String byString: null}) {
+    if (byString != null) {
+      _createRoleType(byString).then((Communication_Event_Role_Type t) {
+        newRoleTyp = t.id;
+      });
+    }
+
+    Communication_Event_Role r = new Communication_Event_Role()
+      ..Communication_Event_id = eve_id
+      ..Communication_Event_Role_Type_id = newRoleTyp;
+    return db.avo.create(r).then((pkVal) {
+      return true;
+    });
+  }
+
+  static Future<bool> removeRoleType(int eve_id, int roleTypID,
+      {String byString: null}) {
+    if (byString != null) {
+      _createRoleType(byString).then((Communication_Event_Role_Type t) {
+        roleTypID = t.id;
+      });
+    }
+
+    List<Filter> filters = [
+      new Filter('Communication_Event_id', eve_id),
+      new Filter('Communication_Event_Role_Type_id', roleTypID)
+    ];
+    return db.avo
+        .read(Communication_Event_Role, filters: filters)
+        .then((List<Communication_Event_Role> r) {
+      r.forEach((subR) {
+        db.avo.deleteById(Communication_Event_Role, subR.id);
+      });
+      return true;
+    });
+  }
 
   /*
    * DELETE
