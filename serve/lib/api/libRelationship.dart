@@ -88,12 +88,11 @@ class libRelationship {
     });
   }
 
-  static Future<List<Relationship_Note>> getNotes(int id, {filters: null}) {
+  static Future<List<Relationship_Note>> getNotes(int id) {
     return db.avo
         .readById(Party_Relationship, id)
         .then((Party_Relationship rel) {
-      filters ??= [new Filter('Party_Relationship_id', rel.id)];
-      return db.avo.read(Relationship_Note, filters: filters);
+      return rel.relationship_notes;
     });
   }
 

@@ -1,17 +1,17 @@
 import "dart:async";
-import "../lib/entities/entities.dart";
-import "../lib/api/libPerson.dart";
-import "../lib/api/libOrg.dart";
-import "../lib/api/dbObject.dart";
-import "../lib/api/DateUtil.dart";
+import "../../lib/entities/entities.dart";
+import "../../lib/api/libPerson.dart";
+import "../../lib/api/libOrg.dart";
+import "../../lib/api/dbObject.dart";
+import "../../lib/api/DateUtil.dart";
 
-Future main() async {
+Future main() {
   Dev.enable();
   Dev.message("Entered Main!");
 
   int personID = -1;
   int orgID = -1;
-  await Future.wait([
+  Future.wait([
     libPerson.createPerson().then((Person newPerson) async {
       personID = newPerson.id;
       //Add name to new Person
@@ -63,12 +63,12 @@ Future main() async {
         Log.error("Error adding name to new person, E($e)");
       });
     })
-  ]);
-
-  if (personID != -1 && orgID != -1) {
-    libPerson.addOrganization(personID, orgID);
-    Dev.message("Added Organization_Person_Association");
-  } else {
-    Dev.error("Race condition failed. P:$personID, O:$orgID");
-  }
+  ]).then((f) {
+    if (personID != -1 && orgID != -1) {
+      libPerson.addOrganization(personID, orgID);
+      Dev.message("Added Organization_Person_Association");
+    } else {
+      Dev.error("Race condition failed. P:$personID, O:$orgID");
+    }
+  });
 }
