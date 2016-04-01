@@ -64,7 +64,9 @@ class libCommEvent {
       if (c.length == 0) {
         Communication_Mechanism_Type newTyp = new Communication_Mechanism_Type()
           ..description = description;
-        return db.avo.create(newTyp);
+        return db.avo.create(newTyp).then((pk) {
+          return db.avo.readById(Communication_Mechanism_Type, pk);
+        });
       }
       return c.first;
     });
@@ -78,7 +80,9 @@ class libCommEvent {
       if (c.length == 0) {
         Communication_Event_Status_Type newTyp =
             new Communication_Event_Status_Type()..description = description;
-        return db.avo.create(newTyp);
+        return db.avo.create(newTyp).then((pk) {
+          return db.avo.readById(Communication_Event_Status_Type, pk);
+        });
       }
       return c.first;
     });

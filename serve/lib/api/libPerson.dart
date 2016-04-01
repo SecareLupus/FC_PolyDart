@@ -2,6 +2,8 @@ import "dart:async";
 import "dbObject.dart";
 import "DateUtil.dart";
 
+export "dbObject.dart";
+
 class libPerson {
   /*
    *  CREATE
@@ -168,13 +170,14 @@ class libPerson {
   static Future<List<Gender_Type>> getGenders(int id, {date: null}) {
     Dev.message("Entering libPer.getGenders()");
     Dev.message("ID: $id");
-    Dev.message("Date: " + date);
+    Dev.message("Date: $date");
 
     List<Filter> filters = [new Filter("Person_id", id)];
     return db.avo.read(Gender_Association, filters: filters).then((assoc) {
       if (date == null) return assoc;
 
-      assoc.retainWhere((Gender_Association f) {
+      List<Gender_Association> mutableAssoc = []..addAll(assoc);
+      mutableAssoc.retainWhere((Gender_Association f) {
         if (DateUtil.parseText(f.from_date).isBefore(date) &&
             (DateUtil.parseText(f.thru_date).isAfter(date) ||
                 f.thru_date == null)) {
@@ -184,8 +187,10 @@ class libPerson {
         }
       });
       List<Gender_Type> gens;
-      assoc.forEach((Gender_Association f) {
-        gens.add(db.avo.readById(Gender_Type, f.Gender_Type_id).then((g) => g));
+      //TODO: function is skipping down to return gens before completing
+      //  the following forEach(), causing an error.
+      mutableAssoc.forEach((Gender_Association f) async {
+        gens.add(await db.avo.readById(Gender_Type, f.Gender_Type_id));
       });
       return gens;
     });

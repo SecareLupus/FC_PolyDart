@@ -5,7 +5,9 @@
 library entities;
 
 import 'package:magnetfruit_entity/entity.dart';
+export 'package:magnetfruit_entity/entity.dart';
 
+part 'Party.dart';
 part 'Person.dart';
 part 'Person_Name.dart';
 part 'Gender_Association.dart';
@@ -14,7 +16,6 @@ part 'Organization.dart';
 part 'Organization_Name.dart';
 part 'Legal_Organization.dart';
 part 'Informal_Organization.dart';
-part 'Party.dart';
 part 'Organization_Person_Association.dart';
 part 'Party_Description_Association.dart';
 part 'Party_Description.dart';
