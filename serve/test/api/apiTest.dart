@@ -16,54 +16,70 @@ void main() {
   //TODO: Sometimes the entities library fails to load properly, uncommenting
   //  the following Dev.enable() line seems to fix it, even after the line is
   //  commented out again. Some internal race condition seems to be causing it.
-  //Dev.enable();
-  Dev.message("Entered Main!");
+  Dev.enable();
+  Dev.message("Begin api Test");
 
   int personID = -1;
-  group("Person Tests", () {
-    // * libPerson.addGender(), passing a gender already in db
-    // * libPerson.addOrganization()
-    // * libPerson.getPeople()
-    // * libPerson.getGenders()
-    // * libPerson.setNameStart()
-    // * libPerson.setNameEnd()
-    // * libPerson.setOrgStart()
-    // * libPerson.setOrgEnd()
-    // * libPerson.dropPerson()
-    // * libPerson.disassociateGender()
-    // * libPerson.disassociateOrg()
-    test("Creating a person, setting personID to the new person's ID", () {
-      libPerson.createPerson().then((Person newPerson) {
-        personID = newPerson.id;
-        expect(personID, greaterThanOrEqualTo(0));
-      });
-    });
-
-    test("Add name to person", () {
-      String name = "James_$personID";
-      libPerson.addName(personID, name).then((Person_Name nam) {
-        expect(nam.name, equalsIgnoringCase(name));
-        expect(nam.Person_id, equals(personID));
-      });
-    });
-
-    test("Add existing gender to person.", () {
+  //group("Person Tests", () {
+  // * libPerson.addGender(), passing a gender already in db
+  // * libPerson.addOrganization()
+  // * libPerson.getPeople()
+  // * libPerson.getGenders()
+  // * libPerson.setNameStart()
+  // * libPerson.setNameEnd()
+  // * libPerson.setOrgStart()
+  // * libPerson.setOrgEnd()
+  // * libPerson.dropPerson()
+  // * libPerson.disassociateGender()
+  // * libPerson.disassociateOrg()
+  Dev.message("Creating a person, setting personID to the new person's ID");
+  libPerson.createPerson().then((Person newPerson) {
+    personID = newPerson.id;
+    assert(newPerson.Party_id >= 0);
+    Dev.success("Party created, with id #${newPerson.Party_id}");
+    assert(personID >= 0);
+    Dev.success("Person created, with id #$personID");
+  }).then((v) {
+    Dev.message("Add name to person");
+    String name = "James_$personID";
+    libPerson.addName(personID, name).then((Person_Name nam) {
+      assert(name.compareTo(nam.name) == 0);
+      Dev.success("New person's name has been set to $name");
+      assert(nam.Person_id == personID);
+      Dev.success("New name correctly points at new person #$personID");
+    }).then((v) {
+      Dev.message("Add existing gender to person.");
       String gender = "Male";
       libPerson.addGender(personID, gender).then((Gender_Association assoc) {
         db.avo
             .readById(Gender_Type, assoc.Gender_Type_id)
             .then((Gender_Type type) {
-          expect(type.name, equalsIgnoringCase(gender));
-          expect(assoc.Person_id, equals(personID));
+          assert(gender.compareTo(type.name) == 0);
+          Dev.success("New person's gender has been set to $gender");
+          assert(assoc.Person_id == personID);
+          Dev.success(
+              "New gender association correctly points to new person #$personID");
+        }).then((v) {
+          Dev.message("Set gender start date implicitly");
+          libPerson.setGenderStart(personID, "Male").then((bool result) {
+            //TODO: add additional assert statements to cofirm validity of update.
+            assert(result);
+            Dev.success("setGenderStart returned true");
+          });
         });
       });
     });
+  });
+  return;
 
-    test("Set gender start date implicitly", () {
-      libPerson.setGenderStart(personID, "Male").then((bool result) {
-        //TODO: add additional expect statements to cofirm validity of update.
-        expect(result, equals(true));
-      });
+  //TODO: the new problem is that my futures are not waiting for completion
+  // before firing their .then()s. Specifically the last test is run too early.
+  // others may too, but requires more investigation.
+  /*
+
+    });
+
+
     });
 
     test("Set gender end date implicitly", () {
@@ -125,6 +141,8 @@ void main() {
       });
     });
   });
+  */
+
 /*
   int orgID = -1;
   group("Organization Tests", () {
