@@ -4,6 +4,10 @@ abstract class libProduct {
 
 }
 
+class libProductFeature {
+
+}
+
 class libGood implements libProduct {
 
 }
