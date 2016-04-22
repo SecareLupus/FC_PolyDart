@@ -4,7 +4,7 @@ import "DateUtil.dart";
 
 export "dbObject.dart";
 
-class libShipment {
+class libGood {
   /*
    * CREATE
    * -

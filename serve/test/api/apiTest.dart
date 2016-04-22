@@ -1,8 +1,7 @@
 //import "package:log/log.dart";
 
 //import "../../lib/api/dbObject.dart";
-import "../../lib/api/libPerson.dart";
-import "../../lib/api/libOrg.dart";
+import "../../lib/api/libParty.dart";
 import "../../lib/api/libRelationship.dart";
 import "../../lib/api/libCommMech.dart";
 import "../../lib/api/libCommEvent.dart";

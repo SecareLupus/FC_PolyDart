@@ -1,17 +1,5 @@
+/// libProduct is a virtual library which simply exists as an option for reducing
+///  the number of imports required for complex interactions.
 
-
-abstract class libProduct {
-
-}
-
-class libProductFeature {
-
-}
-
-class libGood implements libProduct {
-
-}
-
-class libService implements libProduct {
-
-}
+export "libGood.dart";
+export "libService.dart";
