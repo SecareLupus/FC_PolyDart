@@ -186,11 +186,11 @@ class libPerson {
           return false;
         }
       });
-      List<Gender_Type> gens;
+      List<Gender_Type> gens = [];
       //TODO: function is skipping down to return gens before completing
       //  the following forEach(), causing an error.
       mutableAssoc.forEach((Gender_Association f) async {
-        gens.add(await db.avo.readById(Gender_Type, f.Gender_Type_id));
+        await gens.add(await db.avo.readById(Gender_Type, f.Gender_Type_id));
       });
       return gens;
     });

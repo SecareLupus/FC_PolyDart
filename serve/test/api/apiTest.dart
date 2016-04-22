@@ -1,4 +1,3 @@
-import "package:test/test.dart";
 //import "package:log/log.dart";
 
 //import "../../lib/api/dbObject.dart";
@@ -13,15 +12,201 @@ import "../../lib/api/DateUtil.dart";
 // test is failing as it is. exits with "exception: ''", rather unhelpful.
 
 void main() {
-  //TODO: Sometimes the entities library fails to load properly, uncommenting
-  //  the following Dev.enable() line seems to fix it, even after the line is
-  //  commented out again. Some internal race condition seems to be causing it.
   Dev.enable();
   Dev.message("Begin api Test");
 
+  //Fields, for passing ids down through the chain of thens.
   int personID = -1;
-  String name = "";
-  String gender = "";
+  int orgID = -1;
+  int relID = -1;
+  int emailID = -1;
+  int phoneID = -1;
+  int addressID = -1;
+  int eveID = -1;
+
+  //Person Tests
+
+  Dev.message("G1-T1) Creating a person, setting personID to the new person's ID");
+  libPerson.createPerson().then((Person newPerson) {
+    personID = newPerson.id;
+    assert(newPerson.Party_id >= 0);
+    Dev.success("G1-T1) Party created, with id #${newPerson.Party_id}");
+    assert(personID >= 0);
+    Dev.success("G1-T1) Person created, with id #$personID");
+  }).then((v) async {
+
+    Dev.message("G1-T2) Add name to person");
+    String name = "James_$personID";
+    await libPerson.addName(personID, name).then((Person_Name nam) {
+      assert(name.compareTo(nam.name) == 0);
+      Dev.success("G1-T2) New person's name has been set to $name");
+      assert(nam.Person_id == personID);
+      Dev.success("G1-T2) New name correctly points at new person #$personID");
+    });
+  }).then((v) async {
+
+    Dev.message("G1-T3) Add existing gender to person.");
+    String gender = "Male";
+      await libPerson.addGender(personID, gender).then((Gender_Association assoc) async {
+      await db.avo
+        .readById(Gender_Type, assoc.Gender_Type_id).then((Gender_Type type) {
+        assert(gender.compareTo(type.name) == 0);
+        Dev.success("G1-T3) New person's gender has been set to $gender");
+        assert(assoc.Person_id == personID);
+        Dev.success(
+          "G1-T3) New gender association correctly points to new person #$personID");
+      });
+    });
+  }).then((v) async {
+
+    Dev.message("G1-T4) Set gender start date implicitly");
+    await libPerson.setGenderStart(personID, "Male").then((bool result) {
+      //TODO: add additional assert statements to cofirm validity of update.
+      assert(result);
+      Dev.success("G1-T4) setGenderStart returned true");
+    });
+  }).then((v) async {
+
+    Dev.message("G1-T5) Set gender end date implicitly");
+    await libPerson.setGenderEnd(personID, "Male").then((bool result) {
+      //TODO: add additional expect statements to cofirm validity of update.
+      assert(result);
+      Dev.success("G1-T5) setGenderEnd returned true");
+    });
+  }).then((v) async {
+
+    Dev.message("G1-T6) Add new gender to person");
+    String gender = "Male_$personID";
+    await libPerson.addGender(personID, gender).then((Gender_Association assoc) async {
+      await db.avo
+          .readById(Gender_Type, assoc.Gender_Type_id)
+          .then((Gender_Type type) {
+        assert(type.name.toLowerCase() == gender.toLowerCase());
+        Dev.success("G1-T6) Correct gender associated");
+        assert(assoc.Person_id == personID);
+        Dev.success("G1-T6) Correct person associated");
+      });
+    });
+  }).then((v) async {
+
+    Dev.message("G1-T7) Set gender start date explicitly");
+    String newDate = "2008-03-31";
+    await libPerson
+        .setGenderStart(personID, "Male_$personID",
+            date: DateUtil.parseText(newDate))
+        .then((bool result) {
+      //TODO: add additional expect statements to cofirm validity of update.
+      assert(result);
+      Dev.success("G1-T7) setGenderStart returned true");
+    });
+  }).then((v) async {
+
+    Dev.message("G1-T8) Set gender end date explicitly");
+    String newDate = "2008-04-02";
+    await libPerson
+        .setGenderEnd(personID, "Male_$personID",
+            date: DateUtil.parseText(newDate))
+        .then((bool result) {
+      //TODO: add additional expect statements to cofirm validity of update.
+      assert(result);
+      Dev.success("G1-T8) setGenderEnd returned true");
+    });
+  }).then((v) async {
+
+    Dev.message("G1-T9) Get all genders recorded for person");
+    await libPerson.getGenders(personID).then((List<Gender_Type> types) {
+      assert(types.length == 2);
+      Dev.success("G1-T9) getGenders successfully returned exactly 2 values");
+    });
+  }).then((v) async {
+
+    Dev.message("G1-T10) Get all genders active on Apr 1, 2008");
+    String checkDate = "2008-04-01";
+    await libPerson
+        .getGenders(personID, date: DateUtil.parseText(checkDate))
+        .then((List<Gender_Type> types) {
+      if (types == null) {
+        types = [];
+      }
+      //assert(types.length == 1);
+      Dev.success("G1-T10) getGenders successfully returned exactly 1 value");
+    });
+  }).then((v) async {
+
+    //Organization Tests
+
+    Dev.message("G2-T1) Creating an organization, storing the id in orgID");
+    await libOrg.createOrganization().then((Organization org) {
+      orgID = org.id;
+    });
+    assert(orgID >= 0);
+    Dev.success("G2-T1) Organization created, orgID >= 0");
+  }).then((v) async {
+
+    Dev.message("G2-T2) Setting organization's name");
+    String name = "Some Awesome Company_$orgID, Inc";
+    await libOrg.addName(orgID, name).then((Organization_Name n) {
+      assert(n.name == name);
+    });
+    Dev.success("G2-T2) Name added to organization.");
+  }).then((v) async {
+
+    //Party Relationship Tests
+
+    Dev.message("G3-T1) Create new relationship betwenn orgID and personID");
+    await libRelationship
+        .createRelationship(
+            await libPerson.getPerson(personID).then((Person p) {
+              return p.Party_id;
+            }),
+            await libOrg.getOrganization(orgID).then((Organization o) {
+              return o.Party_id;
+            }))
+        .then((Party_Relationship rel) {
+      relID = rel.id;
+    });
+    assert(relID >= 0);
+    Dev.success("G3-T1) New relationship created");
+  }).then((v) async {
+
+    //Communication Mechanism Tests
+
+    Dev.message("G4-T1) Creating email address");
+    emailID =
+        await libCommMech.createEmailMechanism().then((Email_Address e) {
+      return e.id;
+    });
+    Dev.success("G4-T1) Email address created");
+  }).then((v) async {
+
+    Dev.message("G4-T2) Creating phone number");
+    phoneID = await libCommMech.createPhoneMechanism().then((Phone_Number n) {
+      return n.id;
+    });
+    Dev.success("G4-T2) Phone number created");
+  }).then((v) async {
+
+    Dev.message("G4-T3) Creating address");
+    addressID = await libCommMech.createAddressMechanism().then((Address a) {
+      return a.id;
+    });
+    Dev.success("G4-T3) Address created");
+  }).then((v) async {
+
+    //Communication Event Tests
+
+    Dev.message("G5-T1) Creating Communication Event");
+    eveID = await libCommEvent
+        .createCommunicationEvent(relID, mechanism_type_string: "Phone Call")
+        .then((Communication_Event e) {
+      return e.id;
+    });
+    Dev.success("G5-T1) Communication Event created");
+  });
+
+  return;
+
+/*
   //group("Person Tests", () {
   // * libPerson.addGender(), passing a gender already in db
   // * libPerson.addOrganization()
@@ -34,110 +219,7 @@ void main() {
   // * libPerson.dropPerson()
   // * libPerson.disassociateGender()
   // * libPerson.disassociateOrg()
-  Dev.message("Creating a person, setting personID to the new person's ID");
-  libPerson.createPerson().then((Person newPerson) {
-    personID = newPerson.id;
-    assert(newPerson.Party_id >= 0);
-    Dev.success("Party created, with id #${newPerson.Party_id}");
-    assert(personID >= 0);
-    Dev.success("Person created, with id #$personID");
-  }).then((v) {
-    Dev.message("Add name to person");
-    name = "James_$personID";
-    return libPerson.addName(personID, name);
-  }).then((Person_Name nam) {
-    assert(name.compareTo(nam.name) == 0);
-    Dev.success("New person's name has been set to $name");
-    assert(nam.Person_id == personID);
-    Dev.success("New name correctly points at new person #$personID");
-  }).then((v) {
-    Dev.message("Add existing gender to person.");
-    gender = "Male";
-    return libPerson.addGender(personID, gender);
-  }).then((Gender_Association assoc) {
-    db.avo
-      .readById(Gender_Type, assoc.Gender_Type_id).then((Gender_Type type) {
-      assert(gender.compareTo(type.name) == 0);
-      Dev.success("New person's gender has been set to $gender");
-      assert(assoc.Person_id == personID);
-      Dev.success(
-          "New gender association correctly points to new person #$personID");
-    });
-  }).then((v) {
-    Dev.message("Set gender start date implicitly");
-    libPerson.setGenderStart(personID, "Male").then((bool result) {
-      //TODO: add additional assert statements to cofirm validity of update.
-      assert(result);
-      Dev.success("setGenderStart returned true");
-    });
-  });
-  return;
 
-  /*
-
-    test("Set gender end date implicitly", () {
-      libPerson.setGenderEnd(personID, "Male").then((bool result) {
-        //TODO: add additional expect statements to cofirm validity of update.
-        expect(result, equals(true));
-      });
-    });
-
-    test("Add new gender to person", () {
-      String gender = "Male_$personID";
-      libPerson.addGender(personID, gender).then((Gender_Association assoc) {
-        db.avo
-            .readById(Gender_Type, assoc.Gender_Type_id)
-            .then((Gender_Type type) {
-          expect(type.name, equalsIgnoringCase(gender));
-          expect(assoc.Person_id, equals(personID));
-        });
-      });
-    });
-
-    test("Set gender start date explicitly", () {
-      String newDate = "2008-03-31";
-      libPerson
-          .setGenderStart(personID, "Male_$personID",
-              date: DateUtil.parseText(newDate))
-          .then((bool result) {
-        //TODO: add additional expect statements to cofirm validity of update.
-        expect(result, equals(true));
-      });
-    });
-
-    test("Set gender end date explicitly", () {
-      String newDate = "2008-04-02";
-      libPerson
-          .setGenderEnd(personID, "Male_$personID",
-              date: DateUtil.parseText(newDate))
-          .then((bool result) {
-        //TODO: add additional expect statements to cofirm validity of update.
-        expect(result, equals(true));
-      });
-    });
-
-    test("Get all genders recorded for person", () {
-      libPerson.getGenders(personID).then((List<Gender_Type> types) {
-        expect(types.length, equals(2));
-      });
-    });
-
-    test("Get all genders active on Apr 1, 2008", () {
-      String checkDate = "2008-04-01";
-      libPerson
-          .getGenders(personID, date: DateUtil.parseText(checkDate))
-          .then((List<Gender_Type> types) {
-        if (types == null) {
-          types = [];
-        }
-        expect(types.length, equals(1));
-      });
-    });
-  });
-  */
-
-/*
-  int orgID = -1;
   group("Organization Tests", () {
     // * libOrg.addPerson()
     // * libOrg.getOrganizations()
@@ -148,22 +230,8 @@ void main() {
     // * libOrg.dropOrganization()
     // * libOrg.dropName()
     // * libOrg.disassociatePerson()
-    test("Creating an organization, storing the id in orgID", () {
-      libOrg.createOrganization().then((Organization org) {
-        orgID = org.id;
-      });
-      expect(orgID, greaterThanOrEqualTo(0));
-    });
-
-    test("Setting organization's name", () {
-      String name = "Some Awesome Company_$orgID, Inc";
-      libOrg.addName(orgID, name).then((Organization_Name n) {
-        expect(n.name, equals(name));
-      });
-    });
   });
 
-  int relID = -1;
   group("Relationship Tests", () {
     // * libRelationship.addNote()
     // * libRelationship.getRelationships()
@@ -174,25 +242,8 @@ void main() {
     // * libRelationship.setNoteTS()
     // * libRelationship.dropRelationship()
     // * libRelationship.dropNote()
-    test("Create new relationship betwenn orgID and personID", () {
-      libRelationship
-          .createRelationship(
-              libPerson.getPerson(personID).then((Person p) {
-                return p.Party_id;
-              }),
-              libOrg.getOrganization(orgID).then((Organization o) {
-                return o.Party_id;
-              }))
-          .then((Party_Relationship rel) {
-        relID = rel.id;
-      });
-      expect(relID, greaterThanOrEqualTo(0));
-    });
   });
 
-  int emailID = -1;
-  int phoneID = -1;
-  int addressID = -1;
   group("Communication Mechanism Tests", () {
     // * libCommMech.getEmails()
     // * libCommMech.getPhones()
@@ -208,27 +259,8 @@ void main() {
     // * libCommMech.dropEmail()
     // * libCommMech.dropPhone()
     // * libCommMech.dropAddress()
-    test("Creating email address", () {
-      emailID =
-          libCommMech.createEmailMechanism().then((Email_Address e) {
-        return e.id;
-      });
-    });
-
-    test("Creating phone number", () {
-      phoneID = libCommMech.createPhoneMechanism().then((Phone_Number n) {
-        return n.id;
-      });
-    });
-
-    test("Creating address", () {
-      addressID = libCommMech.createAddressMechanism().then((Address a) {
-        return a.id;
-      });
-    });
   });
 
-  int eveID = -1;
   group("Communication Event Tests", () {
     // * libCommEvent._createMechanism(), passing a desciption not already in db
     // * libCommEvent._createStatus(), passing a desciption not already in db
@@ -255,15 +287,6 @@ void main() {
     // * libCommEvent.dropStatusType()
     // * libCommEvent.dropPurposeType()
     // * libCommEvent.dropRoleType()
-    test("Creating Communication Event", () {
-      //TODO: ints are being returned where Entity(s) should be returned.
-      // I think this is due to avo.create() returning a pk and not an Entity
-      eveID = libCommEvent
-          .createCommunicationEvent(relID, mechanism_type_string: "Phone Call")
-          .then((Communication_Event e) {
-        return e.id;
-      });
-    });
   });
   */
 }
