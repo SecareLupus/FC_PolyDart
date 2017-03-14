@@ -148,8 +148,8 @@ class libPerson {
 
   static Future<List<Person_Name>> getNames(int id, {DateTime date: null}) {
     Dev.message("Entering libPer.getNames()");
-    Dev.message("ID:" + id);
-    Dev.message("Date: " + date);
+    Dev.message("ID: $id");
+    Dev.message("Date: $date");
 
     List<Filter> filters = [new Filter("Person_id", id)];
     return db.avo.read(Person_Name, filters: filters).then((names) {
@@ -179,8 +179,9 @@ class libPerson {
       List<Gender_Association> mutableAssoc = []..addAll(assoc);
       mutableAssoc.retainWhere((Gender_Association f) {
         if (DateUtil.parseText(f.from_date).isBefore(date) &&
-            (DateUtil.parseText(f.thru_date).isAfter(date) ||
-                f.thru_date == null)) {
+          (f.thru_date == null ||
+            DateUtil.parseText(f.thru_date).isAfter(date)
+        )) {
           return true;
         } else {
           return false;
